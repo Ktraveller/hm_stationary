@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_css/activities.css' %}">
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+                <button type="button" onclick="window.location.href = `{% url 'admin_notifications' %}`">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button type="button" onclick="window.location.href = `{% url 'admin_user' %}`">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'admin_dashboard' %}">
+                        <li class="">
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_notifications' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-bell"></i>
+                            </button>
+                            <button type="button">Notifications</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_logout' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                            <button type="button">Logout</button>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <p style="font-weight: bold;">Notifications</p>
+                <div class="activities-table-holder-6">
+
+                    <div class="table-holder-9">
+                        <table class="table-9">
+
+                            <thead>
+                                <tr>
+                                    <th class="index-9">#</th>
+                                    <th>Activity</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Date & Time</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for notification in notifications %}
+                                <tr>
+
+                                    <td class="index-9">{{ forloop.counter }}</td>
+
+                                    <td>
+                                        {{ notification.activity.activity_type }}
+                                    </td>
+
+                                    <td>
+                                        {{ notification.message }}
+                                    </td>
+
+                                    <td>
+                                        {% if notification.activity.status == "pending" %}
+                                        <span class="status-badge pending">Pending</span>
+                                        {% elif notification.activity.status == "completed" %}
+                                        <span class="status-badge completed">Completed</span>
+                                        {% else %}
+                                        <span class="status-badge">{{ notification.activity.status|capfirst }}</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        {{ notification.created_at|date:"Y-m-d H:i" }}
+                                    </td>
+
+                                    <td>
+                                        {% if notification.activity.status == "waiting" %}
+                                        <form method="post" action="{% url 'mark_pending' %}">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" value="{{ notification.activity.activity_id }}" name="activity_id">
+
+                                            <button type="submit">
+                                                Confirm payment
+                                            </button>
+                                        </form>
+                                        {% else %}
+                                        <form method="post" action="{% url 'admin_delete_notification' %}">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" value="{{ notification.id }}" name="notification_id">
+
+                                            <button type="submit">
+                                                Delete
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6">No notifications!</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var c = document.getElementById('nav_bar');
+        var b1 = document.getElementById('button1');
+        var b2 = document.getElementById('button2');
+        function nav_bar(click) {
+            if (click == "open") {
+                c.style.display = "inline-block";
+                b1.style.display = "none";
+                b2.style.display = "inline-block";
+            }
+            else {
+                c.style.display = "none";
+                b1.style.display = "inline-block";
+                b2.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

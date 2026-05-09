@@ -1,0 +1,222 @@
+/* Container */
+.activities-table-holder-6 {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Search bar */
+.search-bar-holder-7 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-bar-holder-7 input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.filter-activity-60 {
+    width: 100%;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.filter-activity-60>button {
+    border-style: none;
+    outline: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 100%;
+    color: white;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.filter-activity-60>button:hover {
+    opacity: 0.6;
+}
+
+
+.filter-activity-60>.status-pending {
+    background: #f0ad4e;
+}
+
+.filter-activity-60>.status-all {
+    background: #8a8887;
+}
+
+.filter-activity-60>.status-completed {
+    background: #5cb85c;
+}
+
+.filter-activity-60>.status-processing {
+    background: #0275d8;
+}
+
+.filter-activity-60>.status-declined {
+    background: #d9534f;
+}
+
+.filter-activity-60>.status-waiting {
+    background: teal;
+}
+
+.filter-activity-60>.status-delivered {
+    background: dodgerblue;
+}
+
+/* Table wrapper (important for mobile scroll) */
+.table-holder-9 {
+    width: 100%;
+    overflow-x: auto;
+    box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.196);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Table styling */
+.table-9 {
+    width: 100%;
+    border-collapse: collapse;
+    /* prevents breaking */
+}
+
+.table-9 th,
+.table-9 td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.table-scroll-9 {
+    max-height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.table-9 th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+/* Links */
+.activity-link-9 {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.activity-link-9:hover {
+    text-decoration: underline;
+}
+
+/* Bottom controls */
+.bottom-table-nav-8 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bottom-table-nav-8 select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Zebra rows */
+.table-9 tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Hover effect */
+.table-9 tr:hover {
+    background-color: #f1f7ff;
+}
+
+/* 📱 MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+
+    .search-bar-holder-7 {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-bar-holder-7 input {
+        max-width: 100%;
+    }
+
+    .bottom-table-nav-8 {
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Smaller font for mobile */
+    .table-9 th,
+    .table-9 td {
+        padding: 8px;
+    }
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.status-badge.status-pending {
+    background: #f0ad4e;
+}
+
+.status-badge.status-completed {
+    background: #5cb85c;
+}
+
+.status-badge.status-processing {
+    background: #0275d8;
+}
+
+.status-badge.status-declined {
+    background: #d9534f;
+}
+
+.status-badge.status-waiting {
+    background: teal;
+}
+
+.status-badge.status-unknown {
+    background: #6c757d;
+}
+
+.status-badge.status-delivered {
+    background: dodgerblue;
+}
+
+/* optional: force priority if stylesheet overrides */
+.table-9 .status-badge {
+    display: inline-block !important;
+}
+
+.view-50 {
+    width: auto;
+    height: 35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    background: teal;
+    border-style: none;
+    outline: none;
+    border-radius: 2px;
+    color: white;
+    font-size: inherit;
+    font-weight: bold;
+}

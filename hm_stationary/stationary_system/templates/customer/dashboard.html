@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
+</head>
+
+<body>
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                        <i class="fas fa-close"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HMS collaborative</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+
+                <!-- Notifications 
+                <div class="dropdown">
+                    <button class="dropbtn" id="notifBtn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifCount" class="notif-badge">0</span>
+                    </button>
+
+                    <div class="dropdown-content notif-dropdown" id="notifMenu">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                        </div>
+
+                        <div id="notifList" class="notif-list">
+                            <div class="notif-empty">No notifications</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- User
+                <div class="dropdown">
+                    <button class="dropbtn" id="userBtn" type="button">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content" id="userMenu">
+                        <a href="{% url 'customer_logout' %}">
+                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+
+                        <button type="button" style="background: teal;" onclick="open_edit()">
+                            <i class="fas fa-key"></i> Change Password</button>
+
+
+                        <div class="change-password-20" onclick="event.stopPropagation()" id="edit_20"
+                            style="display: none;">
+                            <br><br><br>
+                            <hr style="color: rgba(30, 143, 255, 0.876);">
+                            <p style="font-weight: bold;">Change account password</p>
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <p>Write current password</p>
+                                <div class="input-20">
+                                    <input type="password" name="old_password" required autocomplete="off">
+                                </div>
+
+                                <p>Write new password</p>
+                                <div class="input-20">
+                                    <input type="password" name="new_password" required autocomplete="off">
+                                </div>
+
+                                <br>
+                                <div class="input-20">
+                                    <button type="submit">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <p style="font-weight: bold;padding-left: 10px;">Shortcuts</p>
+                <div class="service-search-holder-6">
+                    <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">
+                        <i class="fas fa-print"></i> History
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">
+                        <i class="fas fa-clock"></i> Pending activities
+                    </button>
+
+                </div>
+
+
+                <p style="font-weight: bold;padding-left: 10px;">Services</p>
+                <div class="service-search-holder-6">
+                    <button type="button" onclick="window.location.href=`{% url 'printing' %}`">
+                        <i class="fas fa-print"></i> Printing
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'typing_editing' %}`">
+                        <i class="fas fa-keyboard"></i> Typing and editing
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'implementation' %}`">
+                        <i class="fas fa-search"></i> Researches writing and editing
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'implementation' %}`">
+                        <i class="fas fa-file-alt"></i> Reports writing and editing
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <!-- User Info -->
+                <div class="dashboard-user-info-holder-5">
+                    <div class="user-info-holder-5">
+                        <div class="user-info-5">
+                            <div class="user-holder-1">
+                                <p style="font-weight: bold; padding-top: 3px;">User ID: {{ user.username }}</p>
+                            </div>
+                        </div>
+
+                        <div class="total-use-info-5">
+                            <div class="total-use-holder-1">
+                                <button type="button"><i class="fas fa-history"></i> Activities <br>
+                                    <b>{{ activities }}</b></button>
+                            </div>
+
+                            <div class="total-use-holder-1">
+                                <button type="button"><i class="fas fa-cogs"></i> Processing <br>
+                                    <b>{{ processing_activities }}</b></button>
+                            </div>
+
+                            <div class="total-use-holder-1 total-last-1">
+                                <button type="button"><i class="fas fa-shopping-cart"></i> Completed <br>
+                                    <b>{{ completed_activities }}</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services-400">
+                    <p style="font-weight: bold;padding-left: 20px; text-align: center;">Our Services</p>
+                    <div class="services-container-holder-6" style="margin-bottom: 10px;">
+                        <div>
+                            <div class="service-holder-7" onclick="window.location.href = `{% url 'printing' %}`">
+                                <button type="button">
+                                    <i class="fas fa-print"></i>
+                                </button>
+                                <p>Printing</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="service-holder-7" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                                <button type="button">
+                                    <i class="fas fa-keyboard"></i>
+                                </button>
+                                <p>Typing and Editing</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="service-holder-7" onclick="window.location.href=`{% url 'implementation' %}`">
+                                <button type="button">
+                                    <i class="fas fa-file-alt"></i>
+                                </button>
+                                <p>Reports writing</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="service-holder-7" onclick="window.location.href=`{% url 'implementation' %}`">
+                                <button type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <p>Research writing</p>
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="service-holder-7" onclick="window.location.href = `{% url 'more_services' %}`">
+                                <button type="button">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                                <p>More services</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="height: 40px; width: 100%; float: left;"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="activity-history-holder-10" style="padding: 0;">
+            <div class="activity-history-10" style="padding: 0;">
+
+                <div class="pricing-section">
+
+                    <div class="pricing-container">
+
+                        <!-- PRINTING CARD -->
+                        <div class="price-card" onclick="window.location.href = `{% url 'printing' %}`">
+                            <div class="cloudflare-badge">
+                                <i class="fa-brands fa-cloudflare"></i>
+                            </div>
+
+                            <div class="icon">
+                                <i class="fa-solid fa-print"></i>
+                            </div>
+
+                            <h3>Printing</h3>
+                            <p class="price">TZS 100 <span>/ page</span></p>
+
+                            <ul>
+                                <li>Black & White</li>
+                                <li>High Quality Output</li>
+                                <li>Fast Service</li>
+                            </ul>
+                        </div>
+
+                        <!-- EDITING CARD -->
+                        <div class="price-card" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                            <div class="cloudflare-badge">
+                                <i class="fa-brands fa-cloudflare"></i>
+                            </div>
+
+                            <div class="icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+
+                            <h3>Editing</h3>
+                            <p class="price">TZS 200 <span>/ page</span></p>
+
+                            <ul>
+                                <li>Grammar Correction</li>
+                                <li>Formatting</li>
+                                <li>Professional Review</li>
+                            </ul>
+                        </div>
+
+
+                        <!-- Typing CARD -->
+                        <div class="price-card" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                            <div class="cloudflare-badge">
+                                <i class="fa-brands fa-cloudflare"></i>
+                            </div>
+
+                            <div class="icon">
+                                <i class="fa-solid fa-keyboard"></i>
+                            </div>
+
+                            <h3>Typing</h3>
+                            <p class="price">TZS 200 <span>/ page</span></p>
+
+                            <ul>
+                                <li>Grammar Correction</li>
+                                <li>Formatting</li>
+                                <li>Professional Review</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+    <script src="{% static 'customer_js/dashboard.js' %}"></script>
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+
+        function open_edit() {
+            document.getElementById('edit_20').style.display = 'inline-block';
+            event.stopPropagation();
+        }
+    </script>
+</body>
+
+</html>

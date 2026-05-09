@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | Typing and editing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/activities.css' %}">
+    
+</head>
+
+<body>
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+
+    <form id="printingForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row-holder-1">
+
+            <div class="heading-holder-2">
+
+                <div class="title-holder-21">
+                    <div class="menu-holder-22">
+                        <button type="button" onclick="window.history.back();">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <button type="button"><span style="font-weight: bold;">HMS collaborative</span></button>
+                    </div>
+                </div>
+
+
+            <div class="actions-holder-22">
+
+                    <!-- Notifications 
+                <div class="dropdown">
+                    <button class="dropbtn" id="notifBtn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifCount" class="notif-badge">0</span>
+                    </button>
+
+                    <div class="dropdown-content notif-dropdown" id="notifMenu">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                        </div>
+
+                        <div id="notifList" class="notif-list">
+                            <div class="notif-empty">No notifications</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- User
+                <div class="dropdown">
+                    <button class="dropbtn" id="userBtn" type="button">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content" id="userMenu">
+                        <a href="{% url 'customer_logout' %}">
+                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+
+                    </div>
+                </div> -->
+
+            </div>
+
+            </div>
+
+
+            <div class="choose-stationary-holder-25">
+                <div class="activity-header-holder-23">
+                    <button class="activity-header-23" type="button">
+                        <i class="fas fa-keyboard"></i> <br> Typing and editing
+                    </button>
+                </div>
+
+                <div class="choose-stationary-25">
+                    <p style="font-weight: bold;">Choose stationary</p>
+                    <div class="search-nav-holder-4">
+                        <input type="search" id="stationarySearch" placeholder="Search stationary ...">
+                        <button type="button" class="button-search-4">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <div class="stationary-list-25">
+                        {% for station in stations %}
+                        {% for area in station.areas.all %}
+                        <div class="option-25-1">
+                            <input type="radio" name="stationary_id" value="{{ station.id }}"
+                                data-lat="{{ area.latitude }}" data-lng="{{ area.longitude }}" required>
+                            <span>{{ station.stationary_name }}</span>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+
+                        <p id="noStationaryResult" style="display:none; text-align:center; color:gray;">
+                            No stationary found
+                        </p>
+                    </div>
+
+                    <div class="open-map-button-25">
+                        <button type="button" id="viewMapBtn" onclick="openMap()" style="display:none;"
+                            class="map-btn-hidden">
+                            <i class="fas fa-map"></i> View in map</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="create-activity-holder-14">
+                <div class="create-activity-14">
+
+                    <div class="create-activity-14" style="width: 100%; box-shadow: unset;">
+                        <p style="font-weight: bold;">Attach documents needed for typing or editing</p>
+
+                        <div class="upload-holder-450">
+                            <button type="button" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-cloud-arrow-up"></i>
+                                Click to attach
+                                <input type="file" name="files" id="fileInput" multiple hidden>
+                            </button>
+                        </div>
+
+                        <p>Attached files:</p>
+                        <div class="file-preview-holder-15" id="previewContainer">
+                        </div>
+
+                        <!-- Modal for images -->
+                        <div id="fileModal">
+                            <div id="fileModalContent"></div>
+                        </div>
+
+                    </div>
+
+                    <br><br>
+                    <p style="font-weight: bold; padding-left: 10px;">Specify document format (optional)</p>
+
+                    <div class="inputs-holder-59">
+                        <div class="inputs-59">
+                            <p>Font family</p>
+                            <select name="font_family">
+                                <option value="Times new roman">Times new roman</option>
+                                <option value="Tahoma">Tahoma</option>
+                                <option value="Calibri">Calibri</option>
+                            </select>
+                        </div>
+
+                        <div class="inputs-59">
+                            <p>Font size</p>
+                            <select name="font_size">
+                                <option value="10">12</option>
+                                <option value="12">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+
+                        <div class="inputs-59">
+                            <p>Text alignment</p>
+                            <select name="text_alignment">
+                                <option value="Left">Left</option>
+                                <option value="Right">Right</option>
+                                <option value="Center">Center</option>
+                                <option value="Justified">Justified</option>
+                            </select>
+                        </div>
+
+                        <div class="inputs-60">
+                            <p>Write additional informations for your document</p>
+                            <textarea name="other_details"></textarea>
+                        </div>
+
+                        <div class="create-activity-14" style="width: 100%; box-shadow: unset;">
+                        <div class="button-holder-14">
+                            <button type="submit"><i class="fas fa-upload"></i>
+                                Submit for typing or editing</button>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- Success Modal -->
+    <div id="messageModal" style="display:none;">
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <h3 id="modalTitle"></h3>
+                <p id="modalMessage"></p>
+                <button id="modalBtn" type="button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" style="display:none;">
+        <div class="spinner-overlay">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" style="display:none;">
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <h3>❌ Error</h3>
+                <p id="errorMessage">Something went wrong</p>
+                <button id="closeErrorBtn" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Map model -->
+    <div id="mapModal" style="display:none;">
+        <div class="map-modal-content">
+            <span class="close-map" onclick="closeMap()">&times;</span>
+            <iframe id="mapFrame" width="100%" height="400" style="border:0;" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="activityActions" data-dashboard-url="{% url 'customer_dashboard' %}"></div>
+
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+    <script src="{% static 'customer_js/printing_preview.js' %}"></script>
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+</body>
+
+</html>

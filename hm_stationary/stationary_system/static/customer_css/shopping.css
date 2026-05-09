@@ -1,0 +1,387 @@
+.choose-stationary-holder-25 {
+    width: 100%;
+}
+
+
+.create-activity-holder-14 {
+    width: 100%;
+}
+
+.cart-content-holder-30 {
+    width: 100%;
+    margin-top: 50px;
+    padding: 5px;
+}
+
+.cart-content-30 {
+    width: 100%;
+    max-height: 2000px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    /* transparent glass */
+    backdrop-filter: blur(10px);
+    /* blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* =========================
+   Accessories Container
+========================= */
+.total-container-6 {
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+}
+
+
+.total-container-6>div {
+    float: left;
+    width: 50%;
+    height: 150px;
+}
+
+/* =========================
+   Accessory Card
+========================= */
+
+.accessory-card-6:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px 3px rgba(0, 0, 0, 0.284);
+    border-radius: 5px;
+}
+
+/* =========================
+   Image Holder (Circle)
+========================= */
+.image-holder-100 {
+    width: 50px;
+    height: 50px;
+}
+
+.image-holder-100 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* cover circle completely */
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.image-holder-100 button {
+    border: none;
+    background: none;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.image-holder-100 button:hover img {
+    transform: scale(1.05);
+}
+
+/* =========================
+   Card Body
+========================= */
+.card-body-6 {
+    width: 100%;
+    height: auto;
+}
+
+.card-body-6 .name {
+    font-weight: bold;
+    font-size: inherit;
+    color: #c3bfbf;
+}
+
+.card-body-6 .price {
+    font-weight: bold;
+    color: #007bff;
+    font-size: inherit;
+}
+
+/* =========================
+   Cart Section
+========================= */
+.cart-section-6 {
+    width: 100%;
+    height: auto;
+    text-align: right;
+}
+
+.quantity-input-6 {
+    width: 50px;
+    height: 35px;
+    border-radius: 5px;
+    border-style: none;
+    padding-left: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    /* transparent glass */
+    backdrop-filter: blur(10px);
+    /* blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.add-cart-btn-6 {
+    background-color: dodgerblue;
+    width: 35px;
+    height: 35px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.add-cart-btn-6>i {
+    color: white;
+}
+
+.add-cart-btn-6:hover {
+    background-color: rgba(30, 143, 255, 0.552);
+    transform: translateY(-5px);
+}
+
+/* =========================
+   Highlight Card (on click)
+========================= */
+.highlight-card {
+    border: 2px solid #007bff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    transition: all 0.3s ease;
+}
+
+/* =========================
+   Accessory Buttons (Search / Filter)
+========================= */
+.option-25-1 button {
+    padding: 5px 8px;
+    margin: 3px;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.15);
+    /* transparent glass */
+    backdrop-filter: blur(10px);
+    /* blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.option-25-1 button:hover,
+.option-25-1 button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+#cartMessageModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+#cartMessageModal .modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cartMessageModal .modal-box {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.15);
+    /* transparent glass */
+    backdrop-filter: blur(10px);
+    /* blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#cartMessageModal button {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.submit-button-59 {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.submit-button-59>form>button {
+    width: 100%;
+    height: 40px;
+    background: dodgerblue;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+}
+
+.submit-button-59>form>button>i {
+    color: white;
+    font-weight: bold;
+}
+
+.submit-button-59>form>button:hover {
+    opacity: 0.7;
+    transform: translateY(-5px);
+}
+
+
+.remove-order-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background: transparent;
+    color: #ff4d4f;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.remove-order-btn:hover {
+    color: #ff0000;
+    transform: translateY(-5px);
+}
+
+.activity-card-12 {
+    position: relative;
+    /* make the close button absolute within card */
+}
+
+
+.progress-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circle {
+    transform: rotate(-90deg);
+}
+
+.progress-circle circle {
+    fill: none;
+    stroke-width: 5;
+    stroke-linecap: round;
+}
+
+.progress-bg {
+    stroke: #e6e6e6;
+}
+
+.progress-bar {
+    stroke: #4caf50;
+    /* default green */
+    stroke-dasharray: 126;
+    /* 2 * pi * r (r=20) */
+    stroke-dashoffset: 126;
+    /* start hidden */
+    transition: stroke-dashoffset 1s ease;
+}
+
+/* Optional: Different color for different statuses */
+.activity-card-12[data-status="submitted"] .progress-bar {
+    stroke: #ff9800;
+    /* orange */
+}
+
+.activity-card-12[data-status="processing"] .progress-bar {
+    stroke: #2196f3;
+    /* blue */
+}
+
+.activity-card-12[data-status="delivered"] .progress-bar {
+    stroke: #4caf50;
+    /* green */
+}
+
+.progress-circle text {
+    transform: rotate(90deg);
+    transform-origin: 50% 50%;
+}
+
+.open-order-holder-40 {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+}
+
+.open-order-holder-40>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    border-radius: 50px;
+    background: dodgerblue;
+}
+
+.open-order-holder-40>button:hover {
+    opacity: 0.7;
+    transform: translateY(-5px);
+}
+
+.open-order-holder-40>button>i {
+    font-size: 15px;
+    color: white;
+}
+
+@media screen and (min-width: 768px) {
+    .total-container-6>div {
+        width: 50%;
+    }
+
+    .choose-stationary-holder-25 {
+        width: 30%;
+    }
+
+
+    .create-activity-holder-14 {
+        width: 40%;
+    }
+
+    .cart-content-holder-30 {
+        width: 30%;
+        padding: 20px;
+    }
+
+    .cart-content-30 {
+        width: 100%;
+        max-height: 450px;
+        overflow-y: scroll;
+    }
+}

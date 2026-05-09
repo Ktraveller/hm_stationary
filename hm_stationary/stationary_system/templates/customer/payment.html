@@ -1,0 +1,410 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/get-coin.css' %}">
+    <style>
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 4px solid #ccc;
+            border-top: 4px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            width: 300px;
+            margin: 15% auto;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .qrcode-holder-30 {
+            text-align: center;
+        }
+
+        .payment-number-holder-45 {
+            width: 100%;
+            height: auto;
+        }
+        .payment-number-45 {
+            width: 100%;
+            height: auto;
+            padding: 10px;
+        }
+        .copy-button-45 {
+            width: 250px;
+            height: auto;
+            border-style: none;
+            outline: none;
+            background: dodgerblue;
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" onclick="window.history.back();">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HMS collaborative</span></button>
+                </div>
+            </div>
+
+
+            <div class="actions-holder-22">
+
+                <!-- Notifications
+                <div class="dropdown">
+                    <button class="dropbtn" id="notifBtn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifCount" class="notif-badge">0</span>
+                    </button>
+
+                    <div class="dropdown-content notif-dropdown" id="notifMenu">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                        </div>
+
+                        <div id="notifList" class="notif-list">
+                            <div class="notif-empty">No notifications</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- User 
+                <div class="dropdown">
+                    <button class="dropbtn" id="userBtn" type="button">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content" id="userMenu">
+                        <a href="{% url 'customer_logout' %}">
+                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+
+                        <button type="button" style="margin-right: 5px; background: teal;" onclick="open_edit()">
+                            <i class="fas fa-key"></i> Change Password</button>
+
+
+                        <div class="change-password-20" onclick="event.stopPropagation()" id="edit_20"
+                            style="display: none;">
+                            <br><br><br>
+                            <hr style="color: rgba(30, 143, 255, 0.876);">
+                            <p style="font-weight: bold;">Change account password</p>
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <p>Write current password</p>
+                                <div class="input-20">
+                                    <input type="password" name="old_password" required autocomplete="off">
+                                </div>
+
+                                <p>Write new password</p>
+                                <div class="input-20">
+                                    <input type="password" name="new_password" required autocomplete="off">
+                                </div>
+
+                                <br>
+                                <div class="input-20">
+                                    <button type="submit">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+
+        <div class="get-coin-content-holder-30">
+            <p style="text-align: center; font-weight: bold;">Make payment for activity <b style="color: dodgerblue;">
+                    {{ activity.activity_id }}</b></p>
+            <div class="qrcode-holder-30">
+                    <p>Activity costs: <b>{{ activity.costs }} Tsh</b></p>
+                    <br>
+                    <p>
+                        <i class="fa-solid fa-user-tie" style="font-size: 50px;"></i>
+                    </p>
+                    <p style="font-weight: bold;">Merchant informations (Lipa namba)</p>
+                    <div class="payment-number-holder-45">
+                        <div class="payment-number-45">
+                            <button type="button" class="copy-button-45" onclick="copyText()">
+                                <b style="color: white; font-size: 20px;" id="textToCopy">
+                                    {{ activity.stationary_profile.payment_no }}</b>
+                                <i id="icon" class="fa fa-copy" style="margin-left: 10px; font-size: 25px; color: white;"></i>
+                                <br><br>
+                                <span style="color: white;" id="copyBtn">Click to copy</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p>Merchant name: <b>{{ activity.stationary_profile.payment_name }}</b></p>
+            </div>
+
+            <div class="number-input-holder-30">
+                <form id="coinForm" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                    <div class="number-input-30">
+                        <p>
+                            Fill below information to complete activity payment,
+                            <b>make sure amount paid is correct before submitting request</b>
+                        </p>
+
+                        <div class="payment-holder-30">
+
+                            <div class="inputs-holder-30">
+                                <p>Write amount paid</p>
+                                <input type="number" name="amount_paid" id="amount_paid" min="1" step="0.01" value="{{ activity.costs }}">
+                                <small id="amountError" style="color:red;"></small>
+                            </div>
+
+                            <input type="hidden" value="{{ activity.activity_id }}" name="activity" name="activity">
+                            <input type="hidden" name="stationary_id" value="{{ activity.stationary_profile.id }}">
+
+                            <div class="inputs-holder-30 phone-20">
+                                <p>Write phone number used in payment</p>
+                                <input type="tel" name="phone_number" id="phone_number" maxlength="15" value="0{{ user.phone }}"
+                                    placeholder="e.g. 255712345678">
+                                <small id="phoneError" style="color:red;"></small>
+                            </div>
+
+                        </div>
+
+                        <div class="submit-holder-30 phone-21">
+                            <button type="submit" id="submitBtn" style="border-radius: 50px;"><i id="icon" class="fa fa-save" style="color: white;"></i> Submit request</button>
+                        </div>
+                        <br><br><br>
+                        <p>For more informations, contact us <b>0622652290.</b></p>
+                    </div>
+                </form>
+
+                <!-- 🔄 Loading Spinner -->
+                <div id="loadingSpinner" style="display:none; text-align:center; margin-top:10px;">
+                    <div class="spinner"></div>
+                    <p>Processing request...</p>
+                </div>
+
+                <!-- 📢 Modal -->
+                <div id="responseModal" class="modal">
+                    <div class="modal-content">
+                        <p id="modalMessage"></p>
+                        <button onclick="closeModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+    </script>
+
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+
+    <script>
+        function getCSRFToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+
+        function showModal(message) {
+            document.getElementById("modalMessage").innerText = message;
+            document.getElementById("responseModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("responseModal").style.display = "none";
+        }
+
+
+        document.getElementById("coinForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let amount = document.getElementById("amount_paid").value;
+            let phone = document.getElementById("phone_number").value;
+
+            // Get activity
+            let activity = document.querySelector("input[name='activity']").value;
+            let stationary_id = document.querySelector("input[name='stationary_id']").value;
+
+            let amountError = document.getElementById("amountError");
+            let phoneError = document.getElementById("phoneError");
+
+            amountError.textContent = "";
+            phoneError.textContent = "";
+
+            let valid = true;
+
+            // ---------------------------
+            // Validation
+            // ---------------------------
+            if (!amount || parseFloat(amount) <= 0) {
+                amountError.textContent = "Enter valid amount";
+                valid = false;
+            }
+
+            if (!/^[0-9]{10,15}$/.test(phone)) {
+                phoneError.textContent = "Enter valid phone number";
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            // ---------------------------
+            // Format phone (remove leading 0)
+            // ---------------------------
+            if (phone.startsWith("0")) {
+                phone = phone.substring(1);
+            }
+
+            // ---------------------------
+            // Show spinner
+            // ---------------------------
+            document.getElementById("loadingSpinner").style.display = "block";
+            document.getElementById("submitBtn").disabled = true;
+
+            // ---------------------------
+            // AJAX Request
+            // ---------------------------
+            fetch("{% url 'submit_payment' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({
+                    amount_paid: amount,
+                    phone_number: phone,
+                    activity: activity,
+                    stationary_id: stationary_id
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("submitBtn").disabled = false;
+
+                    if (data.success) {
+
+                        // ---------------------------
+                        // WhatsApp Message
+                        // ---------------------------
+                        let message = `Hello, I have submitted a payment.%0AAmount: TZS ${amount}%0APhone user in payments: ${phone}%0AService: ${activity}`;
+
+                        let whatsappNumber = "255{{ activity.stationary_profile.phone }}"; // Stationary's WhatsApp number
+                        let whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+                        // ---------------------------
+                        // Show success message
+                        // ---------------------------
+                        showModal("✅ Request submitted successfully! Redirecting...");
+
+                        // ---------------------------
+                        // Redirect + WhatsApp
+                        // ---------------------------
+                        setTimeout(() => {
+                            window.open(whatsappURL, "_blank"); // open WhatsApp
+                            window.location.href = "{% url 'customer_dashboard' %}";
+                        }, 1500);
+
+                        document.getElementById("coinForm").reset();
+
+                    } else {
+                        showModal("❌ " + (data.error || "Something went wrong"));
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("submitBtn").disabled = false;
+                    showModal("❌ Network error. Please try again.");
+                    console.error(error);
+                });
+        });
+
+
+        function open_edit() {
+            document.getElementById('edit_20').style.display = 'inline-block';
+            event.stopPropagation();
+        }
+    </script>
+
+  <script>
+    function copyText() {
+      const text = document.getElementById("textToCopy").innerText;
+      const button = document.getElementById("copyBtn");
+      const icon = document.getElementById("icon");
+
+      navigator.clipboard.writeText(text).then(() => {
+        // Change button style and icon
+        button.classList.add("copied");
+        icon.classList.remove("fa-copy");
+        icon.classList.add("fa-check");
+        button.innerText = "Copied!";
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          button.classList.remove("copied");
+          icon.classList.remove("fa-check");
+          icon.classList.add("fa-copy");
+          button.innerHTML = 'Click to copy';
+        }, 2000);
+      }).catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+    }
+  </script>
+</body>
+
+</html>

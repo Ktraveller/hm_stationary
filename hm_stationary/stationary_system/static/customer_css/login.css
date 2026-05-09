@@ -1,0 +1,408 @@
+/* GLOBAL */
+* {
+    box-sizing: border-box;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: dodgerblue;
+    color: #333;
+}
+
+.row-holder-20 {
+    width: 100%;
+    height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: transparent;
+}
+
+.navbar button {
+    margin-left: 5px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navbar .signup-btn {
+    background: #28a745;
+    color: white;
+}
+
+.navbar button:not(.signup-btn) {
+    background: #1e90ff;
+    color: white;
+    border: 1px solid white;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 60px 15px;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 24px;
+}
+
+.hero p {
+    font-size: 13px;
+}
+
+.hero-buttons button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    background: white;
+    color: #1e90ff;
+    cursor: pointer;
+}
+
+/* SERVICES */
+.services {
+    background: white;
+    padding: 30px 15px;
+    text-align: center;
+}
+
+.services h3 {
+    font-size: 16px;
+}
+
+.services li {
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+/* INFO */
+.info-section {
+    padding: 20px;
+    border-top: 2px solid white;
+    background: transparent;
+    margin-top: 120px;
+}
+
+.info-section div {
+    float: left;
+    width: 100%;
+    color: white;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+}
+
+.modal-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    animation: scaleIn 0.3s;
+}
+
+.head-close-30 {
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+
+.modal-box input {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-box button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 4px;
+    background: #1e90ff;
+    color: white;
+    cursor: pointer;
+}
+
+.switch span {
+    color: #1e90ff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* PASSWORD TOGGLE */
+.password-holder {
+    position: relative;
+}
+
+.password-holder input {
+    width: 100%;
+    padding-right: 30px;
+}
+
+.password-holder i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+
+/* MESSAGES */
+.messages {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    z-index: 1000;
+}
+
+.msg {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}
+
+.msg.success {
+    background: #28a745;
+}
+
+.msg.error {
+    background: #dc3545;
+}
+
+.msg.info {
+    background: #17a2b8;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* DARK MODE */
+body.dark-mode {
+    background: #121212;
+    color: #ddd;
+}
+
+body.dark-mode .navbar {
+    background: #1e1e1e;
+    color: white;
+}
+
+body.dark-mode .hero-buttons button {
+    background: #444;
+    color: white;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 18px;
+    }
+
+    .modal-box {
+        width: 90%;
+    }
+}
+
+
+.hero-buttons {
+    padding: 10px;
+}
+
+.hero-buttons>button {
+    width: 50%;
+    height: 40px;
+    font-weight: bold;
+    background: white;
+}
+
+.hero-buttons>button:hover {
+    opacity: 0.7;
+}
+
+@media only screen and (min-width: 768px) {
+    .row-holder-20 {
+        width: 100%;
+        height: auto;
+    }
+
+    .info-section div {
+        float: left;
+        width: 50%;
+    }
+
+    .hero-buttons button {
+        margin: 8px;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 4px;
+        background: white;
+        color: #1e90ff;
+        cursor: pointer;
+    }
+
+    .hero-buttons {
+        position: unset;
+    }
+
+    .hero-buttons>button {
+        background: white;
+        width: 200px;
+    }
+
+}
+
+
+/* OVERLAY */
+.message-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+
+    animation: fadeIn 0.3s ease;
+}
+
+/* BOX */
+.message-box {
+    background: #ffffff;
+    padding: 20px;
+    width: 280px;
+    border-radius: 10px;
+    text-align: center;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
+    animation: scaleIn 0.3s ease;
+}
+
+/* TEXT */
+#messageText {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+/* BUTTON */
+.message-box button {
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #1e90ff;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.message-box button:hover {
+    background: #0d6efd;
+    transform: translateY(-5px);
+}
+
+/* SUCCESS STYLE */
+.message-box.success {
+    background: #28a745;
+    color: white;
+    font-weight: bold;
+}
+
+/* ERROR STYLE */
+.message-box.error {
+    background: #dc3545;
+    color: white;
+    font-weight: bold;
+}
+
+/* INFO STYLE */
+.message-box.info {
+    background: #17a2b8;
+    color: white;
+    font-weight: bold;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.message-box.success i {
+    color: #28a745;
+}
+
+.message-box.error i {
+    color: #dc3545;
+}

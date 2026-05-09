@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.row-holder {
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+    background: teal;
+}
+
+.login-form-holder-1 {
+    width: 80%;
+    height: 400px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.569);
+    border-radius: 5px;
+}   
+
+.login-form-2 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.login-avator-2 {
+    width: 50px;
+    height: 50px;
+    border-radius: 80px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.176);
+}
+
+.login-avator-2>button {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    border-style: none;
+    outline: none;
+    padding: 10px;
+}
+
+.login-avator-2 >button>img {
+    width: 100%;
+    height: 100%;
+}
+
+.inputs-3 {
+    width: 100%;
+    height: 40px;
+    background: whitesmoke;
+    border: 1px solid rgba(0, 128, 128, 0.332);
+    border-radius: 2px;
+}
+
+.inputs-3:hover {
+    border: 2px solid teal;
+}
+
+.inputs-3 > input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border-style: none;
+    padding: 10px;
+}
+
+.button-3 {
+    background: teal;
+    color: white;
+}
+
+.button-3:hover {
+    opacity: 0.8;
+}
+
+@media only screen and (min-width: 768px) {
+    .row-holder {
+        width: 100%;
+        height: 100vh;
+    }
+    .heading-holder-1 {
+        width: 60%;
+        height: 100%;
+    }
+
+    .login-form-holder-1 {
+        width: 40%;
+        padding: 20px;
+    }
+
+    .login-form-2 {
+        border-radius: 5px;
+        padding: 30px;
+    }
+}
+
+#popup-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.popup-message {
+    margin-bottom: 10px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    animation: slidein 0.5s, fadeout 0.5s 2.5s forwards;
+}
+
+.popup-success { background-color: #28a745; }
+.popup-error { background-color: #dc3545; }
+
+@keyframes slidein {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeout {
+    to { opacity: 0; transform: translateX(100%); }
+}

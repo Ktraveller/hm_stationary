@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | Customer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_css/activities.css' %}">
+
+    <style>
+        /* Common badge styling */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 12px;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* Active status */
+        .status-badge.active {
+            background-color: #28a745;
+            /* Green */
+        }
+
+        /* Inactive status */
+        .status-badge.inactive {
+            background-color: #dc3545;
+            /* Red */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+                <button type="button" onclick="window.location.href = `{% url 'admin_notifications' %}`">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button type="button" onclick="window.location.href = `{% url 'admin_user' %}`">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'admin_dashboard' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_activities' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button type="button">Activities</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_stationaries' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-box"></i>
+                            </button>
+                            <button type="button">Stationaries</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button type="button">Customers</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_payments' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-credit-card"></i>
+                            </button>
+                            <button type="button">Payments</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_logout' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                            <button type="button">Logout</button>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <p style="font-weight: bold;">Customer - {{ customer.username }}</p>
+
+                <div class="table-holder-9">
+                    <table class="table-9">
+                        <tr>
+                            <td style="font-weight: bold;">Name</td>
+                            <td>{{ customer.get_full_name|default:customer.username }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Email</td>
+                            <td>{{ customer.email|default:"Not provided" }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Phone</td>
+                            <td>{{ customer.phone|default:"-" }}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Status</td>
+                            <td>
+                                {% if customer.is_active %}
+                                <span class="status-badge active">Active</span>
+                                {% else %}
+                                <span class="status-badge inactive">Inactive</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Last Login</td>
+                            <td>
+                                {% if customer.last_login %}
+                                {{ customer.last_login|date:"Y-m-d H:i" }}
+                                {% else %}
+                                Never
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <br>
+                <div class="bottom-nav-10">
+
+                    <div class="close-button-5">
+                        <a href="{% url 'admin_customers' %}">
+                            <button type="button">Close</button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var c = document.getElementById('nav_bar');
+        var b1 = document.getElementById('button1');
+        var b2 = document.getElementById('button2');
+        function nav_bar(click) {
+            if (click == "open") {
+                c.style.display = "inline-block";
+                b1.style.display = "none";
+                b2.style.display = "inline-block";
+            }
+            else {
+                c.style.display = "none";
+                b1.style.display = "inline-block";
+                b2.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

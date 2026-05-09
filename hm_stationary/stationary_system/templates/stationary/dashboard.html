@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'stationary_css/dashboard.css' %}">
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                    <p><span style="font-weight: bold;">{{ request.user.stationaryprofile.stationary_name }} </span><br>
+                        {{ user.email }}</p>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'stationary_dashboard' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'stationary_activities' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button type="button">Activities</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'stationary_payments' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-money-bill"></i>
+                            </button>
+                            <button type="button">Payments</button>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+
+            <div class="heading-holder-2">
+
+                <div class="title-holder-21">
+                    <div class="menu-holder-22">
+                        <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                            <i class="fas fa-close"></i>
+                        </button>
+                        <button type="button"><span style="font-weight: bold;">HMS | Dashboard</span></button>
+                    </div>
+                </div>
+
+                <div class="actions-holder-22">
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="dropbtn" id="notifBtn" type="button">
+                            <i class="fas fa-bell"></i>
+                            <span id="notifCount" class="notif-badge">0</span>
+                        </button>
+
+                        <div class="dropdown-content notif-dropdown" id="notifMenu">
+                            <div class="notif-header">
+                                <span>Notifications</span>
+                            </div>
+
+                            <div id="notifList" class="notif-list">
+                                <div class="notif-empty">No notifications</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User -->
+                    <div class="dropdown">
+                        <button class="dropbtn" id="userBtn" type="button">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+                        <div class="dropdown-content" id="userMenu">
+                            <div class="avator-holder-20">
+                                <button type="button">
+                                    <i class="fas fa-user-circle"></i>
+                                </button>
+                            </div>
+                            <p style="text-align: center;"><b>Email:</b> {{ user.email }}</p>
+                            <br>
+
+                            <a href="{% url 'stationary_logout' %}">
+                                <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                            </a>
+                            <br><br><br>
+                            <hr style="color: rgba(0, 128, 128, 0.485)">
+
+                            <div class="change-password-20" onclick="event.stopPropagation()">
+                                <p style="font-weight: bold;">Change account password</p>
+                                <form method="post">
+                                    {% csrf_token %}
+
+                                    <p>Write current password</p>
+                                    <div class="input-20">
+                                        <input type="password" name="old_password" required autocomplete="off">
+                                    </div>
+
+                                    <p>Write new password</p>
+                                    <div class="input-20">
+                                        <input type="password" name="new_password" required autocomplete="off">
+                                    </div>
+
+                                    <br>
+                                    <div class="input-20">
+                                        <button type="submit">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="dash-content-5">
+                <p style="font-weight: bold; padding-left: 10px;">Activities overview</p>
+                <div class="services-container-holder-6">
+
+                    <div style="width: 100%;">
+                        <div class="service-holder-7">
+                            <p>Total stationary earn</p>
+                            <button type="button" style="width: auto; padding-left: 20px; padding-right: 20px;">
+                                <b>{{ total_earn }} Tsh</b>
+                            </button>
+                            <span style="color: white;">Charges - <b>{{ bonus }} Tsh</b></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7">
+                            <button type="button">
+                                <b>{{ printing }}</b>
+                            </button>
+                            <p>Printing</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7">
+                            <button type="button">
+                                <b>{{ editing_or_typing }}</b>
+                            </button>
+                            <p>Typing and Editing</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7">
+                            <button type="button">
+                                <b>0</b>
+                            </button>
+                            <p>Reports writing</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7">
+                            <button type="button">
+                                <b>0</b>
+                            </button>
+                            <p>Research writing and editing</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <div id="popup-container"></div>
+
+    <script>
+
+        var c = document.getElementById('nav_bar');
+        var b1 = document.getElementById('button1');
+        var b2 = document.getElementById('button2');
+        function nav_bar(click) {
+            if (click == "open") {
+                c.style.display = "inline-block";
+                b1.style.display = "none";
+                b2.style.display = "inline-block";
+            }
+            else {
+                c.style.display = "none";
+                b1.style.display = "inline-block";
+                b2.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "stationary";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('popup-container');
+            const messagesScript = document.getElementById('messages-json');
+            if (!messagesScript) return;
+
+            const djangoMessages = JSON.parse(messagesScript.textContent);
+
+            djangoMessages.forEach(msg => {
+                const msgDiv = document.createElement('div');
+                msgDiv.classList.add('popup-message');
+
+                if (msg.tags) {
+                    msgDiv.classList.add('popup-' + msg.tags);
+                }
+
+                msgDiv.innerText = msg.message;
+                container.appendChild(msgDiv);
+
+                setTimeout(() => { msgDiv.remove(); }, 3000);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,438 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
+
+    <style>
+        .activity-card-12 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 5px;
+        }
+
+        .activity-card-12:hover {
+            border: 1px solid rgba(30, 143, 255, 0.876);
+        }
+
+        /* LEFT */
+        .card-body {
+            font-size: 14px;
+        }
+
+        .text-muted {
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* RIGHT */
+        .card-progress {
+            text-align: left;
+            width: 120px;
+        }
+
+        /* STATUS TEXT */
+        .status {
+            font-size: 12px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            height: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 50%;
+            transition: width 0.3s ease;
+        }
+
+        /* STATUS COLORS */
+        .progress-fill.waiting {
+            width: 10%;
+            background: gray;
+        }
+
+        .progress-fill.pending {
+            width: 30%;
+            background: orange;
+        }
+
+        .progress-fill.processing {
+            width: 60%;
+            background: blue;
+        }
+
+        .progress-fill.completed {
+            width: 100%;
+            background: green;
+        }
+
+        .progress-fill.declined {
+            width: 100%;
+            background: red;
+        }
+
+        .status.waiting {
+            color: gray;
+        }
+
+        .status.pending {
+            color: orange;
+        }
+
+        .status.processing {
+            color: blue;
+        }
+
+        .status.completed {
+            color: green;
+        }
+
+        .status.declined {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" onclick="window.location.href=`{% url 'customer_dashboard' %}`">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HMS collaborative</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+
+                    <!-- Notifications
+                <div class="dropdown">
+                    <button class="dropbtn" id="notifBtn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifCount" class="notif-badge">0</span>
+                    </button>
+
+                    <div class="dropdown-content notif-dropdown" id="notifMenu">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                        </div>
+
+                        <div id="notifList" class="notif-list">
+                            <div class="notif-empty">No notifications</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- User
+                <div class="dropdown">
+                    <button class="dropbtn" id="userBtn" type="button">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content" id="userMenu">
+                        <a href="{% url 'customer_logout' %}">
+                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+
+                        <button type="button" style="margin-right: 5px; background: teal;" onclick="open_edit()">
+                            <i class="fas fa-key"></i> Change Password</button>
+
+
+                        <div class="change-password-20" onclick="event.stopPropagation()" id="edit_20"
+                            style="display: none;">
+                            <br><br><br>
+                            <hr style="color: rgba(30, 143, 255, 0.876);">
+                            <p style="font-weight: bold;">Change account password</p>
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <p>Write current password</p>
+                                <div class="input-20">
+                                    <input type="password" name="old_password" required autocomplete="off">
+                                </div>
+
+                                <p>Write new password</p>
+                                <div class="input-20">
+                                    <input type="password" name="new_password" required autocomplete="off">
+                                </div>
+
+                                <br>
+                                <div class="input-20">
+                                    <button type="submit">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+        <div class="activity-history-holder-10 hist-20">
+            <div class="activity-history-10">
+
+                <p style="font-weight: bold; padding-left: 10px;">Activities history</p>
+
+                <div class="search-activity-holder-10">
+                    <input type="search" name="" placeholder="Search activity" id="activitySearch">
+                    <button type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="filter-holder-11">
+                    <div>
+                        <button type="button" onclick="switch_activity('all')" class="filter-btn active-110">
+                            <i class="fas fa-list"></i> All
+                        </button>
+                        <button type="button" onclick="switch_activity('pending')" class="filter-btn">
+                            <i class="fas fa-clock"></i> Pending
+                        </button>
+                        <button type="button" onclick="switch_activity('processing')" class="filter-btn">
+                            <i class="fas fa-spinner"></i> Processing
+                        </button>
+                        <button type="button" onclick="switch_activity('completed')" class="filter-btn">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </button>
+                    </div>
+                </div>
+
+                <div class="activity-hist-holder-11">
+                    <!-- All activities -->
+                    <div class="activity-card-holder-12" id="all">
+                        {% for activity in activities %}
+                        <div class="activity-card-12"
+                            onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
+
+                            <!-- LEFT CONTENT -->
+                            <div class="card-body">
+                                <div><b>{{ activity.activity_type }}</b></div>
+                                <div class="text-muted">{{ activity.sent_date|date:"d M Y, H:i" }}</div>
+                            </div>
+
+                            <!-- RIGHT PROGRESS -->
+                            <div class="card-progress">
+                                <span class="status {{ activity.status }}">
+                                    {{ activity.get_status_display }}
+                                </span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill {{ activity.status }}"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% empty %}
+                        <p>No activities found.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Pending activities -->
+                    <div class="activity-card-holder-12" id="pending" style="display:none;">
+                        {% for activity in activities %}
+                        {% if activity.status == "pending" %}
+                        <div class="activity-card-12"
+                            onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
+
+                            <!-- LEFT CONTENT -->
+                            <div class="card-body">
+                                <div><b>{{ activity.activity_type }}</b></div>
+                                <div class="text-muted">{{ activity.sent_date|date:"d M Y, H:i" }}</div>
+                            </div>
+
+                            <!-- RIGHT PROGRESS -->
+                            <div class="card-progress">
+                                <span class="status {{ activity.status }}">
+                                    {{ activity.get_status_display }}
+                                </span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill {{ activity.status }}"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                        {% empty %}
+                        <p>No pending activities.</p>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- Processing activities -->
+                    <div class="activity-card-holder-12" id="processing" style="display:none;">
+                        {% for activity in activities %}
+                        {% if activity.status == "processing" %}
+                        <div class="activity-card-12"
+                            onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
+
+                            <!-- LEFT CONTENT -->
+                            <div class="card-body">
+                                <div><b>{{ activity.activity_type }}</b></div>
+                                <div class="text-muted">{{ activity.sent_date|date:"d M Y, H:i" }}</div>
+                            </div>
+
+                            <!-- RIGHT PROGRESS -->
+                            <div class="card-progress">
+                                <span class="status {{ activity.status }}">
+                                    {{ activity.get_status_display }}
+                                </span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill {{ activity.status }}"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                        {% empty %}
+                        <p>No processing activities.</p>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- Complted activities -->
+                    <div class="activity-card-holder-12" id="completed" style="display:none;">
+                        {% for activity in activities %}
+                        {% if activity.status == "completed" %}
+                        <div class="activity-card-12"
+                            onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
+
+                            <!-- LEFT CONTENT -->
+                            <div class="card-body">
+                                <div><b>{{ activity.activity_type }}</b></div>
+                                <div class="text-muted">{{ activity.sent_date|date:"d M Y, H:i" }}</div>
+                            </div>
+
+                            <!-- RIGHT PROGRESS -->
+                            <div class="card-progress">
+                                <span class="status {{ activity.status }}">
+                                    {{ activity.get_status_display }}
+                                </span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill {{ activity.status }}"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                        {% empty %}
+                        <p>No completed activities.</p>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+
+                <div style="float: left; width: 100%; height: 50px; padding: 10px; font-weight: bold;">
+                    <p>Also you can like</p>
+                </div>
+
+                <div class="services-container-holder-6">
+                    <div>
+                        <div class="service-holder-7" onclick="window.location.href = `{% url 'printing' %}`">
+                            <button type="button">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            <p>Printing</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                            <button type="button">
+                                <i class="fas fa-keyboard"></i>
+                            </button>
+                            <p>Typing and Editing</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7" onclick="window.location.href=`{% url 'implementation' %}`">
+                            <button type="button">
+                                <i class="fas fa-file-alt"></i>
+                            </button>
+                            <p>Reports writing</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="service-holder-7" onclick="window.location.href=`{% url 'implementation' %}`">
+                            <button type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <p>Research writing</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="service-holder-7" onclick="window.location.href = `{% url 'more_services' %}`">
+                            <button type="button">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <p>More services</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    </div>
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+    <script src="{% static 'customer_js/activity_history.js' %}"></script>
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+
+                function open_edit() {
+            document.getElementById('edit_20').style.display = 'inline-block';
+            event.stopPropagation();
+        }
+    </script>
+</body>
+
+</html>

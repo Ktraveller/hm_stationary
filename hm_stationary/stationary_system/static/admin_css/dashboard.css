@@ -1,0 +1,339 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.141);
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.row-holder-1 {
+    width: 100%;
+    height: 100vh;
+    background: transparent;
+}
+
+.heading-holder-2 {
+    width: 100%;
+    height: 50px;
+    background: teal;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navigation-bar-holder-3 {
+    width: 80%;
+    height: 100%;
+    box-shadow: 0px 10px 10px 10px rgba(0, 0, 0, 0.098);
+    position: fixed;
+    background: rgb(38, 38, 38);
+    top: 50px;
+    left: 0;
+    bottom: 0;
+    display: none;
+    z-index: 1000;
+}
+
+.b2 {
+    display: none;
+}
+
+.content-holder-4 {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    margin-top: 50px;
+    background: transparent;
+}
+
+.row-holder-1>div {
+    float: left;
+}
+
+.heading-holder-2>div {
+    float: left;
+}
+
+.title-holder-21 {
+    width: 50%;
+    height: 100%;
+    color: white;
+}
+
+.menu-holder-22 {
+    width: 100%;
+    height: 100%;
+}
+
+.menu-holder-22>button {
+    width: auto;
+    height: 100%;
+    float: left;
+    background: transparent;
+    outline: none;
+    border-style: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.menu-holder-22>button>img {
+    width: 25px;
+    height: 25px;
+}
+
+.actions-holder-22 {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    background: transparent;
+    text-align: right;
+}
+
+.actions-holder-22>button {
+    height: 100%;
+    width: auto;
+    background: transparent;
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    margin-right: 10px;
+}
+
+.actions-holder-22>button>i {
+    font-size: 20px;
+}
+
+.navigation-holder-4 {
+    width: 100%;
+    height: auto;
+}
+
+.site-icon-holder {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    border-radius: 100px;
+}
+
+.site-icon-holder>button {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    outline: none;
+    text-align: left;
+    border-style: none;
+    padding: 15px;
+}
+
+.site-icon-holder>button>img {
+    width: 100%;
+    height: 100%;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul>a {
+    text-decoration: none;
+}
+
+ul>a>li {
+    padding: 10px;
+}
+
+ul>a>li>button {
+    border-style: none;
+    outline: none;
+    background: transparent;
+    font-weight: bold;
+    color: white;
+}
+
+ul>a>li:hover {
+    background: black;
+}
+
+.active-bar {
+    background: black;
+}
+
+ul>a>li>button>i {
+    font-size: 15px;
+}
+
+.dash-content-5 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.total-container-6 {
+    width: 100%;
+    height: 100px;
+
+    animation-name: dash-container;
+    animation-duration: 1s;
+}
+
+.total-container-6>div {
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+}
+
+.total-7 {
+    background: rgba(0, 128, 128, 0.497);
+
+}
+
+.total-8 {
+    background: transparent;
+}
+
+@media only screen and (min-width: 768px) {
+    .navigation-bar-holder-3 {
+        display: inline-block;
+        position: unset;
+        width: 20%;
+        margin-top: 50px;
+    }
+
+    .content-holder-4 {
+        width: 80%;
+    }
+
+    .b1,
+    .b2 {
+        display: none;
+    }
+
+    .actions-holder-22>button {
+        margin-right: 50px;
+    }
+
+    .dash-content-5 {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+}
+
+@keyframes dash-container {
+    10% {
+        opacity: 0.1;
+    }
+
+    20% {
+        opacity: 0.2;
+    }
+
+    30% {
+        opacity: 0.3;
+    }
+
+    40% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    60% {
+        opacity: 0.6;
+    }
+
+    70% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 10;
+    }
+}
+
+.services-container-holder-6 {
+    width: 100%;
+    height: auto;
+
+    animation-name: dash-container;
+    animation-duration: 1s;
+}
+
+.services-container-holder-6>div {
+    float: left;
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.service-holder-7 {
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid teal;
+    background-color: rgba(0, 128, 128, 0.1);
+}
+
+.service-holder-7>span {
+    font-size: 30px;
+}
+
+.service-holder-7>button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: teal;
+    align-items: center;
+    border-style: none;
+}
+
+.service-holder-7>button>b {
+    color: white;
+    font-size: 20px;
+}
+
+.service-holder-7:hover {
+    cursor: pointer;
+    background-color: rgba(0, 128, 128, 0.438);
+}
+
+@media only screen and (min-width: 768px) {
+
+    .services-container-holder-6>div {
+        float: left;
+        width: 33.33333333%;
+        padding: 10px;
+        margin-bottom: 0;
+    }
+}
+
+.footer-holder-5 {
+    width: 100%;
+    height: 50px;
+    background: teal;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

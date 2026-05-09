@@ -1,0 +1,602 @@
+{% load custom_filters %}
+{% load file_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | Activity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'stationary_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'stationary_css/activities.css' %}">
+    <link rel="stylesheet" href="{% static 'stationary_css/activity-preview.css' %}">
+
+    <style>
+        /* Modal container */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Semi-transparent overlay */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal content box */
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Close button */
+        .modal-content .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-content .close:hover {
+            color: #000;
+        }
+
+        /* Message types */
+        #messageBody {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .message-success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message-info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Small spinner for upload/update buttons */
+        button.loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        button .btn-loader {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #fff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        .cost-input-holder-20 {
+            width: 100%;
+            height: 40px;
+            background: white;
+        }
+
+        .cost-input-holder-20>div {
+            float: left;
+            height: 100%;
+        }
+
+        .inputs-201 {
+            width: 80%;
+        }
+
+        .inputs-201>input {
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.222);
+            outline: none;
+            padding-left: 10px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .submit-201 {
+            width: 20%;
+        }
+
+        .submit-201>button {
+            width: 100%;
+            height: 100%;
+            background: teal;
+            font-weight: bold;
+            color: white;
+            border-style: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-201>button:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                    <p><span style="font-weight: bold;">{{ request.user.stationaryprofile.stationary_name }} </span><br>
+                        {{ user.email }}</p>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'stationary_dashboard' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'stationary_activities' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button type="button">Activities</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'stationary_payments' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-money-bill"></i>
+                            </button>
+                            <button type="button">Payments</button>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+
+            <div class="heading-holder-2">
+
+                <div class="title-holder-21">
+                    <div class="menu-holder-22">
+                        <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                            <i class="fas fa-close"></i>
+                        </button>
+                        <button type="button"><span style="font-weight: bold;">HMS | {{ activity.activity_id }}
+                            </span></button>
+                    </div>
+                </div>
+
+            <div class="actions-holder-22">
+
+                    <!-- Notifications -->
+                <div class="dropdown">
+                    <button class="dropbtn" id="notifBtn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifCount" class="notif-badge">0</span>
+                    </button>
+
+                    <div class="dropdown-content notif-dropdown" id="notifMenu">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                        </div>
+
+                        <div id="notifList" class="notif-list">
+                            <div class="notif-empty">No notifications</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User -->
+                <div class="dropdown">
+                    <button class="dropbtn" id="userBtn" type="button">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content" id="userMenu">
+                        <div class="avator-holder-20">
+                            <button type="button">
+                                <i class="fas fa-user-circle"></i>
+                            </button>
+                        </div>
+                        <p style="text-align: center;"><b>Email:</b> {{ user.email }}</p>
+                        <br>
+
+                        <a href="{% url 'stationary_logout' %}">
+                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+                        <br><br><br>
+                        <hr style="color: rgba(0, 128, 128, 0.485)">
+
+                        <div class="change-password-20" onclick="event.stopPropagation()">
+                            <p style="font-weight: bold;">Change account password</p>
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <p>Write current password</p>
+                                <div class="input-20">
+                                    <input type="password" name="old_password" required autocomplete="off">
+                                </div>
+
+                                <p>Write new password</p>
+                                <div class="input-20">
+                                    <input type="password" name="new_password" required autocomplete="off">
+                                </div>
+
+                                <br>
+                                <div class="input-20">
+                                    <button type="submit">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+
+            <div class="dash-content-5">
+
+                <div class="activities-table-holder-6">
+                    <div class="table-holder-10">
+                        <div>
+                            <p style="font-weight: bold;">Customer information</p>
+                            <hr>
+                            <table class="table-10">
+                                <tr>
+                                    <td style="font-weight: bold;">Phone number</td>
+                                    <td style="text-transform: uppercase;">{{ activity.user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Activity</td>
+                                    <td><b>{{ activity.activity_id }}</b>,
+                                        {{ activity.activity_type }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="font-weight: bold;">Costs</td>
+                                    <td><b style="color: teal;">{{ activity.costs }} Tsh</b></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="font-weight: bold;">Start date & time</td>
+                                    <td>{{ activity.sent_date|date:"H:i, Y-m-d"|default:"N/A" }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">End date & time</td>
+                                    <td>{{ activity.end_date|date:"H:i, Y-m-d"|default:"N/A" }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="font-weight: bold;">Status</td>
+                                    <td><b style="color: teal;">{{ activity.status }}</b></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- Uploaded files section -->
+
+                    <div class="uploaded-files-holder">
+                        <div>
+                            <p style="font-weight: bold;">Uploaded Files</p>
+
+                            {% if uploaded_files %}
+                            <div class="uploaded-files-grid">
+                                {% for f in uploaded_files %}
+                                <div class="uploaded-file-item"
+                                    onclick="openModal('{{ f.file.url|file_type }}','{{ f.file.url }}','{{ f.file.name|escape }}')">
+
+                                    {% with f.file.url|file_type as ft %}
+                                        {% if ft == 'image' %}
+                                            <i class="fas fa-file-image fa-3x" style="color:#3498db;"></i>
+                                        {% elif ft == 'pdf' %}
+                                            <i class="fas fa-file-pdf fa-3x" style="color:#e74c3c;"></i>
+                                        {% elif ft == 'docx' or ft == 'doc' %}
+                                            <i class="fas fa-file-word fa-3x" style="color:#2980b9;"></i>
+                                        {% elif ft == 'xlsx' or ft == 'xls' %}
+                                            <i class="fas fa-file-excel fa-3x" style="color:#27ae60;"></i>
+                                        {% elif ft == 'pptx' or ft == 'ppt' %}
+                                            <i class="fas fa-file-powerpoint fa-3x" style="color:#d35400;"></i>
+                                        {% else %}
+                                            <i class="fas fa-file fa-3x" style="color:#7f8c8d;"></i>
+                                        {% endif %}
+                                    {% endwith %}
+
+                                    <p class="file-name">{{ f.file.name|escape }}</p>
+                                    <p class="uploaded-date">Uploaded: {{ f.uploaded_at|date:"Y-m-d H:i" }}</p>
+                                </div>
+                                {% endfor %}
+
+                                {% if uploaded_files %}
+                                <a href="{% url 'download_all_files' activity.activity_id %}">
+                                    <button type="button" class="download-button-5"><i class="fas fa-download"></i> Download</button>
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            <p>No files uploaded.</p>
+                            {% endif %}
+
+
+
+                            <!-- Hidden CSRF form for JS -->
+                            <form id="activityActionForm" method="POST" style="display:none;">
+                                {% csrf_token %}
+                            </form>
+
+                            
+                            {% if activity.status == 'waiting' or activity.status == 'declined' %}
+                            <br><br>
+                            <p>Write activity costs in Tsh</p>
+
+                            <form class="activity-cost-form" action="{% url 'send_cost' %}" method="post">
+                                {% csrf_token %}
+
+                                <div class="cost-input-holder-20">
+                                    <div class="inputs-201">
+                                        <input type="hidden" name="activity_id" value="{{ activity.activity_id }}">
+                                        <input type="number" name="costs" required 
+                                        placeholder="e.g 100">
+                                    </div>
+
+                                    <div class="submit-201">
+                                        <button type="submit">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p>*You set payment: <b style="font-size: 15px; color: teal;">{{  activity.costs  }} Tsh</b></p>
+                            <p>*After sending price, wait for customer to pay for activity!</p>
+                            {% endif %}
+
+
+                            <!-- Action buttons -->
+                             <hr style="margin-top: 20px; margin-bottom: 10px;">
+                            <div class="action-buttons-holder">
+
+                                <!-- Close button -->
+                                <button type="button" class="btn-close"
+                                    onclick="window.location.href=`{% url 'stationary_activities' %}`"><i class="fas fa-close"></i> 
+                                    Close
+                                </button>
+
+                                {% if activity.status != 'waiting' %}
+                                {% if activity.costs != 0 %}
+                                <!-- Accept button -->
+                                {% if activity.status == 'declined' or activity.status == 'pending' %}
+                                <button type="button" class="btn-process" 
+                                        onclick="activateProcessing(this, `{% url 'accept_activity' activity.activity_id %}`)">
+                                    <i class="fas fa-circle-check"></i>
+                                    <span class="btn-text">Accept</span>
+                                </button>
+                                {% endif %}
+
+                                <!-- Decline button -->
+                                {% if activity.status == 'pending' or activity.status == 'processing' %}
+                                <button type="button" class="btn-decline" 
+                                        onclick="declineActivity(this, `{% url 'decline_activity' activity.activity_id %}`)">
+                                    <i class="fas fa-ban"></i>
+                                    <span class="btn-text">Decline</span>
+                                </button>
+                                {% endif %}
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        
+
+                            {% if activity.status == 'completed' or activity.status == 'processing' %}
+                            <hr style="margin-top: 10px;">
+                            <p style="font-weight: bold;">Processed Files</p>
+
+                            {% if processed_files %}
+                            <div class="uploaded-files-grid">
+                                {% for f in processed_files %}
+                                    {% if f.processed_file %}
+                                    <div class="uploaded-file-item"
+                                        onclick="openModal('{{ f.processed_file.url|file_type }}','{{ f.processed_file.url }}','{{ f.processed_file.name|escape }}')">
+
+                                        {% with f.processed_file.url|file_type as ft %}
+                                            {% if ft == 'image' %}
+                                                <i class="fas fa-file-image fa-3x" style="color:#3498db;"></i>
+                                            {% elif ft == 'pdf' %}
+                                                <i class="fas fa-file-pdf fa-3x" style="color:#e74c3c;"></i>
+                                            {% elif ft == 'docx' or ft == 'doc' %}
+                                                <i class="fas fa-file-word fa-3x" style="color:#2980b9;"></i>
+                                            {% elif ft == 'xlsx' or ft == 'xls' %}
+                                                <i class="fas fa-file-excel fa-3x" style="color:#27ae60;"></i>
+                                            {% elif ft == 'pptx' or ft == 'ppt' %}
+                                                <i class="fas fa-file-powerpoint fa-3x" style="color:#d35400;"></i>
+                                            {% else %}
+                                                <i class="fas fa-file fa-3x" style="color:#7f8c8d;"></i>
+                                            {% endif %}
+                                        {% endwith %}
+
+                                        <p class="file-name">{{ f.processed_file.name|escape }}</p>
+                                        <p class="uploaded-date">{{ f.uploaded_at|date:"Y-m-d H:i" }}</p>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <p>No processed files uploaded yet.</p>
+                            {% endif %}
+                            {% endif %}
+
+
+                            {% if activity.status == 'processing' or activity.status == 'completed' %}
+                            <div id="processingSection">
+
+                                <br><br>
+
+
+                            <div class="result-holder-5">
+                                <p><strong>Upload processed activity.</strong></p>
+
+                                <!-- Form for file upload -->
+                                <form id="processedUploadForm" method="POST" enctype="multipart/form-data"
+                                    action="{% url 'process_activity' activity.activity_id %}">
+                                    {% csrf_token %}
+
+                                    <!-- File select button -->
+                                    <div class="input-holder-20">
+                                        <button type="button" onclick="processedFileInput.click()">
+                                            <i class="fas fa-cloud-arrow-up"></i> Select files
+                                        </button>
+                                        <input type="file" name="processed_file" id="processedFileInput"
+                                            accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" multiple hidden>
+                                    </div>
+
+                                    <br>
+
+                                    <!-- Preview container -->
+                                    <div class="uploaded-holder-12" id="processedPreviewContainer"></div>
+
+                                    <br>
+
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn-process" id="uploadBtn">
+                                        <i class="fas fa-upload"></i> Upload
+                                    </button>
+                                </form>
+                            </div>
+
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- File Preview Modal -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p id="modalTitle">File Preview</p>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Messages Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMessageModal()">&times;</span>
+            <div id="messageBody"></div>
+        </div>
+    </div>
+
+    <div id="userConfirmModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <p id="userConfirmMessage">Confirm uploading processed file!</p>
+        <div class="modal-actions">
+            <button type="button" id="userConfirmYes">Yes</button>
+            <button type="button" id="userConfirmNo">No</button>
+        </div>
+    </div>
+</div>
+
+<div id="activityActions" data-stationary-url="{% url 'stationary_activities' %}"></div>
+    <script>
+        window.APP_CONFIG = {
+            sendCostUrl: "{% url 'send_cost' %}",
+            whatsappNumber: "255{{ activity.user.username }}"
+        };
+    </script>
+
+    <script src="{% static 'stationary_js/activity.js' %}"></script>
+        <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "stationary";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+</body>
+
+</html>

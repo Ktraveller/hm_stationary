@@ -1,0 +1,349 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | Login</title>
+    <link rel="stylesheet" href="{% static 'customer_css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+</head>
+
+<body>
+
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="row-holder-20">
+
+        <!-- NAVBAR -->
+        <div class="navbar">
+            <h3 style="color: white;">HMS collaborative</h3>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+            <h1>Welcome to HMS collaborative</h1>
+            <p>Printing, typing, editing & research services made easy.</p>
+
+            <div class="hero-buttons">
+                <button onclick="window.location.href=`{% url 'signup_customer' %}`" type="button">Get Started</button>
+            </div>
+        </div>
+
+        <!-- LOGIN MODAL -->
+        <div class="modal" id="loginModal">
+            <div class="modal-box">
+                <div class="head-close-30">
+                    <span>Login</span>
+                    <i class="fa fa-close" onclick="closeModal()" style="float: right;"></i>
+                </div>
+
+                <form id="loginForm" method="post">
+                    {% csrf_token %}
+
+                    <!-- Phone -->
+                    <div class="password-holder">
+                        <input type="text" name="phone" id="loginPhone" placeholder="Enter phone (e.g. 712345678)"
+                            required>
+                        <i class="fa fa-phone"></i>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="password-holder">
+                        <input type="password" name="password" id="passwordLogin" placeholder="Enter password" required>
+                        <i class="fa fa-eye" onclick="togglePassword('passwordLogin', this)"></i>
+                    </div>
+
+                    <button type="submit" id="login_10" onclick="document.getElementById('login_10').innerHTML = 'Processing ...'">Login</button>
+                </form>
+
+                <p class="switch">No account? <span onclick="switchToSignup()">Sign Up</span></p>
+            </div>
+        </div>
+
+        <!-- SIGNUP MODAL -->
+        <div class="modal" id="signupModal">
+            <div class="modal-box">
+
+                <div class="head-close-30">
+                    <span>Create account</span>
+                    <i class="fa fa-close" onclick="closeModal()" style="float: right;"></i>
+                </div>
+
+                <form id="signupForm">
+                    {% csrf_token %}
+
+                    <!-- Phone -->
+                    <div class="password-holder">
+                        <input type="text" name="phone" id="signupPhone" placeholder="Enter phone (e.g. 712345678)"
+                            required>
+                        <i class="fa fa-phone"></i>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="password-holder">
+                        <input type="password" name="password" id="signupPassword" placeholder="Enter password"
+                            required>
+                        <i class="fa fa-eye" onclick="togglePassword('signupPassword', this)"></i>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="password-holder">
+                        <input type="password" name="confirm_password" id="signupConfirmPassword"
+                            placeholder="Confirm password" required>
+                        <i class="fa fa-eye" onclick="togglePassword('signupConfirmPassword', this)"></i>
+                    </div>
+
+                    <button type="submit" id="signupButton">Signup</button>
+                </form>
+
+                <p class="switch">Already have account? <span onclick="switchToLogin()">Login</span></p>
+            </div>
+        </div>
+
+        <footer
+            style="background:#1e3a8a; color:#fff; padding:40px 20px; font-family:Arial, sans-serif; margin-top: 400px;">
+            <div
+                style="max-width:1200px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:30px;">
+
+                <!-- About -->
+                <div>
+                    <h3 style="margin-bottom:15px;">HMS Collaborative</h3>
+                    <p style="line-height:1.6;">
+                        HMS Collaborative helps you print documents anywhere with ease.
+                        From assignments to official documents, we connect you to nearby
+                        stationery services quickly and efficiently.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 style="margin-bottom:15px;">Quick Links</h3>
+                    <ul style="list-style:none; padding:0;">
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">Home</a></li>
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">Printing</a></li>
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">Editing</a></li>
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">Typing</a></li>
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">Find Stationery</a></li>
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">Pricing</a></li>
+                        <li><a href="#" style="color:#cbd5f5; text-decoration:none;">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h3 style="margin-bottom:15px;">Contact Us</h3>
+                    <p style="font-size:14px;">📞 +255 622 652 290</p>
+                    <p style="font-size:14px;">📧 kareemrajabu1234@gmail.com</p>
+                    <p style="font-size:14px;">🕒 Mon - Sat: 8:00 AM - 6:00 PM</p>
+                </div>
+
+                <!-- Location -->
+                <div>
+                    <h3 style="margin-bottom:15px;">Location</h3>
+                    <p>
+                        Dar es Salaam, Tanzania <br>
+                        Available in multiple areas for fast document printing services.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Bottom -->
+            <div
+                style="text-align:center; margin-top:30px; border-top:1px solid #3b82f6; padding-top:15px;">
+                © 2026 HMS Collaborative. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- MESSAGE MODAL -->
+    <div class="message-modal" id="messageModal" style="display:none;">
+        <div class="message-box" id="messageBox">
+            <p id="messageText">Message</p>
+            <button onclick="closeMessageModal()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // ---------------------------
+        // Modal controls
+        // ---------------------------
+        function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
+        function openSignup() { document.getElementById("signupModal").style.display = "flex"; }
+        function closeModal() {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("signupModal").style.display = "none";
+        }
+        function switchToSignup() { closeModal(); openSignup(); }
+        function switchToLogin() { closeModal(); openLogin(); }
+
+        // ---------------------------
+        // Password toggle
+        // ---------------------------
+        function togglePassword(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                if (icon) {
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                }
+            } else {
+                input.type = "password";
+                if (icon) {
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+            }
+        }
+
+        // ---------------------------
+        // Phone formatting & validation
+        // ---------------------------
+        function formatPhone(phone) {
+            phone = phone.replace(/\s+/g, "");
+            if (phone.startsWith("0")) {
+                phone = phone.substring(1);
+            }
+            return phone;
+        }
+
+        function validatePhone(phone) {
+            phone = formatPhone(phone);
+            if (!/^\d{9}$/.test(phone)) {
+                return "Phone number must be exactly 9 digits";
+            }
+            return null;
+        }
+
+        // ---------------------------
+        // Show message modal
+        // ---------------------------
+        function showMessage(message, status) {
+            const modal = document.getElementById("messageModal");
+            const text = document.getElementById("messageText");
+            const box = document.getElementById("messageBox");
+
+            text.innerText = message;
+            box.className = "message-box " + status;
+            modal.style.display = "flex";
+        }
+
+        function closeMessageModal() {
+            document.getElementById("messageModal").style.display = "none";
+        }
+
+        // ---------------------------
+        // LOGIN AJAX
+        // ---------------------------
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let phoneInput = document.getElementById("loginPhone");
+            let phone = phoneInput.value;
+
+            let error = validatePhone(phone);
+            if (error) {
+                showMessage(error, "error");
+                return;
+            }
+
+            phoneInput.value = formatPhone(phone);
+
+            let formData = new FormData(this);
+
+            fetch("{% url 'login_page_customer' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showMessage(data.message, data.status);
+                    if (data.status === "success") {
+                        setTimeout(() => window.location.href = data.redirect, 1500);
+                    }
+                });
+        });
+
+        // ---------------------------
+        // SIGNUP AJAX
+        // ---------------------------
+        document.getElementById("signupForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const phoneInput = document.getElementById("signupPhone");
+            let phone = phoneInput.value;
+
+            const password = document.getElementById("signupPassword").value;
+            const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+            let error = validatePhone(phone);
+            if (error) {
+                showMessage(error, "error");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage("Passwords do not match!", "error");
+                return;
+            }
+
+            phoneInput.value = formatPhone(phone);
+
+            const formData = new FormData(this);
+            const button = document.getElementById("signupButton");
+
+            button.disabled = true;
+            button.innerText = "Signing up...";
+
+            fetch("{% url 'signup_customer' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showMessage(data.message, data.status);
+
+                    button.disabled = false;
+                    button.innerText = "Signup";
+
+                    if (data.status === "success") {
+                        setTimeout(() => window.location.href = data.redirect, 1500);
+                    }
+                })
+                .catch(() => {
+                    showMessage("Server error, try again", "error");
+                    button.disabled = false;
+                    button.innerText = "Signup";
+                });
+        });
+
+        // ---------------------------
+        // Page loader
+        // ---------------------------
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+    </script>
+
+</body>
+
+</html>

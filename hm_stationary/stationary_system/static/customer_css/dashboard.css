@@ -1,0 +1,1122 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: rgba(0, 0, 0, 0.84);
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background: white;
+}
+
+.row-holder-1 {
+    width: 100%;
+    height: auto;
+    overflow-y: scroll;
+    background: transparent;
+}
+
+.heading-holder-2 {
+    width: 100%;
+    height: 50px;
+    background: dodgerblue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.153);
+}
+
+.navigation-bar-holder-3 {
+    width: 100%;
+    height: 500px;
+    background: white;
+    padding: 10px;
+    margin-top: 50px;
+    display: none;
+}
+
+
+.navigation-holder-4 {
+    border-radius: 10px;
+}
+
+.search-nav-holder-4 {
+    width: 100%;
+    height: 35px;
+}
+
+.search-nav-holder-4>input {
+    width: 80%;
+    height: 100%;
+    float: left;
+    padding-left: 10px;
+    border-style: none;
+    border: 1px solid rgba(0, 0, 0, 0.225);
+    outline: none;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.search-nav-holder-4>input:hover {
+    border: 2px solid rgba(30, 143, 255, 0.488);
+}
+
+
+.button-search-4 {
+    width: 20%;
+    height: 100%;
+    float: left;
+    background: dodgerblue;
+    color: white;
+    font-weight: bold;
+    outline: none;
+    border-style: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+.button-search-4>i {
+    color: white;
+    font-weight: bold;
+}
+
+
+.b2 {
+    display: none;
+}
+
+.service-search-holder-6 {
+    width: 100%;
+    height: auto;
+}
+
+.service-search-holder-6>button {
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: dodgerblue;
+    color: white;
+    border-radius: 10px;
+    outline: none;
+    margin: 5px;
+    font-weight: bold;
+    border-style: none;
+}
+
+.service-search-holder-6>button>i {
+    color: white;
+}
+
+.service-search-holder-6>button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.exit-button-6 {
+    width: 100px;
+    height: 40px;
+    background: dodgerblue;
+    color: white;
+    outline: none;
+    font-weight: bold;
+    border-radius: 10px;
+    border-style: none;
+}
+
+.exit-button-6>i {
+    margin-right: 10px;
+    color: white;
+}
+
+.exit-button-6:hover {
+    opacity: 0.7;
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.content-holder-4 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    overflow-y: scroll;
+    margin-top: 50px;
+    background: transparent;
+}
+
+.activity-history-holder-10 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.row-holder-1>div {
+    float: left;
+}
+
+.heading-holder-2>div {
+    float: left;
+}
+
+.title-holder-21 {
+    width: 50%;
+    height: 100%;
+    color: white;
+}
+
+.menu-holder-22 {
+    width: 100%;
+    height: 100%;
+}
+
+.menu-holder-22>button {
+    width: auto;
+    height: 100%;
+    float: left;
+    background: transparent;
+    outline: none;
+    border-style: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.menu-holder-22>button>span {
+    color: white;
+    font-weight: bold;
+}
+
+.menu-holder-22>button>i {
+    font-size: 20px;
+    color: white;
+}
+
+.actions-holder-22 {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    background: transparent;
+    text-align: right;
+}
+
+.actions-holder-22>.dropdown>button {
+    height: 100%;
+    width: auto;
+    background: transparent;
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
+.actions-holder-22>.dropdown>button>i {
+    font-size: 20px;
+    color: inherit;
+}
+
+
+
+.navigation-holder-4 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+
+.dash-content-5 {
+    width: 100%;
+    height: auto;
+    float: left;
+    border-radius: 10px;
+}
+
+.total-container-6 {
+    width: 100%;
+    height: 100px;
+}
+
+.total-container-6>div {
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+}
+
+.total-7 {
+    background: rgba(0, 128, 128, 0.497);
+
+}
+
+.total-8 {
+    background: transparent;
+}
+
+.dashboard-user-info-holder-5 {
+    width: 100%;
+    height: auto;
+    background: transparent;
+    border-radius: 10px;
+    margin-top: 5px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+    background: #fff;
+}
+
+.dashboard-user-info-holder-5:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
+    transform: translateY(-5px);
+}
+
+.user-info-holder-5 {
+    width: 100%;
+    height: 120px;
+    background: dodgerblue;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.user-info-holder-5>div {
+    float: left;
+}
+
+.user-info-5 {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    color: white;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+.user-info-5>div {
+    width: 100%;
+}
+
+.user-holder-1 {
+    padding-left: 20px;
+    overflow: hidden;
+}
+
+.user-holder-1>p {
+    color: white;
+}
+
+.name-h {
+    font-size: 18px;
+    color: white;
+}
+
+.user-holder-2 {
+    text-align: right;
+    padding: 15px;
+    padding-right: 20px;
+    overflow: hidden;
+}
+
+.user-holder-2>button {
+    width: auto;
+    height: 30px;
+    background: transparent;
+    border-style: none;
+    outline: none;
+    color: white;
+    font-weight: bold;
+}
+
+.total-use-info-5 {
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.total-use-info-5>div {
+    float: left;
+    width: 33.33333333%;
+    height: 100%;
+}
+
+
+.total-last-1 {
+    border-style: none;
+}
+
+.total-use-holder-1>button {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-style: none;
+    outline: none;
+    font-size: 12px;
+    color: white;
+    overflow: hidden;
+}
+
+.total-use-holder-1>button>i {
+    color: white;
+}
+
+.total-use-holder-1>button>b {
+    color: white;
+}
+.hist-20 {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .dashboard-user-info-holder-5 {
+        margin-top: 20px;
+    }
+
+    .navigation-bar-holder-3 {
+        width: 25%;
+        height: auto;
+        background: transparent;
+        padding: 25px;
+        margin-top: 50px;
+        display: inline-block;
+    }
+
+
+    .content-holder-4 {
+        width: 40%;
+        height: auto;
+        padding: 20px;
+        overflow-y: scroll;
+        margin-top: 50px;
+        background: transparent;
+    }
+
+    .activity-history-holder-10 {
+        width: 35%;
+        height: auto;
+        margin-top: 50px;
+        padding: 20px;
+    }
+
+    .hist-20 {
+        width: 60%;
+    }
+
+    .b1,
+    .b2 {
+        display: none;
+    }
+
+    .menu-holder-22>button {
+        margin-left: 25px;
+    }
+
+    .actions-holder-22>.dropdown>button {
+        margin-right: 25px;
+    }
+
+
+    .row-holder-1 {
+        overflow-y: scroll;
+    }
+
+    .dashboard-user-info-holder-5 {
+        margin-top: 0px;
+        padding: 5px;
+    }
+}
+
+@keyframes dash-container {
+    10% {
+        opacity: 0.1;
+    }
+
+    20% {
+        opacity: 0.2;
+    }
+
+    30% {
+        opacity: 0.3;
+    }
+
+    40% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    60% {
+        opacity: 0.6;
+    }
+
+    70% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 10;
+    }
+}
+
+.services-400 {
+    background: white;
+    float: left;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+    background: #fff;
+}
+
+.services-container-holder-6 {
+    width: 100%;
+    height: auto;
+}
+
+.services-container-holder-6>div {
+    float: left;
+    width: 33.33333333%;
+    height: 120px;
+    padding: 5px;
+}
+
+.service-holder-7 {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.service-holder-7>p {
+    padding: 0;
+    margin: 0;
+}
+
+.service-holder-7>button {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    align-items: center;
+    border-style: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.service-holder-7>button>i {
+    color: inherit;
+    font-size: 20px;
+    color: dodgerblue;
+}
+
+.service-holder-7:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.activity-history-10 {
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+    overflow-y: scroll;
+}
+
+.search-activity-holder-10 {
+    width: 100%;
+    height: 40px;
+}
+
+.search-activity-holder-10>input {
+    width: 80%;
+    height: 100%;
+    float: left;
+    padding-left: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-style: none;
+    border: 1px solid rgba(0, 0, 0, 0.343);
+    outline: none;
+}
+
+.search-activity-holder-10>input:hover {
+    border: 2px solid rgba(30, 143, 255, 0.561);
+}
+
+.search-activity-holder-10>button {
+    width: 20%;
+    height: 100%;
+    float: left;
+    border-style: none;
+    outline: none;
+    background: dodgerblue;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.search-activity-holder-10>button>i {
+    color: white;
+    font-weight: bold;
+}
+
+.filter-holder-11 {
+    width: 100%;
+    height: 50px;
+    overflow-y: scroll;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-holder-11>div {
+    width: 500px;
+    height: 100%;
+}
+
+.filter-holder-11>div>button {
+    color: inherit;
+    width: auto;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.filter-holder-11>div>button:hover {
+    background: dodgerblue;
+    color: white;
+    transform: translateY(-5px);
+}
+
+
+.activity-hist-holder-11 {
+    width: 100%;
+    max-height: 620px;
+    background: transparent;
+    overflow-y: scroll;
+}
+
+.activity-card-holder-12 {
+    width: 100%;
+}
+
+.activity-card-12 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.card-header {
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.card-header>.activity-status {
+    float: right;
+    font-weight: bold;
+}
+
+.card-body {
+    width: 100%;
+}
+
+.card-body>span {
+    margin-bottom: 5px;
+}
+
+.activity-card-12:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.122);
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.filter-holder-11>div>.active-110 {
+    background: dodgerblue;
+    color: white;
+}
+
+@media only screen and (min-width: 768px) {
+    .services-container-holder-6>div {
+        float: left;
+        width: 33.33333333%;
+        height: auto;
+        padding: 5px;
+    }
+
+    .activity-history-10 {
+        padding: 5px;
+        margin-top: 0;
+    }
+
+
+    .activity-hist-holder-11 {
+        height: 320px;
+    }
+
+}
+
+.footer-holder-5 {
+    width: 100%;
+    height: 50px;
+    background: dodgerblue;
+    color: white;
+    color: inherit;
+    border-top: 1px solid rgba(0, 0, 0, 0.153);
+    text-align: center;
+    padding: 10px;
+    float: left;
+}
+
+.footer-holder-5>p {
+    color: white;
+}
+
+
+#page-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    background: rgba(0, 0, 0, 0.454);
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ddd;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.more-29 {
+    width: 150px;
+    height: 50px;
+    background: dodgerblue;
+    border-style: none;
+    outline: none;
+    border-radius: 10px;
+    margin-left: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.more-29>i {
+    color: white;
+    margin-left: 10px;
+}
+
+
+
+/* user and notification */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 50px;
+    text-align: left;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 9999;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+    background: #fff;
+}
+
+
+.avator-holder-20 {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+}
+
+.avator-holder-20>button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+}
+
+.avator-holder-20>button>i {
+    font-size: 30px;
+}
+
+.dropdown-content>a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+}
+
+.dropdown-content>a>button {
+    border-style: none;
+    background: red;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    width: 100%;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.dropdown-content>button {
+    border-style: none;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-content>a>button>i {
+    color: white;
+}
+
+.dropdown-content>button>i {
+    color: white;
+}
+
+
+
+
+.ads-holder-10 {
+    width: 100%;
+    height: 500px;
+    border-radius: 5px;
+}
+
+.ads-holder-10>button {
+    border-style: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ===============================
+   NOTIFICATION BADGE
+================================ */
+.notif-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: #ff3b3b;
+    color: #fff;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+
+/* Smooth animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   NOTIFICATION DROPDOWN
+================================ */
+.notif-dropdown {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Header */
+.notif-header {
+    padding: 12px 15px;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    background: transparent;
+}
+
+/* List */
+.notif-list {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Scrollbar */
+.notif-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.notif-list::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+}
+
+/* Item */
+.notif-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.notif-item:hover {
+    background: rgba(255, 255, 255, 0.155);
+}
+
+/* Unread */
+.notif-unread {
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.155);
+}
+
+/* Empty */
+.notif-empty {
+    padding: 20px;
+    text-align: center;
+    color: #888;
+}
+
+/* ===============================
+   USER DROPDOWN
+================================ */
+#userMenu {
+    width: 80%;
+    padding: 15px;
+    margin-left: 20%;
+}
+
+/* Avatar */
+.avator-holder-20 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.avator-holder-20 button {
+    background: none;
+    border: none;
+    font-size: 40px;
+    color: inherit;
+}
+
+/* Email */
+#userMenu p {
+    font-size: 13px;
+    color: inherit;
+    margin: 5px 0;
+}
+
+/* Logout button */
+#userMenu a button {
+    width: 100%;
+    padding: 8px;
+    background: #007bff;
+    border: none;
+    color: inherit;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#userMenu a button:hover {
+    background: #0056b3;
+}
+
+.notif-delete {
+    background: none;
+    border: none;
+    color: #ff4d4f;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    float: right;
+}
+
+.notif-delete:hover {
+    transform: scale(1.2);
+    color: red;
+}
+
+.notif-item {
+    transition: all 0.3s ease;
+}
+
+.change-password-20 {
+    width: 100%;
+    height: auto;
+    background: transparent;
+    padding: 10px;
+}
+
+.input-20 {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    outline: none;
+}
+
+.input-20>input {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    background: transparent;
+    outline: none;
+    border: 1px solid dodgerblue;
+    border-radius: 2px;
+}
+
+.input-20>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    background: dodgerblue;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.input-20>button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+    .notif-badge {
+        position: absolute;
+        top: -6px;
+        right: 15px;
+        background: #ff3b3b;
+        color: #fff;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 50%;
+        font-weight: bold;
+    }
+
+    #userMenu {
+        width: 40%;
+        padding: 15px;
+        margin-left: 60%;
+    }
+
+}
+
+
+
+
+.pricing-section {
+    padding: 20px;
+}
+
+.pricing-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Each card = 50% width (minus gap) */
+.price-card {
+    position: relative;
+    border-radius: 15px;
+    padding: 25px;
+    flex: 0 0 calc(50% - 10px);
+    /* 👈 KEY CHANGE */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+    background: #fff;
+    cursor: pointer;
+}
+
+.price-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Cloudflare badge */
+.cloudflare-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fff3e6;
+    color: #f38020;
+    padding: 6px 8px;
+    border-radius: 50%;
+    font-size: 14px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon>i {
+    font-size: 25px;
+    color: dodgerblue;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.price span {
+    font-size: 12px;
+    color: gray;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+ul li {
+    margin: 8px 0;
+    color: #555;
+}

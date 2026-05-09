@@ -1,0 +1,124 @@
+.get-coin-content-holder-30 {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin-top: 50px;
+}
+
+.get-coin-content-holder-30>div {
+    float: left;
+    width: 100%;
+    padding: 5px;
+    height: 500px;
+}
+
+
+.qrcode-holder-30>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    border-radius: 5px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.qrcode-holder-30>button>img {
+    width: 200px;
+    height: 200px;
+}
+
+
+.number-input-30 {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    padding: 20px;
+}
+
+.inputs-holder-30 {
+    width: 100%;
+    height: 40px;
+}
+
+.payment-holder-30 {
+    width: 100%;
+    height: auto;
+}
+
+.payment-holder-30>div {
+    float: left;
+    width: 100%;
+}
+
+.inputs-holder-30>input {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    border-radius: 2px;
+    padding-left: 10px;
+    border: 1px solid rgba(30, 143, 255, 0.247);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.inputs-holder-30>input:focus {
+    border: 1px solid rgba(30, 143, 255, 0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.submit-holder-30 {
+    width: 100%;
+    background: transparent;
+    height: 40px;
+    margin-top: 120px;
+}
+
+.submit-holder-30>button {
+    width: 150px;
+    height: 100%;
+    background: dodgerblue;
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 2px;
+}
+
+.submit-holder-30>button:hover {
+    opacity: 0.7;
+}
+
+
+.phone-20 {
+    margin-top: 50px;
+}
+
+.phone-21 {
+    margin-top: 200px;
+}
+
+@media only screen and (min-width: 768px) {
+    .get-coin-content-holder-30 {
+        padding: 20px;
+    }
+
+    .get-coin-content-holder-30>div {
+        float: left;
+        width: 50%;
+        padding: 20px;
+    }
+
+    .payment-holder-30>div {
+        float: left;
+        width: 50%;
+    }
+
+    .phone-20 {
+        margin-top: 0px;
+        padding-left: 10px;
+    }
+
+    .phone-21 {
+        margin-top: 120px;
+    }
+}
