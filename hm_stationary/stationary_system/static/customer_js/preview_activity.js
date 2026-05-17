@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", `/stationary/customer/delete-pending-activity/${selectedActivityId}/`, true);
+        xhr.open("POST", `/customer/delete-pending-activity/${selectedActivityId}/`, true);
         xhr.setRequestHeader("X-CSRFToken", csrf.value);
 
         xhr.onload = function () {
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (card) card.remove();
                     }
                     // Show success message and redirect to dashboard on OK
-                    showMessage("Activity deleted successfully.", DASHBOARD_URL);
+                    showMessage("Service deleted successfully.", DASHBOARD_URL);
                 } else {
                     showMessage(data.error || "Error deleting activity.");
                 }

@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const user_type = USER_TYPE;
 
-    const NOTIF_URL = "/stationary/notifications/";
-    const MARK_READ_URL = "/stationary/notifications/read/";
+    const NOTIF_URL = "/notifications/";
+    const MARK_READ_URL = "/notifications/read/";
 
-    const DELETE_URL = "/stationary/notifications/delete/";
+    const DELETE_URL = "/notifications/delete/";
 
     const change_password_url = CHANGE_PASSWORD;
 
@@ -125,10 +125,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (user_type === "customer") {
                 window.location.href =
-                    `/stationary/customer/preview-activity/${n.activity_id}/`;
+                    `/customer/preview-activity/${n.activity_id}/`;
             } else if (user_type === "stationary") {
                 window.location.href =
-                    `/stationary/stationary/preview_activity/${n.activity_id}/`;
+                    `/stationary/preview_activity/${n.activity_id}/`;
             }
         });
 

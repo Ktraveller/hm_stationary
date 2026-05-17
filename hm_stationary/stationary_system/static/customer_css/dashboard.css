@@ -2,27 +2,17 @@
     box-sizing: border-box;
     font-size: 12px;
     font-family: 'Trebuchet MS', sans-serif;
-    color: rgba(0, 0, 0, 0.84);
-}
-
-html,
-body {
-    padding: 0;
-    margin: 0;
-    background: white;
 }
 
 .row-holder-1 {
     width: 100%;
     height: auto;
-    overflow-y: scroll;
     background: transparent;
 }
 
 .heading-holder-2 {
     width: 100%;
     height: 50px;
-    background: dodgerblue;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,13 +26,12 @@ body {
     height: 500px;
     background: white;
     padding: 10px;
-    margin-top: 50px;
     display: none;
 }
 
 
 .navigation-holder-4 {
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .search-nav-holder-4 {
@@ -58,12 +47,12 @@ body {
     border-style: none;
     border: 1px solid rgba(0, 0, 0, 0.225);
     outline: none;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 .search-nav-holder-4>input:hover {
-    border: 2px solid rgba(30, 143, 255, 0.488);
+    border: 2px solid rgba(1, 66, 98, 0.463);
 }
 
 
@@ -71,13 +60,13 @@ body {
     width: 20%;
     height: 100%;
     float: left;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
     font-weight: bold;
     outline: none;
     border-style: none;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 
@@ -100,7 +89,7 @@ body {
     height: 40px;
     padding-left: 10px;
     padding-right: 10px;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
     border-radius: 10px;
     outline: none;
@@ -121,11 +110,11 @@ body {
 .exit-button-6 {
     width: 100px;
     height: 40px;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
     outline: none;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 5px;
     border-style: none;
 }
 
@@ -234,7 +223,7 @@ body {
     width: 100%;
     height: auto;
     float: left;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .total-container-6 {
@@ -250,7 +239,7 @@ body {
 }
 
 .total-7 {
-    background: rgba(0, 128, 128, 0.497);
+    background: rgba(1, 65, 98);
 
 }
 
@@ -262,7 +251,7 @@ body {
     width: 100%;
     height: auto;
     background: transparent;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-top: 5px;
     color: white;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -278,10 +267,10 @@ body {
 .user-info-holder-5 {
     width: 100%;
     height: 120px;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .user-info-holder-5>div {
@@ -294,8 +283,8 @@ body {
     background: transparent;
     color: white;
     font-weight: bold;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 
@@ -340,8 +329,8 @@ body {
     padding: 10px;
     color: white;
     font-weight: bold;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .total-use-info-5>div {
@@ -396,7 +385,7 @@ body {
         width: 40%;
         height: auto;
         padding: 20px;
-        overflow-y: scroll;
+        overflow-y: auto;
         margin-top: 50px;
         background: transparent;
     }
@@ -427,7 +416,7 @@ body {
 
 
     .row-holder-1 {
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .dashboard-user-info-holder-5 {
@@ -483,7 +472,7 @@ body {
     float: left;
     padding: 10px;
     margin-top: 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     transition: 0.3s ease;
     background: #fff;
@@ -507,7 +496,7 @@ body {
     padding: 10px;
     padding-top: 20px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
 }
 
@@ -519,7 +508,7 @@ body {
 .service-holder-7>button {
     width: 40px;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
     align-items: center;
     border-style: none;
     cursor: pointer;
@@ -529,7 +518,7 @@ body {
 .service-holder-7>button>i {
     color: inherit;
     font-size: 20px;
-    color: dodgerblue;
+    color: rgba(1, 65, 98);
 }
 
 .service-holder-7:hover {
@@ -562,7 +551,7 @@ body {
 }
 
 .search-activity-holder-10>input:hover {
-    border: 2px solid rgba(30, 143, 255, 0.561);
+    border: 2px solid rgba(1, 66, 98, 0.434);
 }
 
 .search-activity-holder-10>button {
@@ -571,7 +560,7 @@ body {
     float: left;
     border-style: none;
     outline: none;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -605,7 +594,7 @@ body {
 }
 
 .filter-holder-11>div>button:hover {
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
     transform: translateY(-5px);
 }
@@ -656,7 +645,7 @@ body {
 }
 
 .filter-holder-11>div>.active-110 {
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
 }
 
@@ -683,7 +672,7 @@ body {
 .footer-holder-5 {
     width: 100%;
     height: 50px;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     color: white;
     color: inherit;
     border-top: 1px solid rgba(0, 0, 0, 0.153);
@@ -712,7 +701,7 @@ body {
     width: 50px;
     height: 50px;
     border: 5px solid #ddd;
-    border-top: 5px solid #3498db;
+    border-top: 5px solid rgba(1, 65, 98);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -726,7 +715,7 @@ body {
 .more-29 {
     width: 150px;
     height: 50px;
-    background: dodgerblue;
+    background: rgba(1, 65, 98);
     border-style: none;
     outline: none;
     border-radius: 10px;

@@ -7,6 +7,10 @@ from .views.customer_views import c_dashboard, c_activities, notifications, paym
 
 
 urlpatterns = [
+    # Demo pages
+    path('', c_dashboard.demo, name='demo'),
+
+
     # login 
     path('admin/', login.login_page_admin, name='login_page_admin'),
     path('stationary/', login.login_page_stationary, name='login_page_stationary'),
@@ -61,6 +65,8 @@ urlpatterns = [
 
     # customer site    
     path('customer/dashboard/', c_dashboard.customer_dashboard, name='customer_dashboard'),
+    path('customer/profile/', c_dashboard.profile, name='customer_profile'),
+    path('customer/help/', c_dashboard.help, name='customer_help'),
     path('customer/payment/<str:activity>', c_dashboard.make_payment, name='payment'),
 
     path('customer/submit_payment/', payment.submit_payment, name='submit_payment'),
@@ -78,6 +84,7 @@ urlpatterns = [
     path('customer/customer-activity-history/', c_activities.customer_activity_history, name='customer_activity_history'),
     path('customer/delete-uploaded-file/<int:file_id>/', c_activities.delete_uploaded_file, name='delete_uploaded_file'),
     path('customer/download-processed-file/<int:file_id>/', c_activities.download_processed_file, name='download_customer_processed_file'),
+
 
     
 

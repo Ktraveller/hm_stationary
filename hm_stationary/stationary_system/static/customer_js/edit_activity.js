@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             progressBar.style.width = percent + "%";
         }, 50);
 
-        fetch(`/stationary/customer/delete-uploaded-file/${fileId}/`, {
+        fetch(`/customer/delete-uploaded-file/${fileId}/`, {
             method: "POST",
             headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value }
         })
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
             catch { data = { success: false, message: "Invalid server response" }; }
 
             showMessage(
-                data.message || (data.success ? "Activity updated successfully" : "Failed to update activity"),
+                data.message || (data.success ? "Service updated successfully" : "Failed to update service"),
                 data.success ? data.next_url : null
             );
 

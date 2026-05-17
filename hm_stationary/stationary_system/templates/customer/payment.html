@@ -5,11 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMS | Payment</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>eStationary | Payment</title>
+    <link rel="stylesheet" href="{% static 'customer_css/dash.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/get-coin.css' %}">
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+        <style>
         .spinner {
             width: 30px;
             height: 30px;
@@ -78,86 +81,52 @@
         <div class="spinner"></div>
     </div>
 
-    <div class="row-holder-1">
+    <div class="row-holder">
 
-        <div class="heading-holder-2">
-
-            <div class="title-holder-21">
-                <div class="menu-holder-22">
-                    <button type="button" onclick="window.history.back();">
-                        <i class="fas fa-arrow-left"></i>
+        <div class="nav-bar-holder-10">
+            <!-- Navbar -->
+            <div class="nav-content-11">
+                <div class="nav-holder-20">
+                    <button type="button" onclick="window.location.href=`{% url 'customer_dashboard' %}`">
+                        <i class="fas fa-home"></i><br>
+                        Home
                     </button>
-                    <button type="button"><span style="font-weight: bold;">HMS collaborative</span></button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">
+                        <i class="fas fa-history"></i><br>
+                        History
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'customer_profile' %}`">
+                        <i class="fas fa-user"></i><br>
+                        Profile
+                    </button>
+
+                    <!-- help -->
+                    <button type="button" onclick="window.location.href=`{% url 'customer_help' %}`">
+                        <i class="fas fa-question-circle"></i><br>
+                        Help
+                    </button>
                 </div>
             </div>
-
-
-            <div class="actions-holder-22">
-
-                <!-- Notifications
-                <div class="dropdown">
-                    <button class="dropbtn" id="notifBtn" type="button">
-                        <i class="fas fa-bell"></i>
-                        <span id="notifCount" class="notif-badge">0</span>
-                    </button>
-
-                    <div class="dropdown-content notif-dropdown" id="notifMenu">
-                        <div class="notif-header">
-                            <span>Notifications</span>
-                        </div>
-
-                        <div id="notifList" class="notif-list">
-                            <div class="notif-empty">No notifications</div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- User 
-                <div class="dropdown">
-                    <button class="dropbtn" id="userBtn" type="button">
-                        <i class="fas fa-user-circle"></i>
-                    </button>
-                    <div class="dropdown-content" id="userMenu">
-                        <a href="{% url 'customer_logout' %}">
-                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                        </a>
-
-                        <button type="button" style="margin-right: 5px; background: teal;" onclick="open_edit()">
-                            <i class="fas fa-key"></i> Change Password</button>
-
-
-                        <div class="change-password-20" onclick="event.stopPropagation()" id="edit_20"
-                            style="display: none;">
-                            <br><br><br>
-                            <hr style="color: rgba(30, 143, 255, 0.876);">
-                            <p style="font-weight: bold;">Change account password</p>
-                            <form method="post">
-                                {% csrf_token %}
-
-                                <p>Write current password</p>
-                                <div class="input-20">
-                                    <input type="password" name="old_password" required autocomplete="off">
-                                </div>
-
-                                <p>Write new password</p>
-                                <div class="input-20">
-                                    <input type="password" name="new_password" required autocomplete="off">
-                                </div>
-
-                                <br>
-                                <div class="input-20">
-                                    <button type="submit">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-
         </div>
 
+        <div class="content-holder-10">
+            <div class="content-holder-11">
+                <!-- Heading -->
+                <div class="heading-holder-12">
+                    <div class="heading-title-12">
+                        <p>eStationary</p>
+                    </div>
+                </div>
+
+                <!-- Recently services -->
+                <div class="activity-history-holder-15">
+                    <div class="activity-history-15">
+                    <div class="row-holder-1">
+
         <div class="get-coin-content-holder-30">
-            <p style="text-align: center; font-weight: bold;">Make payment for activity <b style="color: dodgerblue;">
+            <p style="text-align: center; font-weight: bold;">Make payment for service <b style="color: dodgerblue;">
                     {{ activity.activity_id }}</b></p>
             <div class="qrcode-holder-30">
                     <p>Activity costs: <b>{{ activity.costs }} Tsh</b></p>
@@ -186,8 +155,7 @@
 
                     <div class="number-input-30">
                         <p>
-                            Fill below information to complete activity payment,
-                            <b>make sure amount paid is correct before submitting request</b>
+                           Make sure you submit request after payment, for system to process your service</b>
                         </p>
 
                         <div class="payment-holder-30">
@@ -214,7 +182,7 @@
                             <button type="submit" id="submitBtn" style="border-radius: 50px;"><i id="icon" class="fa fa-save" style="color: white;"></i> Submit request</button>
                         </div>
                         <br><br><br>
-                        <p>For more informations, contact us <b>0622652290.</b></p>
+                        <p>For more informations, contact us <b>0622652290.</b></p><br><br><br><br><br><br><br>
                     </div>
                 </form>
 
@@ -237,7 +205,17 @@
 
 
     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
     <script>
+        // loader
         window.addEventListener("load", function () {
             const loader = document.getElementById("page-loader");
             loader.style.transition = "opacity 0.5s ease";
@@ -252,7 +230,6 @@
         const CHANGE_PASSWORD = "{% url 'change_password' %}";
     </script>
 
-    <script src="{% static 'customer_js/notifications.js' %}"></script>
 
     <script>
         function getCSRFToken() {

@@ -1,6 +1,4 @@
 import re
-import string
-import random
 
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -11,8 +9,6 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.contrib.auth.models import Group
-from django.db import transaction
-
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -83,54 +79,110 @@ def login_page_stationary(request):
     return render(request, "stationary/login_stationary.html")
 
 
+    
 
 
-# auto signup for customer
-@transaction.atomic
+# login and signup for customer
+def format_phone(phone):
+    phone = phone.replace(" ", "").strip()
+
+    # Remove leading 0
+    if phone.startswith("0"):
+        phone = phone[1:]
+
+    return phone
+
+# signup for customer
 def signup(request):
+    if request.method == "POST":
+        phone = request.POST.get("phone", "").strip()
+        password = request.POST.get("password", "")
 
-    # ✅ Lock latest customer row to prevent duplicate IDs
-    last_user = (
-        CustomUser.objects
-        .select_for_update()
-        .filter(username__startswith="CU")
-        .order_by("-username")
-        .first()
-    )
+        phone = format_phone(phone)
 
-    # ✅ Generate next ID safely
-    if last_user:
-        last_number = int(last_user.username.replace("CU", ""))
-        new_number = last_number + 1
-    else:
-        new_number = 0
+        # ✅ Validate phone
+        if not phone.isdigit() or len(phone) != 9:
+            return JsonResponse({
+                "status": "error",
+                "message": "Phone number must be exactly 9 digits"
+            })
 
-    user_id = f"CU{new_number:04d}"
+        # ✅ Check if already exists
+        if CustomUser.objects.filter(phone=phone).exists():
+            return JsonResponse({
+                "status": "error",
+                "message": "Phone number already registered"
+            })
 
-    # ✅ Generate secure random password
-    password = ''.join(
-        random.choices(string.ascii_letters + string.digits, k=8)
-    )
+        # ✅ Create user
+        user = CustomUser.objects.create_user(
+            username=phone,   # use phone as username
+            phone=phone,
+            password=password
+        )
 
-    # ✅ Create user
-    user = CustomUser.objects.create_user(
-        username=user_id,
-        password=password
-    )
+        # ✅ Add to group
+        group = Group.objects.get(name='customer')
+        user.groups.add(group)
 
-    # ✅ Add user to customer group
-    group, created = Group.objects.get_or_create(name='customer')
-    user.groups.add(group)
+        # ✅ Login user
+        login(request, user)
 
-    # ✅ Auto login
-    login(request, user)
+        return JsonResponse({
+            "status": "success",
+            "message": "Signup successful!",
+            "redirect": reverse('customer_dashboard')
+        })
 
-    # redirect to customer dashboard
-    return redirect('customer_dashboard')
+    return JsonResponse({
+        "status": "error",
+        "message": "Invalid request"
+    })
 
-# return home
+
+# login for customer
 def login_customer(request):
+    if request.user.is_authenticated:
+        return redirect('customer_dashboard')
+
+    if request.method == "POST":
+        phone = request.POST.get("phone", "").strip()
+        password = request.POST.get("password", "").strip()
+
+        phone = format_phone(phone)
+
+        # Validate phone (must be 9 digits)
+        if not phone.isdigit() or len(phone) != 9:
+            return JsonResponse({
+                "status": "error",
+                "message": "Phone number must be exactly 9 digits"
+            })
+
+        try:
+            user_obj = CustomUser.objects.get(phone=phone)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({
+                "status": "error",
+                "message": "Invalid phone or password"
+            })
+
+        user = authenticate(request, username=user_obj.username, password=password)
+
+        if user:
+            login(request, user)
+            return JsonResponse({
+                "status": "success",
+                "message": "Login successful!",
+                "redirect": reverse('customer_dashboard')
+            })
+
+        return JsonResponse({
+            "status": "error",
+            "message": "Invalid phone or password"
+        })
+
     return render(request, "customer/login_customer.html")
+
 
 
 # change password

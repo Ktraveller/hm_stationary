@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{% static 'customer_css/dash.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -74,24 +72,11 @@
                         <p>Recently services</p>
                         <div class="activity-card-holder-16">
                             <!-- History card -->
-                             {% for activity in activities  %}
-                            <div class="activity-card-16"
-                            onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
-                                <div class="activity-number-holder-16">
-                                    <button type="button" style="color: white; font-weight: bold;">{{ activity.id }}</button>
-                                </div>
-                                <div class="activity-details-holder-16">
-                                    <b>{{ activity.activity_type }}</b><br>
-                                    <span>{{ activity.activity_id }}, status: {{ activity.status }}</span>
-                                    <span style="margin-left: 20px;">{{ activity.sent_date|date:"d-m-Y H:i" }}</span>
-                                </div>
-                            </div>
-                            {% empty %}
                             <p style="text-align: center;">History empty!</p>
-                            {% endfor %}
                         </div>
                         <div class="view-more-15">
-                            <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">View all</button>
+                            <button type="button"
+                                onclick="window.location.href=`{% url 'customer_activity_history' %}`">View all</button>
                         </div>
                     </div>
                 </div>
@@ -112,12 +97,12 @@
                     Printing
                 </button>
 
-                <button type="button" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                <button type="button">
                     <i class="fas fa-keyboard"></i><br><br>
                     Typing
                 </button>
 
-                <button type="button" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                <button type="button">
                     <i class="fas fa-edit"></i><br><br>
                     Editing
                 </button>

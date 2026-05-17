@@ -5,11 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMS | Typing and editing</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>eStationary | Typing or editing</title>
+    <link rel="stylesheet" href="{% static 'customer_css/dash.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/activities.css' %}">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -18,180 +20,188 @@
         <div class="spinner"></div>
     </div>
 
+    <div class="row-holder">
 
-    <form id="printingForm" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row-holder-1">
-
-            <div class="heading-holder-2">
-
-                <div class="title-holder-21">
-                    <div class="menu-holder-22">
-                        <button type="button" onclick="window.history.back();">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button type="button"><span style="font-weight: bold;">HMS collaborative</span></button>
-                    </div>
-                </div>
-
-
-            <div class="actions-holder-22">
-
-                    <!-- Notifications 
-                <div class="dropdown">
-                    <button class="dropbtn" id="notifBtn" type="button">
-                        <i class="fas fa-bell"></i>
-                        <span id="notifCount" class="notif-badge">0</span>
+        <div class="nav-bar-holder-10">
+            <!-- Navbar -->
+            <div class="nav-content-11">
+                <div class="nav-holder-20">
+                    <button type="button" onclick="window.location.href=`{% url 'customer_dashboard' %}`">
+                        <i class="fas fa-home"></i><br>
+                        Home
                     </button>
 
-                    <div class="dropdown-content notif-dropdown" id="notifMenu">
-                        <div class="notif-header">
-                            <span>Notifications</span>
-                        </div>
-
-                        <div id="notifList" class="notif-list">
-                            <div class="notif-empty">No notifications</div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- User
-                <div class="dropdown">
-                    <button class="dropbtn" id="userBtn" type="button">
-                        <i class="fas fa-user-circle"></i>
+                    <button type="button" id="openModal1">
+                        <i class="fas fa-cogs"></i><br>
+                        Services
                     </button>
-                    <div class="dropdown-content" id="userMenu">
-                        <a href="{% url 'customer_logout' %}">
-                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                        </a>
 
-                    </div>
-                </div> -->
+                    <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">
+                        <i class="fas fa-history"></i><br>
+                        History
+                    </button>
 
-            </div>
+                    <button type="button" onclick="window.location.href=`{% url 'customer_profile' %}`">
+                        <i class="fas fa-user"></i><br>
+                        Profile
+                    </button>
 
-            </div>
-
-
-            <div class="choose-stationary-holder-25">
-                <div class="activity-header-holder-23">
-                    <button class="activity-header-23" type="button">
-                        <i class="fas fa-keyboard"></i> <br> Typing and editing
+                    <!-- help -->
+                    <button type="button" onclick="window.location.href=`{% url 'customer_help' %}`">
+                        <i class="fas fa-question-circle"></i><br>
+                        Help
                     </button>
                 </div>
-
-                <div class="choose-stationary-25">
-                    <p style="font-weight: bold;">Choose stationary</p>
-                    <div class="search-nav-holder-4">
-                        <input type="search" id="stationarySearch" placeholder="Search stationary ...">
-                        <button type="button" class="button-search-4">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-
-                    <div class="stationary-list-25">
-                        {% for station in stations %}
-                        {% for area in station.areas.all %}
-                        <div class="option-25-1">
-                            <input type="radio" name="stationary_id" value="{{ station.id }}"
-                                data-lat="{{ area.latitude }}" data-lng="{{ area.longitude }}" required>
-                            <span>{{ station.stationary_name }}</span>
-                        </div>
-                        {% endfor %}
-                        {% endfor %}
-
-                        <p id="noStationaryResult" style="display:none; text-align:center; color:gray;">
-                            No stationary found
-                        </p>
-                    </div>
-
-                    <div class="open-map-button-25">
-                        <button type="button" id="viewMapBtn" onclick="openMap()" style="display:none;"
-                            class="map-btn-hidden">
-                            <i class="fas fa-map"></i> View in map</button>
-                    </div>
-
-                </div>
             </div>
-
-
-            <div class="create-activity-holder-14">
-                <div class="create-activity-14">
-
-                    <div class="create-activity-14" style="width: 100%; box-shadow: unset;">
-                        <p style="font-weight: bold;">Attach documents needed for typing or editing</p>
-
-                        <div class="upload-holder-450">
-                            <button type="button" onclick="document.getElementById('fileInput').click()">
-                                <i class="fas fa-cloud-arrow-up"></i>
-                                Click to attach
-                                <input type="file" name="files" id="fileInput" multiple hidden>
-                            </button>
-                        </div>
-
-                        <p>Attached files:</p>
-                        <div class="file-preview-holder-15" id="previewContainer">
-                        </div>
-
-                        <!-- Modal for images -->
-                        <div id="fileModal">
-                            <div id="fileModalContent"></div>
-                        </div>
-
-                    </div>
-
-                    <br><br>
-                    <p style="font-weight: bold; padding-left: 10px;">Specify document format (optional)</p>
-
-                    <div class="inputs-holder-59">
-                        <div class="inputs-59">
-                            <p>Font family</p>
-                            <select name="font_family">
-                                <option value="Times new roman">Times new roman</option>
-                                <option value="Tahoma">Tahoma</option>
-                                <option value="Calibri">Calibri</option>
-                            </select>
-                        </div>
-
-                        <div class="inputs-59">
-                            <p>Font size</p>
-                            <select name="font_size">
-                                <option value="10">12</option>
-                                <option value="12">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                            </select>
-                        </div>
-
-                        <div class="inputs-59">
-                            <p>Text alignment</p>
-                            <select name="text_alignment">
-                                <option value="Left">Left</option>
-                                <option value="Right">Right</option>
-                                <option value="Center">Center</option>
-                                <option value="Justified">Justified</option>
-                            </select>
-                        </div>
-
-                        <div class="inputs-60">
-                            <p>Write additional informations for your document</p>
-                            <textarea name="other_details"></textarea>
-                        </div>
-
-                        <div class="create-activity-14" style="width: 100%; box-shadow: unset;">
-                        <div class="button-holder-14">
-                            <button type="submit"><i class="fas fa-upload"></i>
-                                Submit for typing or editing</button>
-                        </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
-    </form>
 
+        <div class="content-holder-10">
+            <div class="content-holder-11">
+                <!-- Heading -->
+                <div class="heading-holder-12">
+                    <div class="heading-title-12">
+                        <p>eStationary</p>
+                    </div>
+                </div>
+
+                <!-- Recently services -->
+                <div class="activity-history-holder-15">
+                    <div class="activity-history-15">
+                        <form id="printingForm" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row-holder-1">
+
+
+                                <div class="choose-stationary-holder-25">
+                                    <div class="activity-header-holder-23">
+                                        <button class="activity-header-23" type="button">
+                                            <i class="fas fa-keyboard"></i> <br> Typing and editing
+                                        </button>
+                                    </div>
+
+                                    <div class="choose-stationary-25">
+                                        <p style="font-weight: bold;">Choose stationary</p>
+                                        <div class="search-nav-holder-4">
+                                            <input type="search" id="stationarySearch"
+                                                placeholder="Search stationary ...">
+                                            <button type="button" class="button-search-4">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="stationary-list-25">
+                                            {% for station in stations %}
+                                            {% for area in station.areas.all %}
+                                            <div class="option-25-1">
+                                                <input type="radio" name="stationary_id" value="{{ station.id }}"
+                                                    data-lat="{{ area.latitude }}" data-lng="{{ area.longitude }}" data-phone="{{ station.phone }}"
+                                                    required>
+                                                <span>{{ station.stationary_name }}</span>
+                                            </div>
+                                            {% endfor %}
+                                            {% endfor %}
+
+                                            <p id="noStationaryResult"
+                                                style="display:none; text-align:center; color:gray;">
+                                                No stationary found
+                                            </p>
+                                        </div>
+
+                                        <div class="open-map-button-25">
+                                            <button type="button" id="viewMapBtn" onclick="openMap()"
+                                                style="display:none;" class="map-btn-hidden">
+                                                <i class="fas fa-map"></i> View in map</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="create-activity-holder-14">
+                                    <div class="create-activity-14">
+
+                                        <div class="create-activity-14" style="width: 100%; box-shadow: unset;">
+                                            <p style="font-weight: bold;">Attach documents needed for typing or editing
+                                            </p>
+
+                                            <div class="upload-holder-450">
+                                                <button type="button"
+                                                    onclick="document.getElementById('fileInput').click()">
+                                                    <i class="fas fa-cloud-arrow-up"></i>
+                                                    Click to attach
+                                                    <input type="file" name="files" id="fileInput" multiple hidden>
+                                                </button>
+                                            </div>
+
+                                            <p>Attached files:</p>
+                                            <div class="file-preview-holder-15" id="previewContainer">
+                                            </div>
+
+                                            <!-- Modal for images -->
+                                            <div id="fileModal">
+                                                <div id="fileModalContent"></div>
+                                            </div>
+
+                                        </div>
+
+                                        <br><br>
+                                        <p style="font-weight: bold; padding-left: 10px;">Specify document format
+                                            (optional)</p>
+
+                                        <div class="inputs-holder-59">
+                                            <div class="inputs-59">
+                                                <p>Font family</p>
+                                                <select name="font_family">
+                                                    <option value="Times new roman">Times new roman</option>
+                                                    <option value="Tahoma">Tahoma</option>
+                                                    <option value="Calibri">Calibri</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="inputs-59">
+                                                <p>Font size</p>
+                                                <select name="font_size">
+                                                    <option value="10">12</option>
+                                                    <option value="12">10</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="inputs-59">
+                                                <p>Text alignment</p>
+                                                <select name="text_alignment">
+                                                    <option value="Left">Left</option>
+                                                    <option value="Right">Right</option>
+                                                    <option value="Center">Center</option>
+                                                    <option value="Justified">Justified</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="inputs-60">
+                                                <p>Write additional informations for your document</p>
+                                                <textarea name="other_details"></textarea>
+                                            </div>
+
+                                            <div class="create-activity-14" style="width: 100%; box-shadow: unset;">
+                                                <div class="button-holder-14">
+                                                    <button type="submit"><i class="fas fa-upload"></i>
+                                                        Submit for typing or editing</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <!-- Success Modal -->
     <div id="messageModal" style="display:none;">
         <div class="modal-overlay">
@@ -221,7 +231,6 @@
         </div>
     </div>
 
-
     <!-- Map model -->
     <div id="mapModal" style="display:none;">
         <div class="map-modal-content">
@@ -232,13 +241,69 @@
 
     <div id="activityActions" data-dashboard-url="{% url 'customer_dashboard' %}"></div>
 
+
+        <!-- Choose services div -->
+    <div class="choose-services-holder-20" id="myModal">
+        <div class="choose-services-20">
+            <p style="text-align: center; font-weight: bold;">Choose services type
+                <i class="fas fa-close" style="float: right;margin-right: 20px; cursor: pointer;" id="closeModal"></i>
+            </p>
+            <div class="services-holder-20">
+                <button type="button" onclick="window.location.href = `{% url 'printing' %}`">
+                    <i class="fas fa-print"></i><br><br>
+                    Printing
+                </button>
+
+                <button type="button" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                    <i class="fas fa-keyboard"></i><br><br>
+                    Typing
+                </button>
+
+                <button type="button" onclick="window.location.href = `{% url 'typing_editing' %}`">
+                    <i class="fas fa-edit"></i><br><br>
+                    Editing
+                </button>
+            </div>
+
+            <p style="font-weight: bold;">Prices</p>
+            <p>Printing: 100Tsh per page</p>
+            <p>Typing: 200Tsh per word</p>
+            <p>Editing: 200Tsh per page</p>
+        </div>
+    </div>
+
     <script>
         const USER_ID = "{{ request.user.id }}";
         const USER_TYPE = "customer";
         const CHANGE_PASSWORD = "{% url 'change_password' %}";
     </script>
     <script src="{% static 'customer_js/printing_preview.js' %}"></script>
-    <script src="{% static 'customer_js/notifications.js' %}"></script>
+
+    <script>
+                const modal = document.getElementById("myModal");
+        const openBtn1 = document.getElementById("openModal1");
+        const closeBtn = document.getElementById("closeModal");
+
+        // Open modal
+        openBtn1.addEventListener("click", () => {
+            modal.style.display = "block";
+        });
+
+
+        // Close modal
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // loader
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+
+    </script>
 </body>
 
 </html>

@@ -24,154 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const DELETE_URL = "/stationary/notifications/delete/";
 
 
-    // =============================
-    // DROPDOWNS
-    // =============================
-    if (notifBtn && userBtn && notifMenu && userMenu) {
-
-        notifBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            notifMenu.style.display =
-                notifMenu.style.display === "block" ? "none" : "block";
-            userMenu.style.display = "none";
-        });
-
-        userBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            userMenu.style.display =
-                userMenu.style.display === "block" ? "none" : "block";
-            notifMenu.style.display = "none";
-        });
-
-        document.addEventListener("click", function () {
-            notifMenu.style.display = "none";
-            userMenu.style.display = "none";
-        });
-    }
-
-    // =============================
-    // CSRF
-    // =============================
-    function getCSRFToken() {
-        const token = document.querySelector('[name=csrfmiddlewaretoken]');
-        return token ? token.value : "";
-    }
-
-    // =============================
-    // LOAD NOTIFICATIONS (FROM DATABASE)
-    // =============================
-    function loadNotifications() {
-        fetch(NOTIF_URL)
-            .then(res => res.json())
-            .then(data => {
-                renderNotifications(data.notifications);
-                if (notifCount) notifCount.innerText = data.unread_count;
-            })
-            .catch(err => console.log("❌ Load error:", err));
-    }
-
-    loadNotifications();
-
-    // =============================
-    // RENDER LIST
-    // =============================
-    function renderNotifications(notifs) {
-
-        if (!notifList) return;
-
-        if (!notifs || notifs.length === 0) {
-            notifList.innerHTML = `<div class="notif-empty">No notifications</div>`;
-            return;
-        }
-
-        notifList.innerHTML = "";
-
-        notifs.forEach(n => createNotifElement(n, false));
-    }
-
-    // =============================
-    // CREATE NOTIFICATION ITEM
-    // =============================
-    function createNotifElement(n, prepend = true) {
-
-        const div = document.createElement("div");
-        div.className = "notif-item " + (!n.is_read ? "notif-unread" : "");
-
-        div.innerHTML = `
-            <div class="notif-content">
-                <div class="notif-text">${n.message}</div>
-                <div class="notif-actions">
-                    <small class="notif-view">Click to view</small>
-                    <button class="notif-delete" data-id="${n.id}">×</button>
-                </div>
-            </div>
-        `;
-
-        // VIEW + MARK READ
-        div.querySelector(".notif-view").addEventListener("click", function (e) {
-            e.stopPropagation();
-
-            fetch(MARK_READ_URL, {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": getCSRFToken(),
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `id=${n.id}`
-            });
-
-            div.classList.remove("notif-unread");
-
-            if (user_type === "customer") {
-                window.location.href =
-                    `/stationary/customer/preview-activity/${n.activity_id}/`;
-            } else if (user_type === "stationary") {
-                window.location.href =
-                    `/stationary/stationary/preview_activity/${n.activity_id}/`;
-            }
-        });
-
-        if (prepend) {
-            notifList.prepend(div);
-        } else {
-            notifList.appendChild(div);
-        }
-    }
-
-    // =============================
-    // DELETE NOTIFICATION
-    // =============================
-    document.addEventListener("click", function (e) {
-
-        if (e.target.classList.contains("notif-delete")) {
-
-            e.stopPropagation();
-
-            const notifId = e.target.getAttribute("data-id");
-            const notifItem = e.target.closest(".notif-item");
-
-            fetch(DELETE_URL, {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": getCSRFToken(),
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `id=${notifId}`
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        notifItem.remove();
-
-                        notifCount.innerText =
-                            Math.max(0, parseInt(notifCount.innerText || 0) - 1);
-                    }
-                });
-        }
-    });
-
-
-
 
     // =========================
     // GLOBAL STATE
@@ -401,10 +253,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     const data = JSON.parse(xhr.responseText);
 
                     if (data.success) {
+                        // ---------------------------
+                        // WhatsApp Message
+                        // ---------------------------
+                        let message = `Hello, I have submitted service request, Please confirm the request.`;
+                        const selected_s = document.querySelector('input[name="stationary_id"]:checked');
+                        let s_phone = selected_s.getAttribute("data-phone");
+                        s_phone = s_phone.replace(/^0/, '255');
+                        let whatsappNumber = s_phone; // Stationary's WhatsApp number
+                        let whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+
                         redirectUrl = data.next_url;
                         showMessage("✅ Success", "Your activity request has been submitted successfully, wait for stationary confirmation.", () => {
+
+                            window.open(whatsappURL, "_blank"); // open WhatsApp
                             window.location.href = redirectUrl || getFallbackUrl();
+
                         });
+
+
                     } else {
                         showMessage("❌ Error", data.message || "Something went wrong");
                     }

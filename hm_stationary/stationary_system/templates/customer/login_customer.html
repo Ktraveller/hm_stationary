@@ -7,11 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMS | Login</title>
+    <title>eStationary | Login</title>
     <link rel="stylesheet" href="{% static 'customer_css/login.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -25,16 +25,20 @@
 
         <!-- NAVBAR -->
         <div class="navbar">
-            <h3 style="color: white;">HMS collaborative</h3>
+            <h3 style="color: white;">eStationary</h3>
+            <div style="padding-top: 5px;">
+                <button onclick="openLogin()">Login</button>
+                <button class="signup-btn" onclick="openSignup()">Sign Up</button>
+            </div>
         </div>
 
         <!-- HERO -->
         <div class="hero">
-            <h1>Welcome to HMS collaborative</h1>
+            <h1>Welcome again to eStationary</h1>
             <p>Printing, typing, editing & research services made easy.</p>
 
             <div class="hero-buttons">
-                <button onclick="window.location.href=`{% url 'signup_customer' %}`" type="button">Get Started</button>
+                <button onclick="openLogin()" type="button">Get Started</button>
             </div>
         </div>
 
@@ -116,9 +120,9 @@
 
                 <!-- About -->
                 <div>
-                    <h3 style="margin-bottom:15px;">HMS Collaborative</h3>
+                    <h3 style="margin-bottom:15px;">eStationary</h3>
                     <p style="line-height:1.6;">
-                        HMS Collaborative helps you print documents anywhere with ease.
+                        eStationary helps you print documents anywhere with ease.
                         From assignments to official documents, we connect you to nearby
                         stationery services quickly and efficiently.
                     </p>
@@ -160,7 +164,7 @@
             <!-- Bottom -->
             <div
                 style="text-align:center; margin-top:30px; border-top:1px solid #3b82f6; padding-top:15px;">
-                © 2026 HMS Collaborative. All rights reserved.
+                © 2026 eStationary. All rights reserved.
             </div>
         </footer>
     </div>

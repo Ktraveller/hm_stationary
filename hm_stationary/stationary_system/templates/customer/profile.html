@@ -5,12 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eStationary | Home</title>
+    <title>eStationary | Profile</title>
     <link rel="stylesheet" href="{% static 'customer_css/dash.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 
 <body>
@@ -61,38 +73,35 @@
                     <div class="heading-title-12">
                         <p>eStationary</p>
                     </div>
-                    <div class="heading-action-12">
-                        <button type="button" id="openModal2">
-                            <i class="fas fa-plus" style="margin-right: 10px; font-weight: bold;"></i>
-                            Start new service</button>
-                    </div>
+
                 </div>
 
                 <!-- Recently services -->
                 <div class="activity-history-holder-15">
                     <div class="activity-history-15">
-                        <p>Recently services</p>
-                        <div class="activity-card-holder-16">
-                            <!-- History card -->
-                             {% for activity in activities  %}
-                            <div class="activity-card-16"
-                            onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
-                                <div class="activity-number-holder-16">
-                                    <button type="button" style="color: white; font-weight: bold;">{{ activity.id }}</button>
-                                </div>
-                                <div class="activity-details-holder-16">
-                                    <b>{{ activity.activity_type }}</b><br>
-                                    <span>{{ activity.activity_id }}, status: {{ activity.status }}</span>
-                                    <span style="margin-left: 20px;">{{ activity.sent_date|date:"d-m-Y H:i" }}</span>
-                                </div>
-                            </div>
-                            {% empty %}
-                            <p style="text-align: center;">History empty!</p>
-                            {% endfor %}
-                        </div>
-                        <div class="view-more-15">
-                            <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">View all</button>
-                        </div>
+                        <p style="font-weight: bold;">Customer profile</p>
+                        <table>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{{ user.phone }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Registered date</td>
+                                <td>{{ user.reg_date|date:"d-m-Y H:i" }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Last login</td>
+                                <td>{{ user.last_login|date:"d-m-Y H:i" }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Total services</td>
+                                <td>{{ user.total_services }}</td>
+                            </tr>
+                        </Table>
+                        
                     </div>
                 </div>
             </div>
@@ -100,7 +109,8 @@
 
     </div>
 
-    <!-- Choose services div -->
+
+        <!-- Choose services div -->
     <div class="choose-services-holder-20" id="myModal">
         <div class="choose-services-20">
             <p style="text-align: center; font-weight: bold;">Choose services type
@@ -131,17 +141,12 @@
     </div>
 
     <script>
-        const modal = document.getElementById("myModal");
+                const modal = document.getElementById("myModal");
         const openBtn1 = document.getElementById("openModal1");
-        const openBtn2 = document.getElementById("openModal2");
         const closeBtn = document.getElementById("closeModal");
 
         // Open modal
         openBtn1.addEventListener("click", () => {
-            modal.style.display = "block";
-        });
-
-        openBtn2.addEventListener("click", () => {
             modal.style.display = "block";
         });
 

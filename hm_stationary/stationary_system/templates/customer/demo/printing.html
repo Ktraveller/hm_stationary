@@ -5,13 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eStationary | Printing</title>
+    <title>eStationary | Home</title>
     <link rel="stylesheet" href="{% static 'customer_css/dash.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'customer_css/activities.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -36,18 +34,18 @@
                         Services
                     </button>
 
-                    <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">
+                    <button type="button">
                         <i class="fas fa-history"></i><br>
                         History
                     </button>
 
-                    <button type="button" onclick="window.location.href=`{% url 'customer_profile' %}`">
+                    <button type="button">
                         <i class="fas fa-user"></i><br>
                         Profile
                     </button>
 
                     <!-- help -->
-                    <button type="button" onclick="window.location.href=`{% url 'customer_help' %}`">
+                    <button type="button">
                         <i class="fas fa-question-circle"></i><br>
                         Help
                     </button>
@@ -89,15 +87,6 @@
                                     </div>
 
                                     <div class="stationary-list-25">
-                                        {% for station in stations %}
-                                        {% for area in station.areas.all %}
-                                        <div class="option-25-1">
-                                            <input type="radio" name="stationary_id" value="{{ station.id }}"
-                                                data-lat="{{ area.latitude }}" data-lng="{{ area.longitude }}" data-phone="{{ station.phone }}" required>
-                                            <span>{{ station.stationary_name }}</span>
-                                        </div>
-                                        {% endfor %}
-                                        {% endfor %}
 
                                         <p id="noStationaryResult" style="display:none; text-align:center; color:gray;">
                                             No stationary found
@@ -241,55 +230,10 @@
 
     <div id="activityActions" data-dashboard-url="{% url 'customer_dashboard' %}"></div>
 
-        <!-- Choose services div -->
-    <div class="choose-services-holder-20" id="myModal">
-        <div class="choose-services-20">
-            <p style="text-align: center; font-weight: bold;">Choose services type
-                <i class="fas fa-close" style="float: right;margin-right: 20px; cursor: pointer;" id="closeModal"></i>
-            </p>
-            <div class="services-holder-20">
-                <button type="button" onclick="window.location.href = `{% url 'printing' %}`">
-                    <i class="fas fa-print"></i><br><br>
-                    Printing
-                </button>
-
-                <button type="button" onclick="window.location.href = `{% url 'typing_editing' %}`">
-                    <i class="fas fa-keyboard"></i><br><br>
-                    Typing
-                </button>
-
-                <button type="button" onclick="window.location.href = `{% url 'typing_editing' %}`">
-                    <i class="fas fa-edit"></i><br><br>
-                    Editing
-                </button>
-            </div>
-
-            <p style="font-weight: bold;">Prices</p>
-            <p>Printing: 100Tsh per page</p>
-            <p>Typing: 200Tsh per word</p>
-            <p>Editing: 200Tsh per page</p>
-        </div>
-    </div>
-
     <script>
         const USER_ID = "{{ request.user.id }}";
         const USER_TYPE = "customer";
-        
 
-        const modal = document.getElementById("myModal");
-        const openBtn1 = document.getElementById("openModal1");
-        const closeBtn = document.getElementById("closeModal");
-
-        // Open modal
-        openBtn1.addEventListener("click", () => {
-            modal.style.display = "block";
-        });
-
-
-        // Close modal
-        closeBtn.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
     </script>
     <script src="{% static 'customer_js/printing_preview.js' %}"></script>
 

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HM-Stationary | 404</title>
+    <title>eStationary | 404</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
 
@@ -50,61 +50,6 @@
     </div>
 
     <div class="row-holder-1" style="height: 1000px;">
-
-        <div class="heading-holder-2">
-
-            <div class="title-holder-21">
-                <div class="menu-holder-22">
-                    <button type="button" onclick="window.history.back();">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
-                </div>
-            </div>
-
-            <div class="actions-holder-22">
-
-                <!-- Notifications -->
-                <div class="dropdown">
-                    <button class="dropbtn" id="notifBtn" type="button">
-                        <i class="fas fa-bell"></i>
-                        <span id="notifCount" class="notif-badge">0</span>
-                    </button>
-
-                    <div class="dropdown-content notif-dropdown" id="notifMenu">
-                        <div class="notif-header">
-                            <span>Notifications</span>
-                        </div>
-
-                        <div id="notifList" class="notif-list">
-                            <div class="notif-empty">No notifications</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- User -->
-                <div class="dropdown">
-                    <button class="dropbtn" id="userBtn" type="button">
-                        <i class="fas fa-user-circle"></i>
-                    </button>
-                    <div class="dropdown-content" id="userMenu">
-                        <div class="avator-holder-20">
-                            <button type="button">
-                                <i class="fas fa-user-circle"></i>
-                            </button>
-                        </div>
-                        <p><b>Email:</b> {{ user.email }}</p>
-                        <hr style="color: rgba(30, 143, 255, 0.876);">
-                        <a href="{% url 'customer_logout' %}">
-                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
 
 
         <div class="content-holder-4">

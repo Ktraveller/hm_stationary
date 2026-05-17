@@ -12,24 +12,10 @@ User = get_user_model()
 
 @login_required(login_url='login_page_customer') 
 def customer_dashboard(request):
-    # Count completed and processing activities
-    completed_activities = Activity.objects.filter(
-        user=request.user,
-        status='completed'
-    ).count()
-
-    processing_activities = Activity.objects.filter(
-        user=request.user,
-        status='processing'
-    ).count()
-
-
     # Get all user activities
-    activities = Activity.objects.filter(user=request.user).count()
+    activities = Activity.objects.filter(user=request.user).order_by('-sent_date')[:10]  # Get the latest 10 activities
 
     return render(request, 'customer/dashboard.html', {
-        'completed_activities': completed_activities,
-        'processing_activities': processing_activities,
         'activities': activities
     })
 
@@ -54,3 +40,18 @@ def make_payment(request, activity):
 @login_required(login_url='login_page_customer') 
 def implementation(request):
     return render(request, 'customer/implementation.html')
+
+# profile customer
+@login_required(login_url='login_page_customer') 
+def profile(request):
+    return render(request, 'customer/profile.html')
+    
+
+# help
+@login_required(login_url='login_page_customer') 
+def help(request):
+    return render(request, 'customer/help.html')
+
+# demo pages
+def demo(request):
+    return render(request, 'customer/demo/dashboard.html')
