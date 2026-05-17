@@ -12,36 +12,36 @@ urlpatterns = [
 
 
     # login 
-    path('admin/', login.login_page_admin, name='login_page_admin'),
+    path('stationary/admin/', login.login_page_admin, name='login_page_admin'),
     path('stationary/', login.login_page_stationary, name='login_page_stationary'),
     path('customer/', login.login_customer, name='login_page_customer'),
     path('customer/signup/', login.signup, name='signup_customer'),
     path("ping/", login.ping),
 
     # admin site
-    path('admin/dashboard/', dashboard.admin_dashboard, name='admin_dashboard'),
-    path('admin/activities/', activities.admin_activities, name='admin_activities'),
-    path('admin/preview_activity/<str:activity_id>/', activities.preview_activity, name='admin_preview_activity'),
-    path('admin/delete_activity/<str:activity_id>/', activities.delete_activity, name='admin_delete_activity'),
-    path('admin/stationaries/', stationaries.admin_stationaries, name='admin_stationaries'),
-    path('admin/payments/', payments.payments_list, name='admin_payments'),
-    path('admin/payments-delete/', payments.delete_all_payments, name='delete_all_payments'),
+    path('stationary/admin/dashboard/', dashboard.admin_dashboard, name='admin_dashboard'),
+    path('stationary/admin/activities/', activities.admin_activities, name='admin_activities'),
+    path('stationary/admin/preview_activity/<str:activity_id>/', activities.preview_activity, name='admin_preview_activity'),
+    path('stationary/admin/delete_activity/<str:activity_id>/', activities.delete_activity, name='admin_delete_activity'),
+    path('stationary/admin/stationaries/', stationaries.admin_stationaries, name='admin_stationaries'),
+    path('stationary/admin/payments/', payments.payments_list, name='admin_payments'),
+    path('stationary/admin/payments-delete/', payments.delete_all_payments, name='delete_all_payments'),
 
 
     # other admin pages
-    path('admin/register_stationary/', stationaries.register_stationary, name='register_stationary'),
-    path('admin/save_stationary/', stationaries.save_stationary, name='save_stationary'),
-    path('admin/register_validation/', stationaries.register_validation, name='register_validation'),
+    path('stationary/admin/register_stationary/', stationaries.register_stationary, name='register_stationary'),
+    path('stationary/admin/save_stationary/', stationaries.save_stationary, name='save_stationary'),
+    path('stationary/admin/register_validation/', stationaries.register_validation, name='register_validation'),
 
-    path('admin/preview_stationary/<str:username>/', stationaries.preview_stationary, name='preview_stationary'),
-    path('admin/delete_stationary/<str:username>/', stationaries.delete_stationary, name='admin_delete_stationary'),
+    path('stationary/admin/preview_stationary/<str:username>/', stationaries.preview_stationary, name='preview_stationary'),
+    path('stationary/admin/delete_stationary/<str:username>/', stationaries.delete_stationary, name='admin_delete_stationary'),
 
-    path('admin/customers/', customers.admin_customers, name='admin_customers'),
-    path('admin/preview_customer/<int:user_id>/', customers.preview_customer, name='preview_customer'),
-    path('admin/notifications/', admin_nav_bar.admin_notifications, name='admin_notifications'),
-    path('admin/activity/mark-pending/', activities.mark_activity_pending, name='mark_pending'),
-    path('admin/activity/delete-notification/', activities.delete_notifications, name='admin_delete_notification'),
-    path('admin/user/', admin_nav_bar.admin_user, name='admin_user'),
+    path('stationary/admin/customers/', customers.admin_customers, name='admin_customers'),
+    path('stationary/admin/preview_customer/<int:user_id>/', customers.preview_customer, name='preview_customer'),
+    path('stationary/admin/notifications/', admin_nav_bar.admin_notifications, name='admin_notifications'),
+    path('stationary/admin/activity/mark-pending/', activities.mark_activity_pending, name='mark_pending'),
+    path('stationary/admin/activity/delete-notification/', activities.delete_notifications, name='admin_delete_notification'),
+    path('stationary/admin/user/', admin_nav_bar.admin_user, name='admin_user'),
 
 
     # stationary site
@@ -91,7 +91,7 @@ urlpatterns = [
     
     # logout
     path('logout/', login.stationary_logout, name='stationary_logout'),
-    path('admin/logout/', login.admin_logout, name='admin_logout'),
+    path('stationary/admin/logout/', login.admin_logout, name='admin_logout'),
     path('customer/logout/', login.customer_logout, name='customer_logout'),
     path('change-password/', login.change_password, name='change_password'),
 
