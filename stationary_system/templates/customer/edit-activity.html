@@ -1,0 +1,333 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Edit activity</title>
+
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/edit.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-item-danger">
+                    <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+                </button>
+            </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-pen-to-square"></i> Edit request
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Page hero -->
+            <section class="hero hero-sm">
+                <div class="hero-text">
+                    <h1><i class="fas fa-pen-to-square"></i> Edit service request</h1>
+                    <p>Update files, formatting or pickup point — then submit again for confirmation.</p>
+                </div>
+
+                <a class="btn btn-accent" href="{% url 'preview_activity' activity.activity_id %}">
+                    <i class="fas fa-arrow-left"></i> Back to preview
+                </a>
+            </section>
+
+            <!-- ================= FORM ================= -->
+            <form id="editForm" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="edit-layout">
+
+                    <!-- ---------- STATIONARY PICKER ---------- -->
+                    <section class="panel">
+                        <div class="section-head">
+                            <div>
+                                <h2>Choose stationary</h2>
+                                <p>Pick the pickup point for this request.</p>
+                            </div>
+                        </div>
+
+                        <div class="search-bar">
+                            <i class="fas fa-search"></i>
+                            <input type="search" id="stationarySearch" placeholder="Search stationary..."
+                                autocomplete="off">
+                        </div>
+
+                        <div class="stationary-list-25">
+                            {% for station in stations %}
+                            {% with first_area=station.areas.first %}
+                            <label class="station-option option-25-1">
+                                <input type="radio" name="stationary_id" value="{{ station.id }}"
+                                    {% if activity.stationary_profile.id == station.id %}checked{% endif %}
+                                    data-phone="{{ station.phone|default:'' }}"
+                                    {% if first_area %}data-lat="{{ first_area.latitude }}" data-lng="{{ first_area.longitude }}"{% endif %}>
+                                <span class="station-info">
+                                    <strong>{{ station.stationary_name }}</strong>
+                                    <small>
+                                        <i class="fas fa-phone"></i>
+                                        {{ station.phone|default:"No phone provided" }}
+                                    </small>
+                                </span>
+                                <span class="station-radio"></span>
+                            </label>
+                            {% endwith %}
+                            {% empty %}
+                            <p class="empty-hint">
+                                <i class="fas fa-circle-info"></i> No stationary found
+                            </p>
+                            {% endfor %}
+                        </div>
+
+                        <button type="button" id="viewMapBtn" onclick="openMap()" class="btn btn-ghost map-btn"
+                            style="display:none;">
+                            <i class="fas fa-map"></i> View in map
+                        </button>
+                    </section>
+
+                    <!-- ---------- RIGHT COLUMN ---------- -->
+                    <div class="edit-main">
+
+                        <!-- Document format -->
+                        <section class="panel">
+                            <div class="section-head">
+                                <div>
+                                    <h2>Document format</h2>
+                                    <p>Fine-tune how your document is printed.</p>
+                                </div>
+                            </div>
+
+                            <div class="options-grid">
+                                <div class="form-field">
+                                    <label class="label" for="fontFamily">Font family</label>
+                                    <select name="font_family" id="fontFamily" class="select">
+                                        <option value="">{{ document_format.font_family|default:"Current" }}</option>
+                                        <option value="Times new roman">Times New Roman</option>
+                                        <option value="Tahoma">Tahoma</option>
+                                        <option value="Calibri">Calibri</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label class="label" for="fontSize">Font size</label>
+                                    <select name="font_size" id="fontSize" class="select">
+                                        <option value="">{{ document_format.font_size|default:"Current" }}</option>
+                                        <option value="10">10</option>
+                                        <option value="12">12</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label class="label" for="textAlign">Text alignment</label>
+                                    <select name="text_alignment" id="textAlign" class="select">
+                                        <option value="">{{ document_format.text_alignment|default:"Current" }}</option>
+                                        <option value="Left">Left</option>
+                                        <option value="Right">Right</option>
+                                        <option value="Center">Center</option>
+                                        <option value="Justified">Justified</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-field">
+                                <label class="label" for="otherDetails">Additional information</label>
+                                <textarea name="other_details" id="otherDetails" class="textarea"
+                                    placeholder="{{ document_format.other_details }}"></textarea>
+                            </div>
+                        </section>
+
+                        <!-- Attachments -->
+                        <section class="panel">
+                            <div class="section-head">
+                                <div>
+                                    <h2>Attachments</h2>
+                                    <p>Remove existing files or attach new ones.</p>
+                                </div>
+                            </div>
+
+                            <p class="preview-label">Current files:</p>
+                            <div class="file-preview-holder-15" id="previewContainer">
+                                {% for f in uploaded_files %}
+                                <div class="file-card" data-file-id="{{ f.id }}">
+                                    <button type="button" class="remove-existing-file" aria-label="Remove file">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    {% if f.is_image %}
+                                    <img src="{{ f.file.url }}" alt="{{ f.file.name }}">
+                                    {% else %}
+                                    <div class="file-icon"><i class="fas fa-file-lines"></i></div>
+                                    {% endif %}
+                                    <p class="file-name" title="{{ f.file.name }}">{{ f.file.name|slice:"-20:" }}</p>
+                                </div>
+                                {% empty %}
+                                <p class="empty-hint">
+                                    <i class="fas fa-paperclip"></i> No files attached yet
+                                </p>
+                                {% endfor %}
+                            </div>
+
+                            <button type="button" class="upload-zone"
+                                onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-cloud-arrow-up"></i>
+                                <strong>Attach more files</strong>
+                                <small>PDF, DOCX or images — multiple allowed</small>
+                                <input type="file" name="files" id="fileInput" multiple hidden>
+                            </button>
+
+                            <div id="upload-progress-container" style="display:none;">
+                                <div id="upload-progress-bar"></div>
+                            </div>
+
+                            <div class="submit-row">
+                                <div id="btn-loader" style="display:none;">
+                                    <span class="spinners"></span> Updating...
+                                </div>
+                                <button type="submit" id="update-btn" class="btn btn-primary">
+                                    <i class="fas fa-upload"></i> Update for printing
+                                </button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- ================= MESSAGE MODAL ================= -->
+    <div id="messageModal" style="display:none;">
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <p id="messageText"></p>
+                <button id="closeMessageBtn" type="button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MAP MODAL ================= -->
+    <div id="mapModal" style="display:none;">
+        <div class="map-modal-content">
+            <span class="close-map" onclick="closeMap()">&times;</span>
+            <iframe id="mapFrame" width="100%" height="400" style="border:0;" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+
+        /* ---------- Page loader ---------- */
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+
+        function open_edit() {
+            document.getElementById('edit_20').style.display = 'inline-block';
+            event.stopPropagation();
+        }
+
+        /* ---------- Map button visibility ---------- */
+        function updateMapButton() {
+            const viewMapBtn = document.getElementById("viewMapBtn");
+            if (!viewMapBtn) return;
+            const selected = document.querySelector('input[name="stationary_id"]:checked');
+            viewMapBtn.style.display = selected ? "inline-flex" : "none";
+        }
+
+        document.querySelectorAll('input[name="stationary_id"]').forEach((radio) => {
+            radio.addEventListener("change", updateMapButton);
+        });
+        updateMapButton();
+
+        /* ---------- Map modal fallbacks ---------- */
+        function openMap() {
+            const selected = document.querySelector('input[name="stationary_id"]:checked');
+            if (!selected) return alert("Please select a stationary first");
+
+            const lat = selected.getAttribute("data-lat");
+            const lng = selected.getAttribute("data-lng");
+            if (!lat || !lng) return alert("Location not available");
+
+            const mapFrame = document.getElementById("mapFrame");
+            if (mapFrame) {
+                mapFrame.src = `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+            }
+            document.getElementById("mapModal").style.display = "flex";
+        }
+
+        function closeMap() {
+            document.getElementById("mapModal").style.display = "none";
+        }
+
+        document.getElementById("mapModal")?.addEventListener("click", function (e) {
+            if (e.target === this) closeMap();
+        });
+    </script>
+
+    <script src="{% static 'customer_js/edit_activity.js' %}"></script>
+
+</body>
+
+</html>

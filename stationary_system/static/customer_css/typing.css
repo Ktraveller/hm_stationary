@@ -1,0 +1,614 @@
+/* ============================================================
+   WIS STATIONARY — TYPING & EDITING PAGE (EXTRA STYLES)
+   Load AFTER wis.css. Reuses the same print-layout grid.
+   ============================================================ */
+
+/* ---------- Compact hero ---------- */
+.hero.hero-sm {
+    padding: 22px 24px;
+}
+
+.hero.hero-sm .hero-text h1 {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero.hero-sm .hero-text h1 i {
+    font-size: 18px;
+    opacity: .9;
+}
+
+.hero.hero-sm .hero-text p {
+    font-size: 13px;
+    max-width: 52ch;
+}
+
+/* ---------- Form wrapper ---------- */
+#printingForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ---------- Two-column layout (same as printing) ---------- */
+.print-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+/* ---------- Search bar ---------- */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    background: #fbfdff;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease),
+        background .2s var(--ease);
+}
+
+.search-bar:focus-within {
+    background: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, .12);
+}
+
+.search-bar > i {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.search-bar > input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    color: var(--text);
+}
+
+/* ---------- Stationary list ---------- */
+.stationary-list-25 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+}
+
+.stationary-list-25::-webkit-scrollbar {
+    width: 6px;
+}
+
+.stationary-list-25::-webkit-scrollbar-thumb {
+    background: rgba(1, 65, 98, .18);
+    border-radius: 999px;
+}
+
+/* Station option */
+.station-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background .2s var(--ease), border-color .2s var(--ease),
+        transform .2s var(--ease), box-shadow .2s var(--ease);
+    position: relative;
+}
+
+.station-option:hover {
+    background: #fff;
+    border-color: rgba(1, 65, 98, .14);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.station-option > input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+.station-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.station-info strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.station-info small {
+    font-size: 12px;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.station-info small i {
+    font-size: 11px;
+    color: var(--accent);
+}
+
+.station-radio {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(1, 65, 98, .28);
+    background: #fff;
+    position: relative;
+    transition: border-color .2s var(--ease);
+}
+
+.station-radio::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: scale(0);
+    transition: transform .18s var(--ease);
+}
+
+.station-option input:checked ~ .station-radio {
+    border-color: var(--accent);
+}
+
+.station-option input:checked ~ .station-radio::after {
+    transform: scale(1);
+}
+
+.station-option:has(input:checked) {
+    background: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, .1);
+}
+
+/* ---------- Map button ---------- */
+.map-btn {
+    width: 100%;
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+}
+
+.map-btn i {
+    color: var(--accent);
+}
+
+/* ---------- Upload zone ---------- */
+.upload-zone {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 28px 16px;
+    border: 2px dashed rgba(1, 65, 98, .22);
+    border-radius: 16px;
+    background: #fbfdff;
+    color: var(--navy);
+    cursor: pointer;
+    font: inherit;
+    transition: background .2s var(--ease), border-color .2s var(--ease),
+        transform .2s var(--ease);
+}
+
+.upload-zone:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.upload-zone > i {
+    font-size: 26px;
+    margin-bottom: 4px;
+    color: var(--accent);
+}
+
+.upload-zone > strong {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.upload-zone > small {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ---------- Preview label ---------- */
+.preview-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--navy-700);
+    margin: 16px 0 8px;
+}
+
+/* ---------- File preview holder ---------- */
+.file-preview-holder-15 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 96px;
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fbfdff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.file-preview-holder-15::-webkit-scrollbar {
+    width: 6px;
+}
+
+.file-preview-holder-15::-webkit-scrollbar-thumb {
+    background: rgba(1, 65, 98, .18);
+    border-radius: 999px;
+}
+
+/* ---------- File preview cards (JS-generated) ---------- */
+.file-holder-18 {
+    position: relative;
+    width: 96px;
+    flex-shrink: 0;
+}
+
+.file-preview-15 {
+    width: 96px;
+    height: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    position: relative;
+}
+
+.file-holder-18:hover .file-preview-15 {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.file-preview-15 img {
+    max-width: 100%;
+    max-height: 64px;
+    object-fit: contain;
+    border-radius: 6px;
+    display: block;
+    transition: transform .2s var(--ease);
+}
+
+.file-preview-15.is-clickable {
+    cursor: zoom-in;
+}
+
+.file-preview-15.is-clickable:hover img {
+    transform: scale(1.04);
+}
+
+.file-preview-15 > i {
+    font-size: 26px;
+    color: var(--navy);
+}
+
+.file-preview-15 .file-name,
+.file-holder-18 .file-name {
+    width: 100%;
+    margin: 4px 0 0;
+    font-size: 10px;
+    color: var(--text);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Remove button */
+.file-holder-18 > button {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    background: #ef4444;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, .35);
+    transition: transform .2s var(--ease);
+    z-index: 1;
+    padding: 0;
+}
+
+.file-holder-18 > button:hover {
+    transform: scale(1.12);
+}
+
+/* Upload progress */
+.file-progress {
+    width: 100%;
+    height: 4px;
+    margin-top: 4px;
+    background: rgba(1, 65, 98, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.file-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--navy-700), var(--accent));
+    border-radius: 4px;
+    transition: width .25s ease;
+}
+
+/* ---------- Empty hint ---------- */
+.empty-hint {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 26px 0;
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    text-align: center;
+}
+
+.empty-hint i {
+    color: var(--muted);
+}
+
+/* ---------- Options grid ---------- */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.submit-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.submit-row .btn {
+    min-width: 220px;
+}
+
+/* ---------- Image lightbox ---------- */
+#fileModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(2, 6, 23, .82);
+    backdrop-filter: blur(4px);
+}
+
+#fileModalContent {
+    position: relative;
+    max-width: 90vw;
+    max-height: 85vh;
+    padding: 8px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+}
+
+#fileModalContent img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 10px;
+    display: block;
+}
+
+#fileModalContent span {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+/* ---------- Message / error modals ---------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(2, 6, 23, .6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 360px;
+    padding: 26px 22px;
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn .3s var(--ease);
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(10px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-box h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.modal-box p {
+    margin: 0 0 18px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.modal-box button {
+    width: 100%;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+
+.modal-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(1, 65, 98, .28);
+}
+
+/* ---------- Loading spinner ---------- */
+.spinner-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 6, 23, .55);
+    backdrop-filter: blur(3px);
+}
+
+/* ---------- Map modal ---------- */
+#mapModal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(2, 6, 23, .7);
+}
+
+.map-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+}
+
+.map-modal-content iframe {
+    display: block;
+    border-radius: 10px;
+}
+
+.close-map {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 768px) {
+    .hero.hero-sm {
+        padding: 26px 30px;
+    }
+
+    .hero.hero-sm .hero-text h1 {
+        font-size: 22px;
+    }
+
+    .print-layout {
+        grid-template-columns: 1fr 1.4fr;
+        gap: 20px;
+    }
+
+    .options-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .submit-row .btn {
+        min-width: 260px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .print-layout {
+        grid-template-columns: 380px 1fr;
+    }
+}

@@ -1,0 +1,326 @@
+/* ============================================================
+   WIS STATIONARY — PAYMENTS PAGE (FLUENT STYLES)
+   Load AFTER stationary.css.
+   Microsoft Store / Fluent Design aesthetic.
+
+   Class names used by the payments template + filter/paginate JS
+   are all preserved:
+   - payment-search, payments-table, rows-per-page
+   - table-toolbar, search-bar, limit-control
+   - table-scroll-9, table-9
+   - index-9, customer-cell, phone-cell, amount-cell, amount-pill,
+     desc-cell, date-cell, muted-dash, empty-cell
+   ============================================================ */
+
+/* ============================================================
+   HERO — flat, compact
+============================================================ */
+.hero.hero-sm {
+    padding: 18px 20px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+/* Kill the decorative gradient circle */
+.hero.hero-sm::after {
+    display: none !important;
+}
+
+.hero.hero-sm .hero-pill {
+    margin-bottom: 8px;
+    background: var(--primary-soft) !important;
+    color: var(--primary-700) !important;
+    border: 1px solid rgba(13, 148, 136, 0.18) !important;
+}
+
+.hero.hero-sm .hero-text h1 {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    margin: 0 0 4px;
+    color: var(--text) !important;
+}
+
+.hero.hero-sm .hero-text p {
+    font-size: 13px;
+    max-width: 52ch;
+    color: var(--muted) !important;
+}
+
+/* ============================================================
+   TOOLBAR — search + row count
+============================================================ */
+.table-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.search-bar {
+    flex: 1 1 240px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    background: #fbfbfb;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.search-bar:hover {
+    background: #fff;
+}
+
+.search-bar:focus-within {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.search-bar > i {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.search-bar > input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.search-bar > input::placeholder {
+    color: var(--muted);
+}
+
+.limit-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 12px;
+    background: var(--card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--muted);
+    flex-shrink: 0;
+}
+
+.limit-control label {
+    white-space: nowrap;
+}
+
+.limit-control select {
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-weight: 500;
+    font-size: 12.5px;
+    padding: 3px 6px;
+    border-radius: var(--radius-sm);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.15s var(--ease);
+}
+
+.limit-control select:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================================
+   TABLE — Fluent container
+============================================================ */
+.table-scroll-9 {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.table-scroll-9::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-scroll-9::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+.table-9 {
+    width: 100%;
+    min-width: 780px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.table-9 thead th {
+    text-align: left;
+    padding: 12px 14px;
+    background: #fafafa;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table-9 tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table-9 tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-9 tbody tr {
+    transition: background 0.12s var(--ease);
+}
+
+.table-9 tbody tr:hover td {
+    background: rgba(0, 0, 0, 0.025);
+}
+
+/* ============================================================
+   COLUMN CELLS
+============================================================ */
+.index-9 {
+    color: var(--muted);
+    font-weight: 500;
+    width: 50px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.customer-cell {
+    font-weight: 500;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.phone-cell {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    font-weight: 400;
+}
+
+.amount-cell {
+    white-space: nowrap;
+}
+
+/* Amount pill — Fluent soft tint, tabular numbers */
+.amount-pill {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary-700);
+    font-size: 12.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+}
+
+.amount-pill small {
+    font-size: 10px;
+    font-weight: 500;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.desc-cell {
+    color: var(--muted);
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12.5px;
+    font-weight: 400;
+}
+
+.date-cell {
+    color: var(--muted);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.muted-dash {
+    color: var(--muted);
+    opacity: 0.6;
+}
+
+/* ============================================================
+   EMPTY STATE — Fluent
+============================================================ */
+.empty-cell {
+    padding: 44px 20px !important;
+    text-align: center;
+}
+
+.empty-cell > i {
+    font-size: 32px;
+    color: rgba(0, 0, 0, 0.15);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.empty-cell > p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (min-width: 768px) {
+    .hero.hero-sm {
+        padding: 20px 24px !important;
+    }
+
+    .hero.hero-sm .hero-text h1 {
+        font-size: 22px !important;
+    }
+
+    .table-toolbar {
+        gap: 10px;
+    }
+
+    .search-bar {
+        flex: 1 1 340px;
+        max-width: 420px;
+    }
+
+    .table-9 {
+        min-width: 0;
+    }
+}

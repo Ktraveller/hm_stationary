@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Home</title>
+
+    <!-- ONE stylesheet for the whole app -->
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item is-active" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <button class="nav-item" type="button" id="openModal1">
+                <i class="fas fa-cogs"></i><span>Services</span>
+            </button>
+
+            <a class="nav-item" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="nav-item nav-item-danger">
+                <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+            </button>
+        </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Top bar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-bolt"></i> Fast print &amp; pickup
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Hero -->
+            <section class="hero">
+                <div class="hero-text">
+                    <h1>Welcome back - {{ user.username }}<span class="wave">👋</span></h1>
+                    <p>Send your documents now — pick up your hard copy in minutes.</p>
+                </div>
+
+                <button class="btn btn-accent" type="button" id="openModal2">
+                    <i class="fas fa-plus"></i> Start new service
+                </button>
+            </section>
+
+            <!-- Quick actions -->
+            <section class="quick">
+                <a class="quick-tile" href="{% url 'printing' %}">
+                    <span class="quick-icon"><i class="fas fa-print"></i></span>
+                    <span class="quick-copy">
+                        <strong>Print a document</strong>
+                        <small>From 100 Tsh / page</small>
+                    </span>
+                    <i class="fas fa-arrow-right quick-arrow"></i>
+                </a>
+
+                <a class="quick-tile" href="{% url 'typing_editing' %}">
+                    <span class="quick-icon"><i class="fas fa-keyboard"></i></span>
+                    <span class="quick-copy">
+                        <strong>Type or edit</strong>
+                        <small>From 200 Tsh / page</small>
+                    </span>
+                    <i class="fas fa-arrow-right quick-arrow"></i>
+                </a>
+            </section>
+
+            <!-- Recently services -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>Recently services</h2>
+                        <p>Your latest print, typing and editing requests.</p>
+                    </div>
+
+                    <a class="link" href="{% url 'customer_activity_history' %}">
+                        View all <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="activity-list">
+                    {% for activity in activities %}
+                    <div class="activity-card"
+                         onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
+
+                        <div class="activity-badge">{{ activity.id }}</div>
+
+                        <div class="activity-body">
+                            <div class="activity-title">{{ activity.activity_type }}</div>
+                            <div class="activity-meta">
+                                <span><i class="fas fa-hashtag"></i> {{ activity.activity_id }}</span>
+                                <span><i class="fas fa-calendar-days"></i> {{ activity.sent_date|date:"d-m-Y H:i" }}</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-side">
+                            <span class="chip">
+                                <span class="dot"></span>{{ activity.status }}
+                            </span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-box-open"></i></div>
+                        <h3>No services yet</h3>
+                        <p>Start your first print job and it will appear right here.</p>
+                        <button class="btn btn-primary" type="button" id="openModal3">
+                            <i class="fas fa-plus"></i> Start new service
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================= CHOOSE SERVICE MODAL ================= -->
+    <div class="modal" id="myModal" aria-hidden="true">
+        <div class="modal-backdrop" data-close></div>
+
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+            <div class="sheet-grip"></div>
+
+            <div class="sheet-head">
+                <h3 id="sheetTitle">Choose a service</h3>
+                <button class="icon-btn" type="button" data-close aria-label="Close">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="service-grid">
+                <a class="service-tile" href="{% url 'printing' %}">
+                    <span class="tile-icon"><i class="fas fa-print"></i></span>
+                    <strong>Printing</strong>
+                    <small>100 Tsh / page</small>
+                </a>
+
+                <a class="service-tile" href="{% url 'typing_editing' %}">
+                    <span class="tile-icon"><i class="fas fa-keyboard"></i></span>
+                    <strong>Typing</strong>
+                    <small>200 Tsh / word</small>
+                </a>
+
+                <a class="service-tile" href="{% url 'typing_editing' %}">
+                    <span class="tile-icon"><i class="fas fa-edit"></i></span>
+                    <strong>Editing</strong>
+                    <small>200 Tsh / page</small>
+                </a>
+            </div>
+
+            <div class="price-note">
+                <i class="fas fa-circle-info"></i>
+                <div>
+                    <p>Printing: <b>100 Tsh</b> per page</p>
+                    <p>Typing: <b>200 Tsh</b> per word</p>
+                    <p>Editing: <b>200 Tsh</b> per page</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ---------------- Modal ---------------- */
+        const modal = document.getElementById('myModal');
+
+        function openModal() {
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        ['openModal1', 'openModal2', 'openModal3'].forEach(function (id) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', openModal);
+        });
+
+        modal.querySelectorAll('[data-close]').forEach(function (el) {
+            el.addEventListener('click', closeModal);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        /* ---------------- Page loader ---------------- */
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('page-loader');
+            loader.style.transition = 'opacity .45s ease';
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 450);
+        });
+    </script>
+
+</body>
+
+</html>

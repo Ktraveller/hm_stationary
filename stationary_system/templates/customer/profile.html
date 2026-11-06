@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Profile</title>
+
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-item-danger">
+                    <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+                </button>
+            </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-user"></i> My profile
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- ================= PROFILE HERO ================= -->
+            <section class="profile-hero">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <div class="profile-intro">
+                    <span class="profile-tag">Customer account</span>
+                    <h1 class="profile-name">+{{ user.phone }}</h1>
+                    <p class="profile-sub">
+                        <i class="fas fa-circle-check"></i>
+                        Member since {{ user.reg_date|date:"d M Y" }}
+                    </p>
+                </div>
+
+                <div class="profile-actions">
+                    <a href="{% url 'customer_activity_history' %}" class="btn btn-ghost">
+                        <i class="fas fa-history"></i> View history
+                    </a>
+                    <a href="{% url 'customer_dashboard' %}" class="btn btn-accent">
+                        <i class="fas fa-plus"></i> New service
+                    </a>
+                </div>
+            </section>
+
+            <!-- ================= STAT TILES ================= -->
+            <section class="profile-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-list-check"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Total services</span>
+                        <strong class="stat-value">{{ user.total_services|default:"0" }}</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-plus"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Registered</span>
+                        <strong class="stat-value sm">{{ user.reg_date|date:"d M Y" }}</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-right-to-bracket"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Last login</span>
+                        <strong class="stat-value sm">
+                            {% if user.last_login %}
+                                {{ user.last_login|date:"d M Y H:i" }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= INFO CARD ================= -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>Account information</h2>
+                        <p>Your registered details on Wis Stationary.</p>
+                    </div>
+                </div>
+
+                <div class="info-list">
+                    <div class="info-row">
+                        <span class="info-icon"><i class="fas fa-phone"></i></span>
+                        <div class="info-copy">
+                            <span class="info-label">Phone number</span>
+                            <span class="info-value">+{{ user.phone }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon"><i class="fas fa-calendar-plus"></i></span>
+                        <div class="info-copy">
+                            <span class="info-label">Registered date</span>
+                            <span class="info-value">{{ user.reg_date|date:"d-m-Y H:i" }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon"><i class="fas fa-right-to-bracket"></i></span>
+                        <div class="info-copy">
+                            <span class="info-label">Last login</span>
+                            <span class="info-value">
+                                {% if user.last_login %}
+                                    {{ user.last_login|date:"d-m-Y H:i" }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon"><i class="fas fa-list-check"></i></span>
+                        <div class="info-copy">
+                            <span class="info-label">Total services</span>
+                            <span class="info-value">{{ user.total_services|default:"0" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+
+        /* Page loader */
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+    </script>
+
+</body>
+
+</html>

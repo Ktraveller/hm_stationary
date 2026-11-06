@@ -1,0 +1,317 @@
+.activities-table-holder-6 {
+    width: 100%;
+    height: auto;
+}
+
+.search-bar-holder-7 {
+    width: 100%;
+    height: 40px;
+    text-align: right;
+
+    animation-name: dash-container;
+    animation-duration: 1s;
+}
+
+.search-bar-holder-7>input {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    border-style: none;
+    border: 1px solid teal;
+    border-radius: 2px;
+    outline: none;
+}
+
+.search-bar-holder-7>input:hover {
+    border: 2px solid teal;
+}
+
+.register-button-7 {
+    height: 100%;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
+    background: teal;
+    outline: none;
+    border-style: none;
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+}
+
+.register-button-7:hover {
+    opacity: 0.8;
+}
+
+
+.table-holder-9 {
+    width: 100%;
+    height: auto;
+
+    animation-name: dash-container;
+    animation-duration: 1s;
+}
+
+.table-9 {
+    width: 100%;
+    height: auto;
+    text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.148);
+    border-collapse: collapse;
+}
+
+td,
+th {
+    border: 1px solid rgba(0, 0, 0, 0.148);
+    height: 40px;
+    padding: 10px;
+}
+
+.index-9 {
+    width: 50px;
+    text-align: center;
+}
+
+.left-list-9 {
+    font-weight: bold;
+}
+
+.activity-link-9 {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.bottom-table-nav-8 {
+    width: 100%;
+    height: 40px;
+    text-align: right;
+
+    animation-name: dash-container;
+    animation-duration: 1s;
+}
+
+.bottom-table-nav-8>select {
+    width: 20%;
+    height: 100%;
+    background: white;
+    padding: 10px;
+    border-style: none;
+    outline: none;
+    border: 1px solid teal;
+}
+
+.bottom-table-nav-8>a>button {
+    width: 100px;
+    height: 100%;
+    background: teal;
+    border-style: none;
+    outline: none;
+    color: white;
+    border-radius: 5;
+}
+
+.bottom-table-nav-8>a>button:hover {
+    opacity: 0.8;
+}
+
+.inputs-holder-6 {
+    width: 100%;
+    height: 40px;
+    background: white;
+    border: 1px solid teal;
+    border-radius: 2px;
+}
+
+.inputs-holder-6:hover {
+    border: 2px solid teal;
+}
+
+.inputs-holder-6>input {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border-style: none;
+    background: transparent;
+    outline: none;
+}
+
+.inputs-holder-7 {
+    width: 100%;
+    height: 40px;
+    background: white;
+    border-radius: 2px;
+}
+
+.inputs-holder-7>button {
+    min-width: 150px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    background: teal;
+    outline: none;
+    border-style: none;
+    color: white;
+    font-weight: bold;
+}
+
+.inputs-holder-7>button:hover {
+    opacity: 0.5;
+}
+
+/* Success message */
+.message-container {
+    margin-bottom: 15px;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    font-family: inherit;
+}
+
+.alert.error {
+    background-color: #ffe0e0;
+    color: #b30000;
+}
+
+.alert.success {
+    background-color: #e0ffe5;
+    color: #006b21;
+}
+
+/* Container scroll on mobile */
+.table-holder-9 {
+    width: 100%;
+    overflow-x: auto;
+    /* allows horizontal scroll on small screens */
+    margin: 20px 0;
+}
+
+/* Table styling */
+.table-9 {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    /* keeps table readable on desktop */
+}
+
+.table-9 th,
+.table-9 td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Header styling */
+.table-9 th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+}
+
+/* Hover effect on desktop */
+.table-9 tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Links styling */
+.activity-link-9 {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+.activity-link-9:hover {
+    text-decoration: underline;
+}
+
+.status-ongoing {
+    background-color: #e0ffe5;
+    color: #006b21;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.status-inactive {
+    background-color: #ffe0e0;
+    color: #b30000;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.table-9 tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.bottom-nav-10 {
+    width: 100%;
+    height: 40px;
+}
+
+.bottom-nav-10>div {
+    float: left;
+}
+
+.delete-button-8 {
+    width: 100px;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.delete-8 {
+    width: 100px;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.delete-button-8>form>button:hover {
+    opacity: 0.8;
+}
+
+.close-button-5 {
+    width: 100px;
+    height: 100%;
+}
+
+.close-button-5>a>button {
+    width: 100%;
+    height: 100%;
+    background: teal;
+    outline: none;
+    border-style: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.close-button-5>a>button {
+    opacity: 0.8;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+
+    .table-9 th,
+    .table-9 td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    .table-9 {
+        min-width: unset;
+        /* allow table to shrink */
+    }
+
+    .index-9 {
+        width: 30px;
+    }
+}

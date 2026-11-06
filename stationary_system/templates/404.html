@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Page not found</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'errors.css' %}">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body class="error-body error-body--404">
+
+    <div class="error-wrap">
+        <div class="error-card">
+            <div class="error-badge">
+                <span class="error-icon"><i class="fas fa-ghost"></i></span>
+                <span class="error-code">404</span>
+            </div>
+
+            <h1 class="error-title">Page not found</h1>
+            <p class="error-desc">
+                Sorry, the page you're looking for doesn't exist or has been moved.
+                Let's get you back to something useful.
+            </p>
+
+            <div class="error-actions">
+                <a class="btn btn-primary" href="{% url 'customer_dashboard' %}">
+                    <i class="fas fa-home"></i> Go to dashboard
+                </a>
+                <button class="btn btn-ghost" type="button" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i> Go back
+                </button>
+            </div>
+
+            <div class="error-links">
+                <span>Try</span>
+                <a href="{% url 'customer_activity_history' %}"><i class="fas fa-history"></i> History</a>
+                <a href="{% url 'customer_profile' %}"><i class="fas fa-user"></i> Profile</a>
+                <a href="{% url 'customer_help' %}"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

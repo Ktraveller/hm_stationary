@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eStationary | Home</title>
+    <link rel="stylesheet" href="{% static 'customer_css/dash.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="row-holder">
+
+        <div class="nav-bar-holder-10">
+            <!-- Navbar -->
+            <div class="nav-content-11">
+                <div class="nav-holder-20">
+                    <button type="button" onclick="window.location.href=`{% url 'customer_dashboard' %}`">
+                        <i class="fas fa-home"></i><br>
+                        Home
+                    </button>
+
+                    <button type="button" id="openModal1">
+                        <i class="fas fa-cogs"></i><br>
+                        Services
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'customer_activity_history' %}`">
+                        <i class="fas fa-history"></i><br>
+                        History
+                    </button>
+
+                    <button type="button" onclick="window.location.href=`{% url 'customer_profile' %}`">
+                        <i class="fas fa-user"></i><br>
+                        Profile
+                    </button>
+
+                    <!-- help -->
+                    <button type="button" onclick="window.location.href=`{% url 'customer_help' %}`">
+                        <i class="fas fa-question-circle"></i><br>
+                        Help
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-holder-10">
+            <div class="content-holder-11">
+                <!-- Heading -->
+                <div class="heading-holder-12">
+                    <div class="heading-title-12">
+                        <p>eStationary</p>
+                    </div>
+                    <div class="heading-action-12">
+                        <button type="button" id="openModal2">
+                            <i class="fas fa-plus" style="margin-right: 10px; font-weight: bold;"></i>
+                            Start new service</button>
+                    </div>
+                </div>
+
+                <!-- Recently services -->
+                <div class="activity-history-holder-15">
+                    <div class="activity-history-15">
+                        <p>Recently services</p>
+                        <div class="activity-card-holder-16">
+                            <!-- History card -->
+                            <p style="text-align: center;">History empty!</p>
+                        </div>
+                        <div class="view-more-15">
+                            <button type="button"
+                                onclick="window.location.href=`{% url 'customer_activity_history' %}`">View all</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Choose services div -->
+    <div class="choose-services-holder-20" id="myModal">
+        <div class="choose-services-20">
+            <p style="text-align: center; font-weight: bold;">Choose services type
+                <i class="fas fa-close" style="float: right;margin-right: 20px; cursor: pointer;" id="closeModal"></i>
+            </p>
+            <div class="services-holder-20">
+                <button type="button" onclick="window.location.href = `{% url 'printing' %}`">
+                    <i class="fas fa-print"></i><br><br>
+                    Printing
+                </button>
+
+                <button type="button">
+                    <i class="fas fa-keyboard"></i><br><br>
+                    Typing
+                </button>
+
+                <button type="button">
+                    <i class="fas fa-edit"></i><br><br>
+                    Editing
+                </button>
+            </div>
+
+            <p style="font-weight: bold;">Prices</p>
+            <p>Printing: 100Tsh per page</p>
+            <p>Typing: 200Tsh per word</p>
+            <p>Editing: 200Tsh per page</p>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("myModal");
+        const openBtn1 = document.getElementById("openModal1");
+        const openBtn2 = document.getElementById("openModal2");
+        const closeBtn = document.getElementById("closeModal");
+
+        // Open modal
+        openBtn1.addEventListener("click", () => {
+            modal.style.display = "block";
+        });
+
+        openBtn2.addEventListener("click", () => {
+            modal.style.display = "block";
+        });
+
+        // Close modal
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // loader
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+    </script>
+</body>
+
+</html>

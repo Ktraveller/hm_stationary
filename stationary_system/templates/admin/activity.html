@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | Activity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_css/activities.css' %}">
+
+    <style>
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .status-badge.pending {
+            background-color: #6c757d;
+        }
+
+        .status-badge.processing {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .status-badge.completed {
+            background-color: #28a745;
+        }
+
+        .status-badge.declined {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+                <button type="button" onclick="window.location.href = `{% url 'admin_notifications' %}`">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button type="button" onclick="window.location.href = `{% url 'admin_user' %}`">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'admin_dashboard' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_activities' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button type="button">Activities</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_stationaries' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-box"></i>
+                            </button>
+                            <button type="button">Stationaries</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button type="button">Customers</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_payments' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-credit-card"></i>
+                            </button>
+                            <button type="button">Payments</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_logout' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                            <button type="button">Logout</button>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <p style="font-weight: bold;">Activity ID - {{ activity.activity_id }}</p>
+
+                <div class="activities-table-holder-6">
+                    <br>
+
+                    <div class="table-holder-9">
+                        <table class="table-9">
+                            <tr>
+                                <td>Customer</td>
+                                <td>{{ activity.user.get_full_name|default:activity.user.username }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Activity Type</td>
+                                <td>{{ activity.activity_type }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Start Date & Time</td>
+                                <td>{{ activity.sent_date|date:"Y-m-d H:i" }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>End Date & Time</td>
+                                <td>
+                                    {% if activity.end_date %}
+                                    {{ activity.end_date|date:"Y-m-d H:i" }}
+                                    {% else %}
+                                    --
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Status</td>
+                                <td>
+                                    <span class="status-badge {{ activity.status }}">
+                                        {{ activity.status|capfirst }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <br>
+
+                    <div class="bottom-nav-10">
+                        <div class="delete-button-8">
+                            <form action="{% url 'admin_delete_activity' activity.activity_id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-8"
+                                    onclick="return confirm('Are you sure you want to delete this activity?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="close-button-5">
+                            <a href="{% url 'admin_activities' %}">
+                                <button type="button">Close</button>
+                            </a>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var c = document.getElementById('nav_bar');
+        var b1 = document.getElementById('button1');
+        var b2 = document.getElementById('button2');
+        function nav_bar(click) {
+            if (click == "open") {
+                c.style.display = "inline-block";
+                b1.style.display = "none";
+                b2.style.display = "inline-block";
+            }
+            else {
+                c.style.display = "none";
+                b1.style.display = "inline-block";
+                b2.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

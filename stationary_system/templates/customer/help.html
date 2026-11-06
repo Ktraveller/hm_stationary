@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Help</title>
+
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/help.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item is-active" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-item-danger">
+                    <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+                </button>
+            </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-life-ring"></i> Help &amp; support
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Page hero -->
+            <section class="hero hero-sm">
+                <div class="hero-text">
+                    <h1><i class="fas fa-life-ring"></i> How can we help?</h1>
+                    <p>Reach our support team, browse common questions, or follow our quick-start steps.</p>
+                </div>
+
+                <a class="btn btn-accent" href="{% url 'customer_dashboard' %}">
+                    <i class="fas fa-arrow-left"></i> Back home
+                </a>
+            </section>
+
+            <!-- ================= CONTACT CARDS ================= -->
+            <section class="contact-grid">
+                <a href="mailto:kareemrajabu1234@gmail.com" class="contact-card">
+                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                    <div class="contact-copy">
+                        <span class="contact-label">Email us</span>
+                        <strong class="contact-value">kareemrajabu1234@gmail.com</strong>
+                        <small>We reply within a few hours</small>
+                    </div>
+                    <i class="fas fa-arrow-right contact-arrow"></i>
+                </a>
+
+                <a href="tel:+255622652290" class="contact-card">
+                    <span class="contact-icon"><i class="fas fa-phone"></i></span>
+                    <div class="contact-copy">
+                        <span class="contact-label">Call or WhatsApp</span>
+                        <strong class="contact-value">+255 622 652 290</strong>
+                        <small>Mon–Sat, 8:00 – 20:00</small>
+                    </div>
+                    <i class="fas fa-arrow-right contact-arrow"></i>
+                </a>
+            </section>
+
+            <!-- ================= QUICK START ================= -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>Quick start</h2>
+                        <p>Get from request to hard copy in three steps.</p>
+                    </div>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <span class="step-num">1</span>
+                        <strong>Start a service</strong>
+                        <p>Choose Printing, Typing or Editing from the dashboard.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <span class="step-num">2</span>
+                        <strong>Attach your files</strong>
+                        <p>Upload PDF, DOCX or images and pick a nearby stationary.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <span class="step-num">3</span>
+                        <strong>Pay &amp; collect</strong>
+                        <p>Confirm the cost, complete payment, and pick up your print.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= FAQ ================= -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>Frequently asked questions</h2>
+                        <p>Answers to the questions we hear most often.</p>
+                    </div>
+                </div>
+
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>
+                            <span>How do I know my print is ready?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <div class="faq-body">
+                            <p>When the stationary confirms your request and marks it as completed,
+                                you'll see it in <a href="{% url 'customer_activity_history' %}">Activity history</a>.
+                                You can also check the preview page of any activity.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>
+                            <span>What file types can I upload?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <div class="faq-body">
+                            <p>PDF, DOCX and image files (JPG / PNG). Up to 5 files per request,
+                                each no larger than 5MB.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>
+                            <span>How do I pay for a service?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <div class="faq-body">
+                            <p>Once the stationary sends the cost, open the activity preview and tap
+                                <b>Make payment</b>. You'll get the merchant's Lipa namba, submit your payment
+                                details, and confirm via WhatsApp.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>
+                            <span>Can I change the document format after submitting?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <div class="faq-body">
+                            <p>Yes — as long as the activity is still waiting or pending, open it from your history
+                                and tap <b>Edit</b> to update the format, files, or pickup point.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>
+                            <span>What if I submitted the wrong files?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <div class="faq-body">
+                            <p>Go to <a href="{% url 'customer_activity_history' %}">Activity history</a>,
+                                open the request, and use <b>Edit</b> to remove or add files.
+                                If it's already completed, contact support for help.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ================= CTA ================= -->
+            <section class="help-cta">
+                <div class="help-cta-copy">
+                    <h3>Still need help?</h3>
+                    <p>Our team is a message away — reach out any time and we'll walk you through it.</p>
+                </div>
+                <a href="https://wa.me/255622652290" target="_blank" rel="noopener"
+                    class="btn btn-primary">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+
+        /* Page loader */
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+    </script>
+
+</body>
+
+</html>

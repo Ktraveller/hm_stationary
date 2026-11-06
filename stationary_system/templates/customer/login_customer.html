@@ -1,0 +1,538 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Print smarter</title>
+
+    <link rel="stylesheet" href="{% static 'customer_css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark"><i class="fas fa-print"></i></span>
+                <span class="brand-text">
+                    <strong>Wis</strong>
+                    <span>Stationary</span>
+                </span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how">How it works</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button type="button" class="btn btn-ghost" onclick="openLogin()">Login</button>
+                <button type="button" class="btn btn-primary" onclick="openSignup()">Sign up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero-section">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <span class="hero-pill">
+                    <i class="fas fa-bolt"></i> Fast print &amp; pickup — near you
+                </span>
+
+                <h1>Print documents <span>without the queue.</span></h1>
+
+                <p>
+                    Upload your files, choose a nearby stationary, and pick up your hard copy
+                    in minutes. Printing, typing and editing — all in one place.
+                </p>
+
+                <div class="hero-actions">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="openSignup()">
+                        <i class="fas fa-rocket"></i> Get started free
+                    </button>
+                    <button type="button" class="btn btn-ghost btn-lg" onclick="openLogin()">
+                        <i class="fas fa-right-to-bracket"></i> I have an account
+                    </button>
+                </div>
+
+                <div class="hero-stats">
+                    <div><b>5 min</b><span>avg. turnaround</span></div>
+                    <div><b>100 Tsh</b><span>per page</span></div>
+                    <div><b>24/7</b><span>request anytime</span></div>
+                </div>
+            </div>
+
+            <!-- Visual preview -->
+            <div class="hero-visual" aria-hidden="true">
+                <div class="doc-card">
+                    <div class="doc-head">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>assignment.pdf</span>
+                    </div>
+                    <div class="doc-body">
+                        <div class="doc-line" style="width:90%"></div>
+                        <div class="doc-line" style="width:75%"></div>
+                        <div class="doc-line" style="width:85%"></div>
+                        <div class="doc-line" style="width:60%"></div>
+                    </div>
+                    <div class="doc-foot">
+                        <span class="doc-chip done">
+                            <i class="fas fa-circle-check"></i> Ready for pickup
+                        </span>
+                    </div>
+                </div>
+
+                <div class="float-pill float-pill-1">
+                    <i class="fas fa-print"></i> Printing
+                </div>
+
+                <div class="float-pill float-pill-2">
+                    <i class="fas fa-location-dot"></i> 3 stations nearby
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="features" id="features">
+        <div class="section-wrap">
+            <header class="section-head">
+                <span class="eyebrow">Everything in one place</span>
+                <h2>Built for students, offices &amp; everyday printing</h2>
+                <p>Skip the walk. Skip the queue. Get your documents printed, typed or edited on demand.</p>
+            </header>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-print"></i></span>
+                    <h3>Print instantly</h3>
+                    <p>Upload PDF, DOCX or images and have them printed at a nearby station.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-keyboard"></i></span>
+                    <h3>Typing on demand</h3>
+                    <p>From handwritten notes to clean digital documents — typed for you.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-edit"></i></span>
+                    <h3>Pro editing</h3>
+                    <p>Let editors polish your CV, report or assignment in minutes.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-map-location-dot"></i></span>
+                    <h3>Nearby pickup</h3>
+                    <p>Choose a stationary you trust and pick up your hard copy when it's ready.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section class="how" id="how">
+        <div class="section-wrap">
+            <header class="section-head">
+                <span class="eyebrow">How it works</span>
+                <h2>From upload to pickup in three steps</h2>
+            </header>
+
+            <div class="how-grid">
+                <div class="how-step">
+                    <span class="how-num">1</span>
+                    <h3>Upload your files</h3>
+                    <p>Attach the documents you need printed, typed or edited.</p>
+                </div>
+                <div class="how-step">
+                    <span class="how-num">2</span>
+                    <h3>Choose &amp; pay</h3>
+                    <p>Pick a stationary, confirm the cost and pay via Lipa namba.</p>
+                </div>
+                <div class="how-step">
+                    <span class="how-num">3</span>
+                    <h3>Pick up your copy</h3>
+                    <p>Get notified when it's ready — walk in, collect and go.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PRICING ================= -->
+    <section class="pricing" id="pricing">
+        <div class="section-wrap">
+            <header class="section-head">
+                <span class="eyebrow">Simple pricing</span>
+                <h2>Pay for what you need</h2>
+                <p>No subscriptions, no hidden fees.</p>
+            </header>
+
+            <div class="price-grid">
+                <div class="price-card">
+                    <span class="price-icon"><i class="fas fa-print"></i></span>
+                    <h3>Printing</h3>
+                    <p class="price-amount">100 <small>Tsh / page</small></p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> B&amp;W &amp; color options</li>
+                        <li><i class="fas fa-check"></i> Multiple file support</li>
+                        <li><i class="fas fa-check"></i> Nearby pickup</li>
+                    </ul>
+                </div>
+
+                <div class="price-card featured">
+                    <span class="price-badge">Most popular</span>
+                    <span class="price-icon"><i class="fas fa-keyboard"></i></span>
+                    <h3>Typing</h3>
+                    <p class="price-amount">200 <small>Tsh / word</small></p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Handwritten → digital</li>
+                        <li><i class="fas fa-check"></i> Clean formatting</li>
+                        <li><i class="fas fa-check"></i> Fast turnaround</li>
+                    </ul>
+                </div>
+
+                <div class="price-card">
+                    <span class="price-icon"><i class="fas fa-edit"></i></span>
+                    <h3>Editing</h3>
+                    <p class="price-amount">200 <small>Tsh / page</small></p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> CV &amp; cover letters</li>
+                        <li><i class="fas fa-check"></i> Grammar &amp; layout</li>
+                        <li><i class="fas fa-check"></i> Professional polish</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="cta">
+        <div class="cta-inner">
+            <div>
+                <h2>Ready to skip the queue?</h2>
+                <p>Create an account and submit your first print request in under a minute.</p>
+            </div>
+            <button type="button" class="btn btn-accent btn-lg" onclick="openSignup()">
+                <i class="fas fa-rocket"></i> Create free account
+            </button>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a class="brand" href="/">
+                    <span class="brand-mark"><i class="fas fa-print"></i></span>
+                    <span class="brand-text">
+                        <strong>Wis</strong>
+                        <span>Stationary</span>
+                    </span>
+                </a>
+                <p>Print, type, edit and pick up — from anywhere, in minutes.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#features">Features</a>
+                <a href="#how">How it works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#">FAQs</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="tel:+255622652290"><i class="fas fa-phone"></i> +255 622 652 290</a>
+                <a href="mailto:kareemrajabu1234@gmail.com"><i class="fas fa-envelope"></i> Email us</a>
+                <span><i class="fas fa-clock"></i> Mon–Sat · 8:00 – 20:00</span>
+            </div>
+
+            <div class="footer-col">
+                <h4>Location</h4>
+                <span><i class="fas fa-location-dot"></i> Dar es Salaam, Tanzania</span>
+                <span>Available in multiple areas</span>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Wis Stationary. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- ================= LOGIN MODAL ================= -->
+    <div class="modal" id="loginModal" aria-hidden="true">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+            <div class="modal-head">
+                <h3 id="loginTitle">Welcome back</h3>
+                <button type="button" class="icon-btn" onclick="closeModal()" aria-label="Close">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="modal-sub">Login to continue printing from your phone.</p>
+
+            <form id="loginForm" method="post">
+                {% csrf_token %}
+
+                <div class="input-wrap">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" name="phone" id="loginPhone"
+                        placeholder="Phone (e.g. 712345678)" required autocomplete="tel">
+                </div>
+
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" id="passwordLogin"
+                        placeholder="Password" required autocomplete="current-password">
+                    <button type="button" class="toggle-pass"
+                        onclick="togglePassword('passwordLogin', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <button type="submit" id="login_10" class="btn btn-primary btn-block">
+                    Login
+                </button>
+            </form>
+
+            <p class="modal-switch">
+                No account yet? <button type="button" onclick="switchToSignup()">Sign up</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= SIGNUP MODAL ================= -->
+    <div class="modal" id="signupModal" aria-hidden="true">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+            <div class="modal-head">
+                <h3 id="signupTitle">Create your account</h3>
+                <button type="button" class="icon-btn" onclick="closeModal()" aria-label="Close">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="modal-sub">Join Wis Stationary and start printing in minutes.</p>
+
+            <form id="signupForm">
+                {% csrf_token %}
+
+                <div class="input-wrap">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" name="phone" id="signupPhone"
+                        placeholder="Phone (e.g. 712345678)" required autocomplete="tel">
+                </div>
+
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" id="signupPassword"
+                        placeholder="Password" required autocomplete="new-password">
+                    <button type="button" class="toggle-pass"
+                        onclick="togglePassword('signupPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="confirm_password" id="signupConfirmPassword"
+                        placeholder="Confirm password" required autocomplete="new-password">
+                    <button type="button" class="toggle-pass"
+                        onclick="togglePassword('signupConfirmPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <button type="submit" id="signupButton" class="btn btn-primary btn-block">
+                    Create account
+                </button>
+            </form>
+
+            <p class="modal-switch">
+                Already have an account? <button type="button" onclick="switchToLogin()">Login</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= MESSAGE MODAL ================= -->
+    <div class="message-modal" id="messageModal">
+        <div class="message-box" id="messageBox">
+            <p id="messageText">Message</p>
+            <button type="button" onclick="closeMessageModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        /* ---------- Modal controls ---------- */
+        function openLogin() {
+            document.getElementById("loginModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function openSignup() {
+            document.getElementById("signupModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("signupModal").style.display = "none";
+            document.body.style.overflow = "";
+        }
+
+        function switchToSignup() { closeModal(); openSignup(); }
+        function switchToLogin() { closeModal(); openLogin(); }
+
+        /* ---------- Password toggle ---------- */
+        function togglePassword(id, btn) {
+            const input = document.getElementById(id);
+            const icon = btn.querySelector("i");
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        /* ---------- Phone helpers ---------- */
+        function formatPhone(phone) {
+            phone = phone.replace(/\s+/g, "");
+            if (phone.startsWith("0")) phone = phone.substring(1);
+            return phone;
+        }
+
+        function validatePhone(phone) {
+            phone = formatPhone(phone);
+            if (!/^\d{9}$/.test(phone)) return "Phone number must be exactly 9 digits";
+            return null;
+        }
+
+        /* ---------- Message modal ---------- */
+        function showMessage(message, status) {
+            const modal = document.getElementById("messageModal");
+            const text = document.getElementById("messageText");
+            const box = document.getElementById("messageBox");
+            text.innerText = message;
+            box.className = "message-box " + (status || "info");
+            modal.style.display = "flex";
+        }
+
+        function closeMessageModal() {
+            document.getElementById("messageModal").style.display = "none";
+        }
+
+        /* ---------- Login AJAX ---------- */
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const phoneInput = document.getElementById("loginPhone");
+            const phone = phoneInput.value;
+
+            const error = validatePhone(phone);
+            if (error) return showMessage(error, "error");
+
+            phoneInput.value = formatPhone(phone);
+
+            const formData = new FormData(this);
+
+            fetch("{% url 'login_page_customer' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showMessage(data.message, data.status);
+                    if (data.status === "success") {
+                        setTimeout(() => (window.location.href = data.redirect), 1500);
+                    }
+                });
+        });
+
+        /* ---------- Signup AJAX ---------- */
+        document.getElementById("signupForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const phoneInput = document.getElementById("signupPhone");
+            const phone = phoneInput.value;
+            const password = document.getElementById("signupPassword").value;
+            const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+            const error = validatePhone(phone);
+            if (error) return showMessage(error, "error");
+
+            if (password !== confirmPassword) {
+                return showMessage("Passwords do not match!", "error");
+            }
+
+            phoneInput.value = formatPhone(phone);
+
+            const formData = new FormData(this);
+            const button = document.getElementById("signupButton");
+
+            button.disabled = true;
+            button.innerText = "Signing up...";
+
+            fetch("{% url 'signup_customer' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showMessage(data.message, data.status);
+                    button.disabled = false;
+                    button.innerText = "Create account";
+                    if (data.status === "success") {
+                        setTimeout(() => (window.location.href = data.redirect), 1500);
+                    }
+                })
+                .catch(() => {
+                    showMessage("Server error, try again", "error");
+                    button.disabled = false;
+                    button.innerText = "Create account";
+                });
+        });
+
+        /* ---------- Esc closes any open modal ---------- */
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeModal();
+                closeMessageModal();
+            }
+        });
+
+        /* ---------- Page loader ---------- */
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity .5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => (loader.style.display = "none"), 500);
+        });
+    </script>
+
+</body>
+
+</html>

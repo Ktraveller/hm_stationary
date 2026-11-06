@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | Implementation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'customer_css/dashboard.css' %}">
+
+    <style>
+        .content-holder-4 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dash-content-5 {
+            width: 100%;
+            height: 500px;
+            margin: auto;
+        }
+
+        .dash-content-5>button {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            font-weight: bold;
+            border-style: none;
+        }
+
+        .dash-content-5>button>a {
+            text-decoration: none;
+            color: dodgerblue;
+        }
+
+        .dash-content-5>button>i {
+            font-size: 50px;
+            color: dodgerblue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="row-holder-1" style="height: 1000px;">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" onclick="window.history.back();">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+
+                <!-- Notifications
+                <div class="dropdown">
+                    <button class="dropbtn" id="notifBtn" type="button">
+                        <i class="fas fa-bell"></i>
+                        <span id="notifCount" class="notif-badge">0</span>
+                    </button>
+
+                    <div class="dropdown-content notif-dropdown" id="notifMenu">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                        </div>
+
+                        <div id="notifList" class="notif-list">
+                            <div class="notif-empty">No notifications</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- User
+                <div class="dropdown">
+                    <button class="dropbtn" id="userBtn" type="button">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content" id="userMenu">
+                        <a href="{% url 'customer_logout' %}">
+                            <button type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+
+                        <button type="button" style="margin-right: 5px; background: teal;" onclick="open_edit()">
+                            <i class="fas fa-key"></i> Change Password</button>
+
+
+                        <div class="change-password-20" onclick="event.stopPropagation()" id="edit_20"
+                            style="display: none;">
+                            <br><br><br>
+                            <hr style="color: rgba(30, 143, 255, 0.876);">
+                            <p style="font-weight: bold;">Change account password</p>
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <p>Write current password</p>
+                                <div class="input-20">
+                                    <input type="password" name="old_password" required autocomplete="off">
+                                </div>
+
+                                <p>Write new password</p>
+                                <div class="input-20">
+                                    <input type="password" name="new_password" required autocomplete="off">
+                                </div>
+
+                                <br>
+                                <div class="input-20">
+                                    <button type="submit">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <button type="button">
+                    <i class="fa-brands fa-cloudflare"></i> <br><br>Service Under Construction <br><br> We are working on this feature. Please check back soon.
+                    other services like <a href="{% url 'printing' %}">printing</a>, <a href="{% url 'typing_editing' %}">typing and editing</a> still available</button>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+    <script src="{% static 'customer_js/dashboard.js' %}"></script>
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+
+                function open_edit() {
+            document.getElementById('edit_20').style.display = 'inline-block';
+            event.stopPropagation();
+        }
+    </script>
+</body>
+
+</html>

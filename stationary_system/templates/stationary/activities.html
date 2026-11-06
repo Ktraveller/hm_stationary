@@ -1,0 +1,327 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Activities</title>
+
+    <link rel="stylesheet" href="{% static 'stationary_css/stationary.css' %}">
+    <link rel="stylesheet" href="{% static 'stationary_css/sactivities.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader"><div class="spinner"></div></div>
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="nav_bar">
+        <div class="brand">
+            <div class="brand-mark">
+                <img src="{% static 'icons/stationary1.png' %}" alt="Wis Stationary">
+            </div>
+            <div class="brand-text">
+                <strong>{{ request.user.stationaryprofile.stationary_name }}</strong>
+                <span>{{ user.email }}</span>
+            </div>
+            <button type="button" class="sidebar-close" id="button2" onclick="nav_bar('close')" aria-label="Close menu">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'stationary_dashboard' %}">
+                <i class="fas fa-chart-line"></i><span>Dashboard</span>
+            </a>
+            <a class="nav-item is-active" href="{% url 'stationary_activities' %}">
+                <i class="fas fa-history"></i><span>Activities</span>
+            </a>
+            <a class="nav-item" href="{% url 'stationary_payments' %}">
+                <i class="fas fa-money-bill"></i><span>Payments</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Wis Stationary</p>
+        </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="nav_bar('close')"></div>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button type="button" class="icon-btn menu-toggle" id="button1" onclick="nav_bar('open')"
+                        aria-label="Open menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <span class="page-title">Activities</span>
+                </div>
+
+                <div class="topbar-actions">
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span id="notifCount" class="notif-badge">0</span>
+                        </button>
+
+                        <div class="dropdown-content notif-dropdown" id="notifMenu">
+                            <div class="notif-header">
+                                <span>Notifications</span>
+                            </div>
+                            <div id="notifList" class="notif-list">
+                                <div class="notif-empty">No notifications</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User menu -->
+                    <div class="dropdown">
+                        <button class="avatar-btn" id="userBtn" type="button" aria-label="Account">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+
+                        <div class="dropdown-content user-panel" id="userMenu">
+                            <div class="user-head">
+                                <span class="user-avatar"><i class="fas fa-user-circle"></i></span>
+                                <div class="user-head-copy">
+                                    <strong>{{ user.email }}</strong>
+                                    <small>Wis Stationary · partner</small>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'stationary_logout' %}" class="logout-link">
+                                <i class="fas fa-right-from-bracket"></i> Logout
+                            </a>
+
+                            <hr class="soft-divider">
+
+                            <div class="change-password-20" onclick="event.stopPropagation()">
+                                <p class="cp-title">Change password</p>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-field">
+                                        <label class="label">Current password</label>
+                                        <input type="password" name="old_password" required autocomplete="off"
+                                            class="input">
+                                    </div>
+                                    <div class="form-field">
+                                        <label class="label">New password</label>
+                                        <input type="password" name="new_password" required autocomplete="off"
+                                            class="input">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block btn-sm">
+                                        Save changes
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ================= HERO ================= -->
+            <section class="hero hero-sm">
+                <div class="hero-text">
+                    <span class="hero-pill">
+                        <i class="fas fa-inbox"></i> Incoming requests
+                    </span>
+                    <h1>Activities</h1>
+                    <p>Review, filter, and process every incoming customer request.</p>
+                </div>
+            </section>
+
+            <!-- ================= TABLE ================= -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>Activities list</h2>
+                        <p>Use search or change the row count to narrow your view.</p>
+                    </div>
+                </div>
+
+                <div class="table-toolbar">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchInput" placeholder="Search activities..."
+                            autocomplete="off">
+                    </div>
+
+                    <div class="limit-control">
+                        <label for="limitSelect">Show</label>
+                        <select id="limitSelect">
+                            <option value="10">10 rows</option>
+                            <option value="100">100 rows</option>
+                            <option value="200">200 rows</option>
+                            <option value="500">500 rows</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-scroll-9">
+                    <table class="table-9">
+                        <thead>
+                            <tr>
+                                <th class="index-9">#</th>
+                                <th>Activity ID</th>
+                                <th>Activity type</th>
+                                <th>Customer</th>
+                                <th>Sent date</th>
+                                <th>End date</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="activityTable">
+                            {% for act in activities %}
+                            <tr>
+                                <td class="index-9">{{ forloop.counter }}</td>
+                                <td><b>{{ act.activity_id }}</b></td>
+                                <td class="type-cell">{{ act.activity_type }}</td>
+                                <td class="customer-cell">{{ act.user }}</td>
+                                <td class="date-cell">{{ act.sent_date }}</td>
+                                <td class="date-cell">
+                                    {% if act.end_date %}{{ act.end_date }}{% else %}<span class="muted-dash">—</span>{% endif %}
+                                </td>
+                                <td>
+                                    <span class="status-badge status-{{ act.status|default:'unknown'|lower }}">
+                                        {{ act.status|default:"Unknown" }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if act.activity_id %}
+                                    <button type="button" class="view-50"
+                                        onclick="window.location.href = `{% url 'preview_stationary_activity' act.activity_id %}`">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                    {% else %}{{ act.activity_id }}{% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr class="empty-row">
+                                <td colspan="8" class="empty-cell">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>No activities yet</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        /* Sidebar toggle (uses .is-open class to match stationary.css) */
+        function nav_bar(state) {
+            const nav = document.getElementById('nav_bar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const openBtn = document.getElementById('button1');
+            const closeBtn = document.getElementById('button2');
+
+            if (state === 'open') {
+                nav.classList.add('is-open');
+                backdrop.classList.add('is-open');
+                openBtn.style.display = 'none';
+                closeBtn.style.display = 'inline-flex';
+            } else {
+                nav.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+                openBtn.style.display = 'inline-flex';
+                closeBtn.style.display = 'none';
+            }
+        }
+
+        /* Page loader */
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('page-loader');
+            loader.style.transition = 'opacity .45s ease';
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 450);
+        });
+    </script>
+
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "stationary";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const limitSelect = document.getElementById("limitSelect");
+        const tableBody = document.getElementById("activityTable");
+
+        function fetchActivities() {
+            const query = searchInput.value;
+            const limit = limitSelect.value;
+
+            const activityUrl = "{% url 'stationary_activities' %}";
+
+            fetch(`${activityUrl}?q=${query}&limit=${limit}`, {
+                headers: { "X-Requested-With": "XMLHttpRequest" }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    tableBody.innerHTML = "";
+
+                    if (!data.length) {
+                        tableBody.innerHTML = `
+                            <tr class="empty-row">
+                                <td colspan="8" class="empty-cell">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>No activities found</p>
+                                </td>
+                            </tr>`;
+                        return;
+                    }
+
+                    data.forEach(item => {
+                        let row = `
+                    <tr>
+                        <td class="index-9">${item.index}</td>
+                        <td><b>${item.id}</b></td>
+                        <td class="type-cell">${item.type}</td>
+                        <td class="customer-cell">${item.customer}</td>
+                        <td class="date-cell">${item.date}</td>
+                        <td class="date-cell">${item.end_date || '<span class="muted-dash">—</span>'}</td>
+                        <td>
+                            <span class="status-badge status-${(item.status || 'unknown').toLowerCase()}">
+                                ${item.status || 'Unknown'}
+                            </span>
+                        </td>
+                        <td>
+                            ${item.url
+                                ? `<button type="button" class="view-50" onclick="window.location.href='${item.url}'">
+                                    <i class="fas fa-eye"></i> View
+                                </button>`
+                                : item.id}
+                        </td>
+                    </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                });
+        }
+
+        searchInput.addEventListener("keyup", fetchActivities);
+        limitSelect.addEventListener("change", fetchActivities);
+    </script>
+
+</body>
+
+</html>

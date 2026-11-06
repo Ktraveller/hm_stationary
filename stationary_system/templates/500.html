@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Server error</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'errors.css' %}">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body class="error-body error-body--500">
+
+    <div class="error-wrap">
+        <div class="error-card">
+            <div class="error-badge">
+                <span class="error-icon"><i class="fas fa-server"></i></span>
+                <span class="error-code">500</span>
+            </div>
+
+            <h1 class="error-title">Something went wrong on our side</h1>
+            <p class="error-desc">
+                Our team has been notified. Please try again in a moment —
+                if the problem continues, reach out to support.
+            </p>
+
+            <div class="error-actions">
+                <a class="btn btn-primary" href="/">
+                    <i class="fas fa-home"></i> Back to home
+                </a>
+                <button class="btn btn-ghost" type="button" onclick="location.reload()">
+                    <i class="fas fa-rotate-right"></i> Try again
+                </button>
+            </div>
+
+            <div class="error-links">
+                <span>Need help?</span>
+                <a href="{% url 'customer_help' %}"><i class="fas fa-question-circle"></i> Help center</a>
+                <a href="mailto:kareemrajabu1234@gmail.com"><i class="fas fa-envelope"></i> Email support</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

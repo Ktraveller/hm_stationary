@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'stationary_css/stationary.css' %}">
+    <link rel="stylesheet" href="{% static 'stationary_css/sdashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader"><div class="spinner"></div></div>
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="nav_bar">
+        <div class="brand">
+            <div class="brand-mark">
+                <img src="{% static 'icons/stationary1.png' %}" alt="Wis Stationary">
+            </div>
+            <div class="brand-text">
+                <strong>{{ request.user.stationaryprofile.stationary_name }}</strong>
+                <span>{{ user.email }}</span>
+            </div>
+            <button type="button" class="sidebar-close" id="button2" onclick="nav_bar('close')" aria-label="Close menu">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item is-active" href="{% url 'stationary_dashboard' %}">
+                <i class="fas fa-chart-line"></i><span>Dashboard</span>
+            </a>
+            <a class="nav-item" href="{% url 'stationary_activities' %}">
+                <i class="fas fa-history"></i><span>Activities</span>
+            </a>
+            <a class="nav-item" href="{% url 'stationary_payments' %}">
+                <i class="fas fa-money-bill"></i><span>Payments</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Wis Stationary</p>
+        </div>
+    </aside>
+
+    <!-- Mobile backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="nav_bar('close')"></div>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button type="button" class="icon-btn menu-toggle" id="button1" onclick="nav_bar('open')"
+                        aria-label="Open menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <span class="page-title">Dashboard</span>
+                </div>
+
+                <div class="topbar-actions">
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span id="notifCount" class="notif-badge">0</span>
+                        </button>
+
+                        <div class="dropdown-content notif-dropdown" id="notifMenu">
+                            <div class="notif-header">
+                                <span>Notifications</span>
+                            </div>
+                            <div id="notifList" class="notif-list">
+                                <div class="notif-empty">No notifications</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User menu -->
+                    <div class="dropdown">
+                        <button class="avatar-btn" id="userBtn" type="button" aria-label="Account">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+
+                        <div class="dropdown-content user-panel" id="userMenu">
+                            <div class="user-head">
+                                <span class="user-avatar"><i class="fas fa-user-circle"></i></span>
+                                <div class="user-head-copy">
+                                    <strong>{{ user.email }}</strong>
+                                    <small>Wis Stationary · partner</small>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'stationary_logout' %}" class="logout-link">
+                                <i class="fas fa-right-from-bracket"></i> Logout
+                            </a>
+
+                            <hr class="soft-divider">
+
+                            <div class="change-password-20" onclick="event.stopPropagation()">
+                                <p class="cp-title">Change password</p>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-field">
+                                        <label class="label">Current password</label>
+                                        <input type="password" name="old_password" required autocomplete="off"
+                                            class="input">
+                                    </div>
+                                    <div class="form-field">
+                                        <label class="label">New password</label>
+                                        <input type="password" name="new_password" required autocomplete="off"
+                                            class="input">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block btn-sm">
+                                        Save changes
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ================= HERO ================= -->
+            <section class="hero">
+                <div class="hero-text">
+                    <span class="hero-pill">
+                        <i class="fas fa-store"></i> Stationary dashboard
+                    </span>
+                    <h1>Welcome back, {{ request.user.stationaryprofile.stationary_name|default:"Partner" }}</h1>
+                    <p>Here's a quick look at your business performance today.</p>
+                </div>
+
+                <div class="hero-earnings">
+                    <span class="earnings-label">Total earnings</span>
+                    <strong class="earnings-amount">{{ total_earn }} <small>Tsh</small></strong>
+                    <span class="earnings-charges">
+                        <i class="fas fa-receipt"></i>
+                        Charges · {{ bonus }} Tsh
+                    </span>
+                </div>
+            </section>
+
+            <!-- ================= STATS ================= -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-print"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Printing</span>
+                        <strong class="stat-value">{{ printing }}</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-keyboard"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Typing &amp; Editing</span>
+                        <strong class="stat-value">{{ editing_or_typing }}</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-file-lines"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Reports writing</span>
+                        <strong class="stat-value">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="stat-copy">
+                        <span class="stat-label">Research writing</span>
+                        <strong class="stat-value">0</strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= QUICK ACTIONS ================= -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>Quick actions</h2>
+                        <p>Jump to the areas you use most.</p>
+                    </div>
+                </div>
+
+                <div class="quick-grid">
+                    <a href="{% url 'stationary_activities' %}" class="quick-tile">
+                        <span class="quick-icon"><i class="fas fa-history"></i></span>
+                        <span class="quick-copy">
+                            <strong>Manage activities</strong>
+                            <small>Review and process incoming requests</small>
+                        </span>
+                        <i class="fas fa-arrow-right quick-arrow"></i>
+                    </a>
+
+                    <a href="{% url 'stationary_payments' %}" class="quick-tile">
+                        <span class="quick-icon"><i class="fas fa-money-bill"></i></span>
+                        <span class="quick-copy">
+                            <strong>View payments</strong>
+                            <small>Track earnings and payouts</small>
+                        </span>
+                        <i class="fas fa-arrow-right quick-arrow"></i>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================= POPUPS (Django messages) ================= -->
+    <div id="popup-container"></div>
+
+    {% if messages %}
+    <script id="messages-json" type="application/json">
+        [{% for message in messages %}{"message":"{{ message|escapejs }}","tags":"{{ message.tags|escapejs }}"}{% if not forloop.last %},{% endif %}{% endfor %}]
+    </script>
+    {% endif %}
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "stationary";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+
+        /* Sidebar toggle */
+        function nav_bar(state) {
+            const nav = document.getElementById('nav_bar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const openBtn = document.getElementById('button1');
+            const closeBtn = document.getElementById('button2');
+
+            if (state === 'open') {
+                nav.classList.add('is-open');
+                backdrop.classList.add('is-open');
+                openBtn.style.display = 'none';
+                closeBtn.style.display = 'inline-flex';
+            } else {
+                nav.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+                openBtn.style.display = 'inline-flex';
+                closeBtn.style.display = 'none';
+            }
+        }
+
+        /* Page loader */
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('page-loader');
+            loader.style.transition = 'opacity .45s ease';
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 450);
+        });
+
+        /* Django messages popups */
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('popup-container');
+            const messagesScript = document.getElementById('messages-json');
+            if (!messagesScript || !container) return;
+
+            const msgs = JSON.parse(messagesScript.textContent);
+            msgs.forEach(msg => {
+                const el = document.createElement('div');
+                el.classList.add('popup-message');
+                if (msg.tags) el.classList.add('popup-' + msg.tags);
+                el.innerText = msg.message;
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 3000);
+            });
+        });
+    </script>
+
+    <script src="{% static 'customer_js/notifications.js' %}"></script>
+</body>
+
+</html>

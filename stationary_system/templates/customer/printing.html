@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Printing</title>
+
+    <!-- Shared design system -->
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <!-- Printing-specific styles -->
+    <link rel="stylesheet" href="{% static 'customer_css/activities.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <button class="nav-item is-active" type="button" id="openModal1">
+                <i class="fas fa-cogs"></i><span>Services</span>
+            </button>
+
+            <a class="nav-item" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-item-danger">
+                    <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+                </button>
+            </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-print"></i> Printing service
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Page hero -->
+            <section class="hero hero-sm">
+                <div class="hero-text">
+                    <h1><i class="fas fa-print"></i> Printing</h1>
+                    <p>Choose a stationary, attach your files, and we'll handle the rest.</p>
+                </div>
+
+                <a class="btn btn-accent" href="{% url 'customer_dashboard' %}">
+                    <i class="fas fa-arrow-left"></i> Back home
+                </a>
+            </section>
+
+            <!-- ================= FORM ================= -->
+            <form id="printingForm" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="print-layout">
+
+                    <!-- ---------- Stationary selection ---------- -->
+                    <section class="panel">
+                        <div class="section-head">
+                            <div>
+                                <h2>Choose stationary</h2>
+                                <p>Select where to pick up your print.</p>
+                            </div>
+                        </div>
+
+                        <div class="search-bar">
+                            <i class="fas fa-search"></i>
+                            <input type="search" id="stationarySearch" placeholder="Search stationary..."
+                                autocomplete="off">
+                        </div>
+
+                        <div class="stationary-list-25">
+                            {% for station in stations %}
+                            {% for area in station.areas.all %}
+                            <label class="station-option">
+                                <input type="radio" name="stationary_id" value="{{ station.id }}"
+                                    data-lat="{{ area.latitude }}" data-lng="{{ area.longitude }}"
+                                    data-phone="{{ station.phone }}" required>
+                                <span class="station-info">
+                                    <strong>{{ station.stationary_name }}</strong>
+                                    <small><i class="fas fa-location-dot"></i> {{ area.area_name }}</small>
+                                </span>
+                                <span class="station-radio"></span>
+                            </label>
+                            {% endfor %}
+                            {% endfor %}
+
+                            <p id="noStationaryResult" class="empty-hint" style="display:none;">
+                                <i class="fas fa-circle-info"></i> No stationary found
+                            </p>
+                        </div>
+
+                        <button type="button" id="viewMapBtn" onclick="openMap()" class="btn btn-ghost map-btn"
+                            style="display:none;">
+                            <i class="fas fa-map"></i> View in map
+                        </button>
+                    </section>
+
+                    <!-- ---------- File attachment ---------- -->
+                    <section class="panel">
+                        <div class="section-head">
+                            <div>
+                                <h2>Attach files</h2>
+                                <p>Upload the documents you want printed.</p>
+                            </div>
+                        </div>
+
+                        <button type="button" class="upload-zone"
+                            onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-cloud-arrow-up"></i>
+                            <strong>Click to attach</strong>
+                            <small>PDF, DOCX, images — multiple files supported</small>
+                            <input type="file" name="files" id="fileInput" multiple hidden>
+                        </button>
+
+                        <p class="preview-label">Attached files:</p>
+                        <div class="file-preview-holder-15" id="previewContainer">
+                            <p class="empty-hint"><i class="fas fa-paperclip"></i> No files attached yet</p>
+                        </div>
+
+                        <!-- Image lightbox -->
+                        <div id="fileModal">
+                            <div id="fileModalContent"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- ---------- Document options ---------- -->
+                <section class="panel" id="options_100" style="display:none;">
+                    <div class="section-head">
+                        <div>
+                            <h2>Document options</h2>
+                            <p>Optional settings for your print job.</p>
+                        </div>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="form-field">
+                            <label class="label" for="fontFamily">Font family</label>
+                            <select name="font_family" id="fontFamily" class="select">
+                                <option value="Times new roman">Times New Roman</option>
+                                <option value="Tahoma">Tahoma</option>
+                                <option value="Calibri">Calibri</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="label" for="fontSize">Font size</label>
+                            <select name="font_size" id="fontSize" class="select">
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="label" for="textAlign">Text alignment</label>
+                            <select name="text_alignment" id="textAlign" class="select">
+                                <option value="Left">Left</option>
+                                <option value="Right">Right</option>
+                                <option value="Center">Center</option>
+                                <option value="Justified">Justified</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="label" for="otherDetails">Additional information</label>
+                        <textarea name="other_details" id="otherDetails" class="textarea"
+                            placeholder="Any special instructions..."></textarea>
+                    </div>
+
+                    <div class="submit-row">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Submit for printing
+                        </button>
+                    </div>
+                </section>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- ================= SUCCESS / ERROR MODAL ================= -->
+    <div id="errorModal" style="display:none;">
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <h3>❌ Error</h3>
+                <p id="errorMessage">Something went wrong</p>
+                <button id="closeErrorBtn" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= LOADING SPINNER ================= -->
+    <div id="loadingSpinner" style="display:none;">
+        <div class="spinner-overlay">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- ================= MAP MODAL ================= -->
+    <div id="mapModal" style="display:none;">
+        <div class="map-modal-content">
+            <span class="close-map" onclick="closeMap()">&times;</span>
+            <iframe id="mapFrame" width="100%" height="400" style="border:0;" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Hidden data for JS fallback redirect -->
+    <div id="activityActions" data-dashboard-url="{% url 'customer_dashboard' %}"></div>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+    </script>
+
+    <script src="{% static 'customer_js/printing_preview.js' %}"></script>
+
+</body>
+
+</html>

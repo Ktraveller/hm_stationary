@@ -1,0 +1,953 @@
+/* ============================================================
+   WIS STATIONARY — ACTIVITY PREVIEW (FLUENT STYLES)
+   Load AFTER stationary.css.
+   Microsoft Store / Fluent Design aesthetic.
+   All JS hooks preserved:
+   - file-box, delete-icon
+   - uploaded-files-grid, uploaded-file-item
+   - btn-process, btn-decline, btn-close
+   - activity-cost-form, cost-input-holder-20, inputs-201, submit-201
+   - modal, modal-content, modal-header, modal-body
+   ============================================================ */
+
+/* ============================================================
+   HERO — flat, compact
+============================================================ */
+.hero.hero-sm {
+    padding: 18px 20px !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.hero.hero-sm .hero-text h1 {
+    font-size: 20px !important;
+    margin: 0 0 6px;
+    font-family: "Cascadia Code", "Consolas", "JetBrains Mono",
+        "Courier New", monospace;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--text);
+}
+
+.hero.hero-sm .hero-text p {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0;
+    color: var(--muted);
+}
+
+.hero-sep {
+    opacity: 0.5;
+}
+
+/* ============================================================
+   TWO-COLUMN LAYOUT
+============================================================ */
+.preview-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.preview-side,
+.preview-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+/* ============================================================
+   STATUS CHIPS — Fluent soft tints
+============================================================ */
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--muted);
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.status-chip::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.status-chip.status-completed {
+    background: #dff6dd;
+    color: #0f7b0f;
+}
+
+.status-chip.status-processing {
+    background: #deecf9;
+    color: #004e8c;
+}
+
+.status-chip.status-pending,
+.status-chip.status-waiting {
+    background: #fff4ce;
+    color: #8a5300;
+}
+
+.status-chip.status-declined,
+.status-chip.status-cancelled {
+    background: #fde7e9;
+    color: #a4262c;
+}
+
+/* ============================================================
+   INFO LIST
+============================================================ */
+.info-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 2px;
+    border-bottom: 1px solid var(--border);
+}
+
+.info-row:last-child {
+    border-bottom: 0;
+}
+
+.info-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius);
+    background: var(--primary-soft);
+    color: var(--primary-700);
+    font-size: 14px;
+}
+
+.info-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.info-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.info-value {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    word-break: break-word;
+}
+
+.info-value b {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.cost-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-700) !important;
+}
+
+/* ============================================================
+   COST FORM — Fluent input + button
+============================================================ */
+.activity-cost-form {
+    margin-top: 4px;
+}
+
+.cost-input-holder-20 {
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    background: #fbfbfb;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.cost-input-holder-20:hover {
+    background: #fff;
+}
+
+.cost-input-holder-20:focus-within {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.inputs-201 {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    gap: 8px;
+}
+
+.input-prefix {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.inputs-201 > input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    padding: 0;
+}
+
+.inputs-201 > input::placeholder {
+    color: var(--muted);
+    font-weight: 400;
+}
+
+.submit-201 {
+    flex-shrink: 0;
+    display: flex;
+}
+
+.submit-201 > button {
+    height: 100%;
+    min-width: 88px;
+    padding: 0 18px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.15s var(--ease);
+}
+
+.submit-201 > button:hover {
+    background: var(--primary-700);
+}
+
+.submit-201 > button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Cost note — Fluent info bar */
+.cost-note {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cost-note p {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--text);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cost-note p > i {
+    font-size: 12px;
+    color: var(--primary-700);
+}
+
+.cost-note b {
+    font-weight: 600;
+    color: var(--primary-700);
+}
+
+.muted-note {
+    color: var(--muted) !important;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+}
+
+/* ============================================================
+   ACTION BUTTONS — Fluent flat
+============================================================ */
+.action-buttons-holder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.action-buttons-holder > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+    flex: 1 1 auto;
+    min-width: 110px;
+    white-space: nowrap;
+}
+
+.action-buttons-holder > button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.action-buttons-holder i {
+    font-size: 12px;
+}
+
+/* Close */
+.btn-close {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-strong);
+}
+
+.btn-close:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.btn-close i {
+    color: var(--muted);
+}
+
+/* Accept */
+.btn-process {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.btn-process:hover {
+    background: var(--primary-700);
+    border-color: var(--primary-700);
+}
+
+/* Decline */
+.btn-decline {
+    background: #fde7e9;
+    color: #a4262c;
+    border-color: transparent;
+}
+
+.btn-decline:hover {
+    background: #fbd4d8;
+}
+
+/* ============================================================
+   FILE GRID — Fluent tiles
+============================================================ */
+.uploaded-files-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    align-items: start;
+}
+
+.uploaded-file-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 12px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.uploaded-file-item:hover {
+    background: var(--card);
+    border-color: var(--border-strong);
+}
+
+.uploaded-file-item > i {
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.file-name {
+    margin: 4px 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.uploaded-date {
+    margin: 0;
+    font-size: 10.5px;
+    color: var(--muted);
+}
+
+/* Download all — full-width cell */
+.download-all-link {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+}
+
+.download-button-5 {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: transparent;
+    color: var(--primary-700);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.download-button-5:hover {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+}
+
+/* ============================================================
+   EMPTY STATE — Fluent
+============================================================ */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    padding: 28px 18px;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius);
+    background: #fafafa;
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius);
+    background: var(--primary-soft);
+    color: var(--primary-700);
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+/* ============================================================
+   UPLOAD PROCESSED FILES
+============================================================ */
+.result-holder-5 {
+    margin-top: 4px;
+}
+
+.input-holder-20 {
+    margin-bottom: 12px;
+}
+
+/* Upload zone */
+.upload-zone {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 22px 16px;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius);
+    background: #fafafa;
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.upload-zone:hover {
+    background: var(--card);
+    border-color: var(--primary);
+}
+
+.upload-zone > i {
+    font-size: 22px;
+    color: var(--primary-700);
+    margin-bottom: 4px;
+}
+
+.upload-zone > span {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.upload-zone > small {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+/* Preview container (JS builds .file-box + .delete-icon inside) */
+.uploaded-holder-12 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 0;
+    margin-bottom: 12px;
+}
+
+.uploaded-holder-12:empty {
+    margin-bottom: 0;
+}
+
+/* File preview card (created by JS) */
+.file-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 8px 6px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    min-width: 130px;
+    max-width: 160px;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.file-box:hover {
+    background: var(--card);
+    border-color: var(--border-strong);
+}
+
+.file-box img,
+.file-box embed {
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    display: block;
+}
+
+.file-box p {
+    margin: 4px 0 0;
+    font-size: 11.5px;
+    color: var(--text);
+    text-align: center;
+    font-weight: 500;
+    word-break: break-all;
+    line-height: 1.3;
+}
+
+.file-box small {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Delete button (JS appends) — Fluent 20px circle */
+.delete-icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    background: #c42b1c;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.15s var(--ease);
+    z-index: 1;
+    line-height: 1;
+}
+
+.delete-icon:hover {
+    background: #a4262c;
+}
+
+/* Submit row */
+.submit-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.submit-row .btn-process {
+    min-width: 160px;
+}
+
+/* Loading state (JS toggles) */
+button.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+button .btn-loader {
+    display: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: btnSpin 0.7s linear infinite;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+}
+
+@keyframes btnSpin {
+    0%   { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ============================================================
+   MODALS — Fluent dialogs
+============================================================ */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* JS sets inline style.display = "block" or "flex" */
+.modal[style*="block"],
+.modal[style*="flex"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.2s var(--ease);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.99); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* File preview header */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    z-index: 1;
+}
+
+.modal-header p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.close-modal {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.close-modal:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text);
+}
+
+.modal-body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body img {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: var(--radius-sm);
+}
+
+.modal-body embed {
+    width: 100%;
+    min-height: 70vh;
+    border-radius: var(--radius-sm);
+}
+
+.modal-body a {
+    color: var(--primary-700);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.modal-body a:hover {
+    text-decoration: underline;
+}
+
+/* Message modal */
+#messageModal .modal-content {
+    max-width: 400px;
+    padding: 22px 20px;
+    text-align: center;
+}
+
+#messageModal .close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+#messageModal .close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text);
+}
+
+#messageBody {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    line-height: 1.55;
+    font-weight: 400;
+    min-height: 20px;
+}
+
+#messageBody:empty {
+    display: none;
+}
+
+/* Message type colors — Fluent info bars */
+.message-success {
+    color: #0f7b0f;
+    background: #dff6dd;
+    border: 0;
+    border-left: 3px solid #0f7b0f;
+    text-align: left;
+}
+
+.message-error {
+    color: #a4262c;
+    background: #fde7e9;
+    border: 0;
+    border-left: 3px solid #a4262c;
+    text-align: left;
+}
+
+.message-info {
+    color: #004e8c;
+    background: #deecf9;
+    border: 0;
+    border-left: 3px solid #004e8c;
+    text-align: left;
+}
+
+/* Confirm modal */
+#userConfirmModal .modal-content {
+    max-width: 380px;
+    padding: 22px 20px;
+    text-align: center;
+}
+
+#userConfirmMessage {
+    margin: 0 0 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.modal-actions > button {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.btn-confirm-yes {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.btn-confirm-yes:hover {
+    background: var(--primary-700);
+    border-color: var(--primary-700);
+}
+
+.btn-confirm-no {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-strong);
+}
+
+.btn-confirm-no:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (min-width: 768px) {
+    .hero.hero-sm {
+        padding: 20px 24px !important;
+    }
+
+    .hero.hero-sm .hero-text h1 {
+        font-size: 22px !important;
+    }
+
+    .preview-layout {
+        grid-template-columns: 380px 1fr;
+        gap: 16px;
+    }
+
+    .uploaded-files-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .info-row {
+        padding: 13px 2px;
+    }
+
+    .info-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .info-value {
+        font-size: 13.5px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .preview-layout {
+        grid-template-columns: 420px 1fr;
+    }
+}

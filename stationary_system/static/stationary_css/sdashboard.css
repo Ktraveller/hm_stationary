@@ -1,0 +1,321 @@
+/* ============================================================
+   WIS STATIONARY — DASHBOARD (FLUENT STYLES)
+   Load AFTER stationary.css.
+   Microsoft Store / Fluent Design aesthetic.
+
+   All class names used by the dashboard template are preserved:
+   - hero, hero-text, hero-pill
+   - hero-earnings, earnings-label, earnings-amount, earnings-charges
+   - stats-grid, stat-card, stat-icon, stat-copy, stat-label, stat-value
+   - quick-grid, quick-tile, quick-icon, quick-copy, quick-arrow
+   ============================================================ */
+
+/* ============================================================
+   HERO — flat white card with earnings side panel
+============================================================ */
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px !important;
+    border-radius: var(--radius-lg) !important;
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow-sm) !important;
+    color: var(--text) !important;
+    position: relative;
+}
+
+/* Kill the decorative gradient circle */
+.hero::after {
+    display: none !important;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 220px;
+}
+
+/* Pill — Fluent accent chip */
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--primary-soft) !important;
+    color: var(--primary-700) !important;
+    border: 1px solid rgba(13, 148, 136, 0.18) !important;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.hero-pill i {
+    font-size: 11px;
+}
+
+.hero-text h1 {
+    margin: 0 0 4px;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--text) !important;
+}
+
+.hero-text p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted) !important;
+    max-width: 46ch;
+}
+
+/* ============================================================
+   EARNINGS BLOCK — Fluent inset card
+============================================================ */
+.hero-earnings {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px 20px;
+    background: #fafafa !important;
+    border: 1px solid var(--border) !important;
+    border-left: 3px solid var(--primary) !important;
+    border-radius: var(--radius) !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    min-width: 220px;
+}
+
+.earnings-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted) !important;
+}
+
+.earnings-amount {
+    font-size: 24px !important;
+    font-weight: 600;
+    color: var(--text) !important;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 2px 0 4px;
+    font-variant-numeric: tabular-nums;
+}
+
+.earnings-amount small {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted) !important;
+    opacity: 1;
+    margin-left: 3px;
+}
+
+.earnings-charges {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted) !important;
+    font-weight: 500;
+}
+
+.earnings-charges i {
+    font-size: 11px;
+    color: var(--primary-700);
+}
+
+/* ============================================================
+   STATS GRID — Fluent tiles
+============================================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
+        box-shadow 0.15s var(--ease);
+}
+
+.stat-card:hover {
+    background: var(--card-hover);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+    transform: none;
+}
+
+/* Icon — soft teal tint, no shadow */
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius);
+    background: var(--primary-soft) !important;
+    color: var(--primary-700) !important;
+    font-size: 16px;
+    box-shadow: none !important;
+}
+
+.stat-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   QUICK ACTIONS — Fluent list tiles
+============================================================ */
+.quick-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.quick-tile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.quick-tile:hover {
+    background: var(--card);
+    border-color: var(--border-strong);
+    box-shadow: none;
+    transform: none;
+}
+
+/* Icon — soft teal tint */
+.quick-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius);
+    background: var(--primary-soft) !important;
+    color: var(--primary-700) !important;
+    font-size: 16px;
+    box-shadow: none !important;
+}
+
+.quick-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.quick-copy strong {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.quick-copy small {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+.quick-arrow {
+    color: var(--muted);
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: transform 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.quick-tile:hover .quick-arrow {
+    color: var(--text);
+    transform: translateX(3px);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (min-width: 640px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .quick-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero {
+        padding: 24px 28px !important;
+    }
+
+    .hero-text h1 {
+        font-size: 22px !important;
+    }
+
+    .earnings-amount {
+        font-size: 26px !important;
+    }
+
+    .quick-tile {
+        padding: 16px 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero {
+        padding: 28px 32px !important;
+    }
+
+    .hero-text h1 {
+        font-size: 24px !important;
+    }
+
+    .earnings-amount {
+        font-size: 28px !important;
+    }
+}

@@ -1,0 +1,508 @@
+/* ============================================================
+   WIS STATIONARY — LOGIN PAGE (FLUENT STYLES)
+   Self-contained — no dependency on stationary.css.
+   Microsoft Store / Fluent Design aesthetic.
+   ============================================================ */
+
+/* ============================================================
+   RESET & TOKENS
+============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    /* Teal accent */
+    --primary: #0d9488;
+    --primary-700: #0f766e;
+    --primary-800: #115e59;
+    --primary-soft: #f0fdfa;
+
+    /* Fluent / Microsoft Store palette */
+    --bg: #f3f3f3;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #605e5c;
+    --border: rgba(0, 0, 0, 0.06);
+    --border-strong: rgba(0, 0, 0, 0.12);
+    --danger: #c42b1c;
+    --success: #0f7b0f;
+
+    /* Radii */
+    --radius-sm: 4px;
+    --radius: 8px;
+    --radius-lg: 12px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.14);
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system,
+        BlinkMacSystemFont, "Inter", "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font: inherit;
+}
+
+/* ============================================================
+   MAIN LAYOUT
+============================================================ */
+.row-holder {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    position: relative;
+}
+
+/* Thin teal accent bar at the very top */
+.row-holder::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary);
+}
+
+/* ============================================================
+   BRAND / WELCOME COLUMN — hidden on mobile
+============================================================ */
+.heading-holder-1 {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    max-width: 520px;
+    padding: 0 24px;
+}
+
+.heading-holder-1 h1,
+.heading-holder-1 h2 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+.heading-holder-1 p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 48ch;
+}
+
+/* Inline hero pill inside heading column */
+.heading-holder-1 .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary-700);
+    border: 1px solid rgba(13, 148, 136, 0.18);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    width: fit-content;
+}
+
+.heading-holder-1 .hero-pill i {
+    font-size: 11px;
+}
+
+/* ============================================================
+   LOGIN CARD
+============================================================ */
+.login-form-holder-1 {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 28px 24px;
+    margin: auto;
+}
+
+.login-form-2 {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Card heading (inside login-form-2) */
+.login-form-2 h2,
+.login-form-2 h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.login-form-2 > p {
+    margin: -4px 0 8px;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Links inside the form */
+.login-form-2 a {
+    color: var(--primary-700);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s var(--ease);
+}
+
+.login-form-2 a:hover {
+    color: var(--primary-800);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   AVATAR / BRAND ICON
+============================================================ */
+.login-avator-2 {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: none;
+    background: var(--primary-soft);
+    margin: 0 auto 4px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.login-avator-2 > button {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 0;
+    outline: none;
+    background: transparent;
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.15s var(--ease);
+}
+
+.login-avator-2 > button:hover {
+    background: rgba(13, 148, 136, 0.08);
+}
+
+.login-avator-2 > button > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: none;
+}
+
+/* ============================================================
+   FORM GROUPS & LABELS
+============================================================ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 0;
+}
+
+.form-label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+}
+
+/* ============================================================
+   INPUTS — Fluent text fields
+============================================================ */
+.inputs-3 {
+    width: 100%;
+    height: 40px;
+    background: #fbfbfb;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
+        box-shadow 0.15s var(--ease);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.inputs-3:hover {
+    background: #fff;
+}
+
+.inputs-3:focus-within {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.inputs-3 > input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: 0;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--text);
+    border-radius: inherit;
+}
+
+.inputs-3 > input::placeholder {
+    color: var(--muted);
+    opacity: 0.85;
+}
+
+.inputs-3 > input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Optional password toggle icon */
+.inputs-3 > i {
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    padding-right: 12px;
+    flex-shrink: 0;
+    transition: color 0.15s var(--ease);
+}
+
+.inputs-3 > i:hover {
+    color: var(--primary-700);
+}
+
+/* ============================================================
+   BUTTON
+============================================================ */
+.button-3 {
+    background: var(--primary);
+    color: #fff;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-sm);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
+        opacity 0.15s var(--ease);
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+/* Submit button inherits the teal background of the wrapper */
+.inputs-3.button-3 {
+    background: var(--primary);
+    border-color: var(--primary);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    padding: 0;
+    margin-top: 6px;
+}
+
+.inputs-3.button-3:hover {
+    background: var(--primary-700);
+    border-color: var(--primary-700);
+    box-shadow: none;
+}
+
+.inputs-3.button-3:focus-within {
+    box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.28);
+    border-color: var(--primary-800);
+    background: var(--primary-700);
+}
+
+.inputs-3.button-3 > input[type="submit"] {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0 18px;
+    border-radius: inherit;
+}
+
+.inputs-3.button-3 > input[type="submit"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ============================================================
+   POPUPS — Fluent info bars
+============================================================ */
+#popup-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.popup-message {
+    padding: 12px 18px;
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    border-left: 4px solid var(--primary);
+    animation: popupIn 0.2s var(--ease),
+        popupOut 0.3s var(--ease) 2.5s forwards;
+    max-width: 340px;
+    pointer-events: auto;
+}
+
+.popup-success {
+    border-left-color: var(--success);
+}
+
+.popup-error {
+    border-left-color: var(--danger);
+}
+
+@keyframes popupIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes popupOut {
+    to { opacity: 0; transform: translateX(20px); }
+}
+
+/* ============================================================
+   DESKTOP — split layout
+============================================================ */
+@media only screen and (min-width: 768px) {
+    .row-holder {
+        padding: 40px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+    }
+
+    .heading-holder-1 {
+        display: flex;
+        width: 50%;
+        max-width: 520px;
+        height: auto;
+    }
+
+    .login-form-holder-1 {
+        width: 50%;
+        max-width: 420px;
+        padding: 32px 28px;
+        margin: 0;
+    }
+
+    .login-form-2 {
+        padding: 0;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .row-holder {
+        gap: 100px;
+    }
+
+    .heading-holder-1 {
+        width: 55%;
+    }
+
+    .heading-holder-1 h1,
+    .heading-holder-1 h2 {
+        font-size: 38px;
+    }
+
+    .heading-holder-1 p {
+        font-size: 16px;
+    }
+
+    .login-form-holder-1 {
+        width: 45%;
+    }
+}
+
+/* ============================================================
+   MOTION PREFERENCES
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}

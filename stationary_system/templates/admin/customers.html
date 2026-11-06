@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | Customers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_css/activities.css' %}">
+
+    <style>
+        /* Common badge styling */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 12px;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* Active status */
+        .status-badge.active {
+            background-color: #28a745;
+            /* Green */
+        }
+
+        /* Inactive status */
+        .status-badge.inactive {
+            background-color: #dc3545;
+            /* Red */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+                <button type="button" onclick="window.location.href = `{% url 'admin_notifications' %}`">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button type="button" onclick="window.location.href = `{% url 'admin_user' %}`">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'admin_dashboard' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_activities' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button type="button">Activities</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_stationaries' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-box"></i>
+                            </button>
+                            <button type="button">Stationaries</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button type="button">Customers</button>
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_payments' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-credit-card"></i>
+                            </button>
+                            <button type="button">Payments</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_logout' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                            <button type="button">Logout</button>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <p style="font-weight: bold;">Customers</p>
+
+                <!-- Search bar -->
+                <div class="search-bar-holder-7">
+                    <input type="search" id="customer-search" placeholder="Search customers">
+                </div>
+
+                <br>
+
+                <!-- Table -->
+                <div class="table-holder-9">
+                    <table class="table-9" id="customers-table">
+                        <thead>
+                            <tr>
+                                <th class="index-9">#</th>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for customer in customers %}
+                            <tr>
+                                <td class="index-9">{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="{% url 'preview_customer' customer.id %}" class="activity-link-9">
+                                        {{ customer.username }}
+                                    </a>
+                                </td>
+                                <td>{{ customer.get_full_name|default:customer.username }}</td>
+                                <td>{{ customer.email|default:"Not provided" }}</td>
+                                <td>{{ customer.phone|default:"-" }}</td>
+                                <td>
+                                    {% if customer.is_active %}
+                                    <span class="status-badge active">Active</span>
+                                    {% else %}
+                                    <span class="status-badge inactive">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6">No customers found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Limit Selector -->
+                <div class="bottom-table-nav-8">
+                    <select id="rows-per-page">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="500">500</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var c = document.getElementById('nav_bar');
+        var b1 = document.getElementById('button1');
+        var b2 = document.getElementById('button2');
+        function nav_bar(click) {
+            if (click == "open") {
+                c.style.display = "inline-block";
+                b1.style.display = "none";
+                b2.style.display = "inline-block";
+            }
+            else {
+                c.style.display = "none";
+                b1.style.display = "inline-block";
+                b2.style.display = "none";
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('customer-search');
+            const table = document.getElementById('customers-table');
+            const rowsPerPageSelect = document.getElementById('rows-per-page');
+
+            // Filter table rows based on search input
+            function filterTable() {
+                const query = searchInput.value.toLowerCase();
+                const rows = Array.from(table.querySelectorAll('tbody tr')); // get fresh rows
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let match = false;
+
+                    cells.forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(query)) {
+                            match = true;
+                        }
+                    });
+
+                    // Store visibility in data attribute
+                    row.dataset.visible = match ? 'true' : 'false';
+                });
+
+                paginateTable();
+            }
+
+            // Show only limited rows per page
+            function paginateTable() {
+                const rowsPerPage = parseInt(rowsPerPageSelect.value);
+                let visibleCount = 0;
+                const rows = Array.from(table.querySelectorAll('tbody tr')); // get fresh rows
+
+                rows.forEach(row => {
+                    if (row.dataset.visible === 'false') {
+                        row.style.display = 'none';
+                        return;
+                    }
+                    visibleCount++;
+                    row.style.display = visibleCount <= rowsPerPage ? '' : 'none';
+                });
+            }
+
+            // Event listeners
+            searchInput.addEventListener('input', filterTable);
+            rowsPerPageSelect.addEventListener('change', paginateTable);
+
+            // Initial setup: mark all rows as visible and paginate
+            const initialRows = Array.from(table.querySelectorAll('tbody tr'));
+            initialRows.forEach(row => row.dataset.visible = 'true');
+            paginateTable();
+        });
+    </script>
+
+</body>
+
+</html>

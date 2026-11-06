@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | History</title>
+
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/history.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <a class="nav-item is-active" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-item-danger">
+                    <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+                </button>
+            </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-history"></i> Activity history
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Page hero -->
+            <section class="hero hero-sm">
+                <div class="hero-text">
+                    <h1><i class="fas fa-history"></i> Services history</h1>
+                    <p>Every print, typing and editing request you've submitted.</p>
+                </div>
+
+                <!-- Start new service dropdown -->
+                <div class="start-service" id="startService">
+                    <button class="btn btn-accent" type="button" id="startServiceBtn"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-plus"></i> Start new service
+                        <i class="fas fa-chevron-down start-caret"></i>
+                    </button>
+
+                    <div class="start-service-menu" id="startServiceMenu" role="menu">
+                        <a href="{% url 'printing' %}" role="menuitem">
+                            <span class="svc-icon"><i class="fas fa-print"></i></span>
+                            <span class="svc-copy">
+                                <strong>Printing</strong>
+                                <small>100 Tsh / page</small>
+                            </span>
+                        </a>
+
+                        <a href="{% url 'typing_editing' %}" role="menuitem">
+                            <span class="svc-icon"><i class="fas fa-keyboard"></i></span>
+                            <span class="svc-copy">
+                                <strong>Typing</strong>
+                                <small>200 Tsh / word</small>
+                            </span>
+                        </a>
+
+                        <a href="{% url 'typing_editing' %}" role="menuitem">
+                            <span class="svc-icon"><i class="fas fa-edit"></i></span>
+                            <span class="svc-copy">
+                                <strong>Editing</strong>
+                                <small>200 Tsh / page</small>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= CONTROLS ================= -->
+            <section class="panel history-controls">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="historySearch"
+                        placeholder="Search by ID, type, stationary or date..." autocomplete="off">
+                </div>
+
+                <div class="filter-chips" id="filterChips">
+                    <button class="filter-chip is-active" data-filter="all" type="button">
+                        <i class="fas fa-list"></i> All
+                    </button>
+                    <button class="filter-chip" data-filter="waiting" type="button">
+                        <i class="fas fa-hourglass-half"></i> Waiting
+                    </button>
+                    <button class="filter-chip" data-filter="pending" type="button">
+                        <i class="fas fa-spinner"></i> Pending
+                    </button>
+                    <button class="filter-chip" data-filter="completed" type="button">
+                        <i class="fas fa-circle-check"></i> Completed
+                    </button>
+                </div>
+            </section>
+
+            <!-- ================= HISTORY LIST ================= -->
+            <section class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2>All activities</h2>
+                        <p>Tap any card to see its full preview.</p>
+                    </div>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    {% for activity in activities %}
+                    <div class="history-card"
+                        data-status="{{ activity.status }}"
+                        onclick="window.location.href=`{% url 'preview_activity' activity.activity_id %}`">
+
+                        <div class="history-badge">{{ activity.id }}</div>
+
+                        <div class="history-body">
+                            <div class="history-top">
+                                <strong class="history-title">{{ activity.activity_type }}</strong>
+                                <span class="status-chip {{ activity.status|lower }}">
+                                    {{ activity.get_status_display|default:activity.status }}
+                                </span>
+                            </div>
+
+                            <div class="history-meta">
+                                <span><i class="fas fa-hashtag"></i> {{ activity.activity_id }}</span>
+                                <span><i class="fas fa-calendar"></i> {{ activity.sent_date|date:"d-m-Y H:i" }}</span>
+                                {% if activity.stationary_name %}
+                                <span><i class="fas fa-building"></i> {{ activity.stationary_name }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <i class="fas fa-chevron-right history-arrow"></i>
+                    </div>
+                    {% empty %}
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+                        <h3>No services yet</h3>
+                        <p>Your activity history will appear here as soon as you make your first request.</p>
+                        <a class="btn btn-primary" href="{% url 'printing' %}">
+                            <i class="fas fa-plus"></i> Start your first service
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Filtered empty state (hidden by default) -->
+                <div id="noResults" class="empty-state" style="display:none;">
+                    <div class="empty-icon"><i class="fas fa-magnifying-glass"></i></div>
+                    <h3>No matching activities</h3>
+                    <p>Try a different search term or filter.</p>
+                    <button class="btn btn-ghost" type="button" id="clearFilters">
+                        <i class="fas fa-xmark"></i> Clear filters
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        const DASHBOARD_URL = "{% url 'customer_activity_history' %}";
+    </script>
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+    </script>
+    <script>
+        /* ---------- Page loader ---------- */
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+
+        /* ---------- Start new service dropdown ---------- */
+        const startWrap = document.getElementById("startService");
+        const startBtn = document.getElementById("startServiceBtn");
+        const startMenu = document.getElementById("startServiceMenu");
+
+        function openStartMenu() {
+            startWrap.classList.add("is-open");
+            startBtn.setAttribute("aria-expanded", "true");
+        }
+
+        function closeStartMenu() {
+            startWrap.classList.remove("is-open");
+            startBtn.setAttribute("aria-expanded", "false");
+        }
+
+        startBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            startWrap.classList.contains("is-open") ? closeStartMenu() : openStartMenu();
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!startWrap.contains(e.target)) closeStartMenu();
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeStartMenu();
+        });
+
+        /* ---------- Search + filter ---------- */
+        const searchInput = document.getElementById("historySearch");
+        const chips = document.querySelectorAll(".filter-chip");
+        const cards = document.querySelectorAll(".history-card");
+        const noResults = document.getElementById("noResults");
+        const clearBtn = document.getElementById("clearFilters");
+
+        let activeFilter = "all";
+
+        function applyFilters() {
+            const q = (searchInput?.value || "").toLowerCase().trim();
+            let visible = 0;
+
+            cards.forEach((card) => {
+                const status = (card.dataset.status || "").toLowerCase();
+                const text = card.innerText.toLowerCase();
+                const matchesFilter = activeFilter === "all" || status === activeFilter;
+                const matchesSearch = !q || text.includes(q);
+
+                if (matchesFilter && matchesSearch) {
+                    card.style.display = "";
+                    visible++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            if (noResults) {
+                noResults.style.display = (visible === 0 && cards.length > 0) ? "flex" : "none";
+            }
+        }
+
+        chips.forEach((chip) => {
+            chip.addEventListener("click", function () {
+                chips.forEach((c) => c.classList.remove("is-active"));
+                this.classList.add("is-active");
+                activeFilter = this.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        searchInput?.addEventListener("input", applyFilters);
+
+        clearBtn?.addEventListener("click", function () {
+            searchInput.value = "";
+            chips.forEach((c) => c.classList.remove("is-active"));
+            document.querySelector('.filter-chip[data-filter="all"]').classList.add("is-active");
+            activeFilter = "all";
+            applyFilters();
+        });
+    </script>
+
+</body>
+
+</html>

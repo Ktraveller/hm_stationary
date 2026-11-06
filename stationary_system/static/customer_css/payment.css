@@ -1,0 +1,431 @@
+/* ============================================================
+   WIS STATIONARY — PAYMENT PAGE (EXTRA STYLES)
+   Load AFTER wis.css.
+   ============================================================ */
+
+/* ---------- Compact hero ---------- */
+.hero.hero-sm {
+    padding: 22px 24px;
+}
+
+.hero.hero-sm .hero-text h1 {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero.hero-sm .hero-text h1 i {
+    font-size: 18px;
+    opacity: .9;
+}
+
+.hero.hero-sm .hero-text p {
+    font-size: 13px;
+    max-width: 52ch;
+}
+
+/* ---------- Two-column layout ---------- */
+.payment-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+/* ============================================================
+   LEFT CARD — PAYMENT INFO
+============================================================ */
+.payment-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Amount display */
+.amount-display {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background:
+        radial-gradient(600px 200px at 0% 0%, rgba(13, 110, 253, 0.35), transparent 60%),
+        linear-gradient(135deg, var(--navy-700), var(--navy), var(--navy-500));
+    color: #fff;
+    box-shadow: 0 14px 30px rgba(1, 65, 98, 0.25);
+}
+
+.amount-label {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: .85;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.amount-value {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.amount-value small {
+    font-size: 15px;
+    font-weight: 700;
+    opacity: .85;
+    margin-left: 4px;
+}
+
+/* Steps */
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+}
+
+.step-num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    box-shadow: 0 6px 14px rgba(1, 65, 98, 0.22);
+}
+
+.step-body strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+
+.step-body p {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* Merchant card */
+.merchant-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(13, 110, 253, 0.14);
+}
+
+.merchant-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.merchant-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+    color: #fff;
+    font-size: 18px;
+    box-shadow: 0 8px 18px rgba(1, 65, 98, 0.25);
+}
+
+.merchant-head strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.merchant-head small {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.lipa-label {
+    margin: 0 0 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--navy-700);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Copy button */
+.copy-button-45 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+    color: #fff;
+    border: 0;
+    border-radius: 14px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    box-shadow: 0 10px 22px rgba(1, 65, 98, 0.28);
+    position: relative;
+}
+
+.copy-button-45:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(1, 65, 98, 0.34);
+}
+
+.copy-button-45 b {
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    color: #fff;
+}
+
+.copy-button-45 i {
+    font-size: 16px;
+    color: #fff;
+}
+
+.copy-button-45 span {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 4px;
+}
+
+/* Copied state */
+.copy-button-45.copied {
+    background: #16a34a;
+    box-shadow: 0 10px 22px rgba(22, 163, 74, 0.28);
+}
+
+/* ============================================================
+   RIGHT CARD — FORM
+============================================================ */
+.input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrap > i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+    pointer-events: none;
+    transition: color .2s var(--ease);
+}
+
+.input-wrap:focus-within > i {
+    color: var(--accent);
+}
+
+.input-wrap > .input {
+    padding-left: 40px;
+}
+
+/* Field error */
+.field-error {
+    display: block;
+    min-height: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #dc2626;
+}
+
+/* Submit row */
+.submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+#loadingSpinner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.spinners {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid rgba(1, 65, 98, .15);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Help note */
+.help-note {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.help-note i {
+    color: #f59e0b;
+    font-size: 14px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Contact note */
+.contact-note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.contact-note i {
+    color: var(--navy);
+    font-size: 15px;
+}
+
+.contact-note b {
+    color: var(--navy);
+    font-weight: 800;
+}
+
+/* ============================================================
+   RESPONSE MODAL
+============================================================ */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(2, 6, 23, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 380px;
+    padding: 24px 22px;
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn .3s var(--ease);
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(10px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-content p {
+    margin: 0 0 18px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text);
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+
+.modal-content button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(1, 65, 98, .28);
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 768px) {
+    .hero.hero-sm {
+        padding: 26px 30px;
+    }
+
+    .hero.hero-sm .hero-text h1 {
+        font-size: 22px;
+    }
+
+    .payment-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .amount-value {
+        font-size: 34px;
+    }
+
+    .submit-row .btn {
+        min-width: 200px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .payment-layout {
+        grid-template-columns: 1fr 1.1fr;
+    }
+
+    .amount-value {
+        font-size: 38px;
+    }
+}

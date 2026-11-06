@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM-Stationary | User</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin_css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_css/activities.css' %}">
+</head>
+
+<body>
+    <div class="row-holder-1">
+
+        <div class="heading-holder-2">
+
+            <div class="title-holder-21">
+                <div class="menu-holder-22">
+                    <button type="button" class="b1" id="button1" onclick="nav_bar('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button" class="b2" id="button2" onclick="nav_bar('close')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button type="button"><span style="font-weight: bold;">HM-Stationary</span></button>
+                </div>
+            </div>
+
+            <div class="actions-holder-22">
+                <button type="button" onclick="window.location.href = `{% url 'admin_notifications' %}`">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button type="button" onclick="window.location.href = `{% url 'admin_user' %}`">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="navigation-bar-holder-3" id="nav_bar">
+            <div class="navigation-holder-4">
+
+                <br>
+
+                <div class="site-icon-holder">
+                    <button type="button">
+                        <img src="{% static 'icons/stationary1.png' %}" alt="site-icon">
+                    </button>
+                </div>
+
+                <br>
+
+                <ul>
+                    <a href="{% url 'admin_dashboard' %}">
+                        <li class="">
+                            <button type="button">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                            <button type="button">Dashboard</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_user' %}">
+                        <li class="active-bar">
+                            <button type="button">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <button type="button">User</button>
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_logout' %}">
+                        <li>
+                            <button type="button">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                            <button type="button">Logout</button>
+                        </li>
+                    </a>
+                </ul>
+
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-4">
+            <div class="dash-content-5">
+                <p style="font-weight: bold;">User informations</p>
+                <div class="activities-table-holder-6">
+
+                    <div class="table-holder-9">
+                        <table class="table-9">
+                            <tr>
+                                <td class="left-list-9">Username</td>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left-list-9">Email</td>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left-list-9">Superuser</td>
+                                <td>{{ user.is_superuser }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left-list-9">Active</td>
+                                <td>{{ user.is_active }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left-list-9">Date Joined</td>
+                                <td>{{ user.date_joined }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <br>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var c = document.getElementById('nav_bar');
+        var b1 = document.getElementById('button1');
+        var b2 = document.getElementById('button2');
+        function nav_bar(click) {
+            if (click == "open") {
+                c.style.display = "inline-block";
+                b1.style.display = "none";
+                b2.style.display = "inline-block";
+            }
+            else {
+                c.style.display = "none";
+                b1.style.display = "inline-block";
+                b2.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

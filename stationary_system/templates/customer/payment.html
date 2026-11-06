@@ -1,0 +1,366 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wis Stationary | Payment</title>
+
+    <link rel="stylesheet" href="{% static 'customer_css/wis.css' %}">
+    <link rel="stylesheet" href="{% static 'customer_css/payment.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{% static 'icons/stationary1.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- ================= PAGE LOADER ================= -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ================= SIDEBAR / BOTTOM NAV ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-print"></i></div>
+            <div class="brand-text">
+                <strong>Wis</strong>
+                <span>Stationary</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-item" href="{% url 'customer_dashboard' %}">
+                <i class="fas fa-home"></i><span>Home</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_activity_history' %}">
+                <i class="fas fa-history"></i><span>History</span>
+            </a>
+
+            <a class="nav-item" href="{% url 'customer_help' %}">
+                <i class="fas fa-question-circle"></i><span>Help</span>
+            </a>
+
+            <form method="post" action="{% url 'customer_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-item-danger">
+                    <i class="fas fa-right-from-bracket"></i><span>Logout</span>
+                </button>
+            </form>
+        </nav>
+
+        <div class="sidebar-foot">
+            <p><i class="fas fa-circle-check"></i> Print. Collect. Done.</p>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <div class="wrap">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <span class="brand-pill">
+                    <i class="fas fa-credit-card"></i> Payment
+                </span>
+
+                <div class="topbar-actions">
+                    <button class="icon-btn" type="button" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <a class="avatar" href="{% url 'customer_profile' %}" aria-label="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- Page hero -->
+            <section class="hero hero-sm">
+                <div class="hero-text">
+                    <h1><i class="fas fa-credit-card"></i> Complete your payment</h1>
+                    <p>Pay for service <b style="color: #fff;">{{ activity.activity_id }}</b> via Lipa namba, then submit the request.</p>
+                </div>
+
+                <a class="btn btn-accent" href="{% url 'preview_activity' activity.activity_id %}">
+                    <i class="fas fa-arrow-left"></i> Back to preview
+                </a>
+            </section>
+
+            <!-- ================= PAYMENT LAYOUT ================= -->
+            <div class="payment-layout">
+
+                <!-- ---------- LEFT: PAYMENT INFO ---------- -->
+                <section class="panel payment-info-card">
+                    <div class="section-head">
+                        <div>
+                            <h2>Amount to pay</h2>
+                            <p>Follow the steps below to complete your payment.</p>
+                        </div>
+                    </div>
+
+                    <div class="amount-display">
+                        <span class="amount-label">Activity cost</span>
+                        <span class="amount-value">{{ activity.costs }} <small>Tsh</small></span>
+                    </div>
+
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-num">1</span>
+                            <div class="step-body">
+                                <strong>Copy the Lipa namba</strong>
+                                <p>Use the number below in your mobile money app.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-num">2</span>
+                            <div class="step-body">
+                                <strong>Pay the exact amount</strong>
+                                <p>Send the amount shown above to the merchant.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <span class="step-num">3</span>
+                            <div class="step-body">
+                                <strong>Submit the form</strong>
+                                <p>Fill the fields on the right to confirm your payment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="merchant-card">
+                        <div class="merchant-head">
+                            <span class="merchant-icon"><i class="fas fa-user-tie"></i></span>
+                            <div>
+                                <strong>{{ activity.stationary_profile.payment_name }}</strong>
+                                <small>Merchant</small>
+                            </div>
+                        </div>
+
+                        <p class="lipa-label">Lipa namba</p>
+
+                        <button type="button" class="copy-button-45" onclick="copyText()">
+                            <b id="textToCopy">{{ activity.stationary_profile.payment_no }}</b>
+                            <i id="icon" class="fa fa-copy"></i>
+                            <span id="copyBtn">Click to copy</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ---------- RIGHT: FORM ---------- -->
+                <section class="panel">
+                    <div class="section-head">
+                        <div>
+                            <h2>Submit payment</h2>
+                            <p>Confirm your payment details so we can process the service.</p>
+                        </div>
+                    </div>
+
+                    <form id="coinForm" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" value="{{ activity.activity_id }}" name="activity">
+                        <input type="hidden" name="stationary_id" value="{{ activity.stationary_profile.id }}">
+
+                        <div class="form-field">
+                            <label class="label" for="amount_paid">Amount paid (Tsh)</label>
+                            <div class="input-wrap">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <input type="number" name="amount_paid" id="amount_paid" min="1" step="0.01"
+                                    value="{{ activity.costs }}" class="input" required>
+                            </div>
+                            <small id="amountError" class="field-error"></small>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="label" for="phone_number">Phone number used in payment</label>
+                            <div class="input-wrap">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" name="phone_number" id="phone_number" maxlength="15"
+                                    value="0{{ user.phone }}" placeholder="e.g. 255712345678" class="input" required>
+                            </div>
+                            <small id="phoneError" class="field-error"></small>
+                        </div>
+
+                        <div class="submit-row">
+                            <div id="loadingSpinner" style="display:none;">
+                                <span class="spinners"></span> Processing request...
+                            </div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Submit request
+                            </button>
+                        </div>
+
+                        <p class="help-note">
+                            <i class="fas fa-circle-info"></i>
+                            Make sure you submit this request after payment so the system can process your service.
+                        </p>
+                    </form>
+
+                    <div class="contact-note">
+                        <i class="fas fa-headset"></i>
+                        <span>Need help? Contact us at <b>0622652290</b></p>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ================= RESPONSE MODAL ================= -->
+    <div id="responseModal" class="modal">
+        <div class="modal-content">
+            <p id="modalMessage"></p>
+            <button type="button" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        /* ---------- Page loader ---------- */
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            loader.style.transition = "opacity 0.5s ease";
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 500);
+        });
+    </script>
+
+    <script>
+        const USER_ID = "{{ request.user.id }}";
+        const USER_TYPE = "customer";
+        const CHANGE_PASSWORD = "{% url 'change_password' %}";
+    </script>
+
+    <script>
+        function getCSRFToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+
+        function showModal(message) {
+            document.getElementById("modalMessage").innerText = message;
+            document.getElementById("responseModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("responseModal").style.display = "none";
+        }
+
+        document.getElementById("responseModal").addEventListener("click", function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.getElementById("coinForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let amount = document.getElementById("amount_paid").value;
+            let phone = document.getElementById("phone_number").value;
+
+            let activity = document.querySelector("input[name='activity']").value;
+            let stationary_id = document.querySelector("input[name='stationary_id']").value;
+
+            let amountError = document.getElementById("amountError");
+            let phoneError = document.getElementById("phoneError");
+
+            amountError.textContent = "";
+            phoneError.textContent = "";
+
+            let valid = true;
+
+            if (!amount || parseFloat(amount) <= 0) {
+                amountError.textContent = "Enter a valid amount";
+                valid = false;
+            }
+
+            if (!/^[0-9]{10,15}$/.test(phone)) {
+                phoneError.textContent = "Enter a valid phone number";
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            if (phone.startsWith("0")) {
+                phone = phone.substring(1);
+            }
+
+            document.getElementById("loadingSpinner").style.display = "flex";
+            document.getElementById("submitBtn").disabled = true;
+
+            fetch("{% url 'submit_payment' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({
+                    amount_paid: amount,
+                    phone_number: phone,
+                    activity: activity,
+                    stationary_id: stationary_id
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("submitBtn").disabled = false;
+
+                    if (data.success) {
+                        let message = `Hello, I have submitted a payment.%0AAmount: TZS ${amount}%0APhone used: ${phone}%0AService: ${activity}`;
+                        let whatsappNumber = "255{{ activity.stationary_profile.phone }}";
+                        let whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+                        showModal("✅ Request submitted successfully! Redirecting...");
+
+                        setTimeout(() => {
+                            window.open(whatsappURL, "_blank");
+                            window.location.href = "{% url 'customer_dashboard' %}";
+                        }, 1500);
+
+                        document.getElementById("coinForm").reset();
+                    } else {
+                        showModal("❌ " + (data.error || "Something went wrong"));
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("submitBtn").disabled = false;
+                    showModal("❌ Network error. Please try again.");
+                    console.error(error);
+                });
+        });
+
+        function open_edit() {
+            document.getElementById('edit_20').style.display = 'inline-block';
+            event.stopPropagation();
+        }
+    </script>
+
+    <script>
+        function copyText() {
+            const text = document.getElementById("textToCopy").innerText;
+            const button = document.getElementById("copyBtn");
+            const icon = document.getElementById("icon");
+
+            navigator.clipboard.writeText(text).then(() => {
+                button.classList.add("copied");
+                icon.classList.remove("fa-copy");
+                icon.classList.add("fa-check");
+                button.innerText = "Copied!";
+
+                setTimeout(() => {
+                    button.classList.remove("copied");
+                    icon.classList.remove("fa-check");
+                    icon.classList.add("fa-copy");
+                    button.innerHTML = 'Click to copy';
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+</body>
+
+</html>

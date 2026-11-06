@@ -1,0 +1,373 @@
+/* ============================================================
+   WIS STATIONARY — ACTIVITIES PAGE (FLUENT STYLES)
+   Load AFTER stationary.css.
+   Microsoft Store / Fluent Design aesthetic.
+
+   Class names used by the AJAX row builder are preserved:
+   - index-9, status-badge, status-*, view-50
+   - type-cell, customer-cell, date-cell, muted-dash, empty-cell
+   ============================================================ */
+
+/* ============================================================
+   HERO — flat, compact (inherits from stationary.css override)
+============================================================ */
+.hero.hero-sm {
+    padding: 18px 20px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.hero.hero-sm .hero-pill {
+    margin-bottom: 8px;
+}
+
+.hero.hero-sm .hero-text h1 {
+    font-size: 20px !important;
+    margin: 0 0 4px;
+    font-weight: 600 !important;
+    color: var(--text) !important;
+}
+
+.hero.hero-sm .hero-text p {
+    font-size: 13px;
+    max-width: 52ch;
+    color: var(--muted) !important;
+}
+
+/* Kill the decorative gradient circle */
+.hero.hero-sm::after {
+    display: none !important;
+}
+
+/* ============================================================
+   TOOLBAR — search + row count
+============================================================ */
+.table-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+/* Search bar — Fluent search box */
+.search-bar {
+    flex: 1 1 240px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    background: #fbfbfb;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.search-bar:hover {
+    background: #fff;
+}
+
+.search-bar:focus-within {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.search-bar > i {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.search-bar > input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.search-bar > input::placeholder {
+    color: var(--muted);
+}
+
+/* Row count control */
+.limit-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 12px;
+    background: var(--card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--muted);
+    flex-shrink: 0;
+}
+
+.limit-control label {
+    white-space: nowrap;
+}
+
+.limit-control select {
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-weight: 500;
+    font-size: 12.5px;
+    padding: 3px 6px;
+    border-radius: var(--radius-sm);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.15s var(--ease);
+}
+
+.limit-control select:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================================
+   TABLE — Fluent container
+============================================================ */
+.table-scroll-9 {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.table-scroll-9::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-scroll-9::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+.table-9 {
+    width: 100%;
+    min-width: 820px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.table-9 thead th {
+    text-align: left;
+    padding: 12px 14px;
+    background: #fafafa;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table-9 tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table-9 tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-9 tbody tr {
+    transition: background 0.12s var(--ease);
+}
+
+.table-9 tbody tr:hover td {
+    background: rgba(0, 0, 0, 0.025);
+}
+
+/* Column cells */
+.index-9 {
+    color: var(--muted);
+    font-weight: 500;
+    width: 50px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.type-cell {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.customer-cell {
+    color: var(--muted);
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.date-cell {
+    color: var(--muted);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.muted-dash {
+    color: var(--muted);
+    opacity: 0.6;
+}
+
+/* ============================================================
+   STATUS BADGES — Fluent soft tints
+============================================================ */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 500;
+    text-transform: capitalize;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--muted);
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.status-badge::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.status-badge.status-completed,
+.status-badge.status-complete {
+    background: #dff6dd;
+    color: #0f7b0f;
+}
+
+.status-badge.status-pending,
+.status-badge.status-waiting {
+    background: #fff4ce;
+    color: #8a5300;
+}
+
+.status-badge.status-processing,
+.status-badge.status-active {
+    background: #deecf9;
+    color: #004e8c;
+}
+
+.status-badge.status-cancelled,
+.status-badge.status-rejected,
+.status-badge.status-failed {
+    background: #fde7e9;
+    color: #a4262c;
+}
+
+.status-badge.status-unknown,
+.status-badge.status-none {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--muted);
+}
+
+/* ============================================================
+   VIEW BUTTON — Fluent outline
+============================================================ */
+.view-50 {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    background: transparent;
+    color: var(--primary-700);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
+        color 0.15s var(--ease);
+    white-space: nowrap;
+}
+
+.view-50 i {
+    font-size: 11px;
+}
+
+.view-50:hover {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    color: var(--primary-700);
+}
+
+.view-50:active {
+    background: var(--primary-soft-2);
+}
+
+/* ============================================================
+   EMPTY STATE — Fluent
+============================================================ */
+.empty-cell {
+    padding: 44px 20px !important;
+    text-align: center;
+}
+
+.empty-cell > i {
+    font-size: 32px;
+    color: rgba(0, 0, 0, 0.15);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.empty-cell > p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (min-width: 768px) {
+    .hero.hero-sm {
+        padding: 20px 24px !important;
+    }
+
+    .hero.hero-sm .hero-text h1 {
+        font-size: 22px !important;
+    }
+
+    .table-toolbar {
+        gap: 10px;
+    }
+
+    .search-bar {
+        flex: 1 1 340px;
+        max-width: 420px;
+    }
+
+    .table-9 {
+        min-width: 0;
+    }
+}

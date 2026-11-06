@@ -1,0 +1,365 @@
+/* ============================================================
+   WIS STATIONARY — ERROR PAGES (404 / 500 / 403 / 400)
+   Self-contained. Shared by all error templates.
+   ============================================================ */
+
+/* ---------- Reset & tokens ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --navy: #014162;
+    --navy-700: #013049;
+    --navy-500: #016ea9;
+    --accent: #0d6efd;
+    --accent-soft: #eaf1ff;
+
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: rgba(15, 23, 42, 0.08);
+    --border-strong: rgba(15, 23, 42, 0.14);
+
+    --radius-sm: 12px;
+    --radius: 18px;
+    --radius-lg: 24px;
+
+    --shadow-sm: 0 2px 8px rgba(2, 6, 23, 0.05);
+    --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+    --shadow-lg: 0 24px 60px rgba(2, 6, 23, 0.14);
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Trebuchet MS", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font: inherit;
+}
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+.error-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+        radial-gradient(900px 400px at 0% 0%, rgba(13, 110, 253, 0.06), transparent 60%),
+        radial-gradient(700px 400px at 100% 100%, rgba(1, 65, 98, 0.07), transparent 60%),
+        var(--bg);
+}
+
+.error-wrap {
+    width: 100%;
+    max-width: 560px;
+}
+
+/* ============================================================
+   ERROR CARD
+============================================================ */
+.error-card {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px 28px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: cardIn 0.4s var(--ease);
+}
+
+/* Subtle accent line at the top of the card */
+.error-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--err-accent, var(--accent));
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================================================
+   BADGE — icon + code
+============================================================ */
+.error-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.error-icon {
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: var(--err-soft, var(--accent-soft));
+    color: var(--err-accent, var(--accent));
+    font-size: 26px;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6);
+}
+
+.error-code {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(
+        135deg,
+        var(--navy-700),
+        var(--err-accent, var(--accent))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   TEXT
+============================================================ */
+.error-title {
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+}
+
+.error-desc {
+    margin: 0 auto 24px;
+    max-width: 42ch;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
+        background 0.2s var(--ease), border-color 0.2s var(--ease);
+    white-space: nowrap;
+    width: 100%;
+}
+
+.btn i {
+    font-size: 13px;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(1, 65, 98, 0.28);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(1, 65, 98, 0.34);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--border-strong);
+}
+
+.btn-ghost:hover {
+    background: var(--accent-soft);
+    border-color: rgba(1, 65, 98, 0.2);
+}
+
+/* ============================================================
+   QUICK LINKS
+============================================================ */
+.error-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.error-links > span {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.error-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--navy);
+    font-weight: 600;
+    transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.error-links a:hover {
+    background: var(--accent-soft);
+}
+
+.error-links a i {
+    font-size: 10px;
+    opacity: 0.75;
+}
+
+/* ============================================================
+   COLOR VARIANTS — one class per error type
+============================================================ */
+/* 404 — Not found (amber) */
+.error-body--404 {
+    --err-accent: #b45309;
+    --err-soft: #fff4e5;
+}
+
+/* 500 — Server error (red) */
+.error-body--500 {
+    --err-accent: #b91c1c;
+    --err-soft: #fee2e2;
+}
+
+/* 403 — Forbidden (purple) */
+.error-body--403 {
+    --err-accent: #6d28d9;
+    --err-soft: #ede9fe;
+}
+
+/* 400 — Bad request (blue) */
+.error-body--400 {
+    --err-accent: #0369a1;
+    --err-soft: #e0f2fe;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (min-width: 480px) {
+    .error-card {
+        padding: 44px 36px 32px;
+    }
+
+    .error-code {
+        font-size: 64px;
+    }
+
+    .error-title {
+        font-size: 24px;
+    }
+
+    .error-desc {
+        font-size: 14.5px;
+    }
+
+    .error-actions {
+        flex-direction: row;
+    }
+
+    .btn {
+        width: auto;
+        flex: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .error-card {
+        padding: 52px 44px 36px;
+    }
+
+    .error-code {
+        font-size: 72px;
+    }
+
+    .error-title {
+        font-size: 26px;
+    }
+
+    .error-icon {
+        width: 72px;
+        height: 72px;
+        font-size: 30px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}
