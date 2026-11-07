@@ -33,6 +33,14 @@ class DeletePendingActivityTests(TestCase):
 
 
 class PublicSeoEndpointTests(TestCase):
+    def test_favicon_url_serves_stationary_png(self):
+        response = self.client.get("/favicon.ico")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "image/png")
+        self.assertTrue(response["Cache-Control"].startswith("public"))
+        self.assertEqual(b"".join(response.streaming_content)[:8], b"\x89PNG\r\n\x1a\n")
+
     @override_settings(ALLOWED_HOSTS=["wis-stationary.onrender.com"])
     def test_sitemap_lists_only_the_public_homepage(self):
         response = self.client.get(

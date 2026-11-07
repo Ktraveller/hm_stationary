@@ -1132,6 +1132,12 @@ button {
     color: #b91c1c; /* subtle red for logout */
 }
 
+.brand-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .nav-item-danger>span {
     font-size: 12px;
 }

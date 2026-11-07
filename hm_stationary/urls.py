@@ -19,11 +19,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-from stationary_system.seo import robots_txt
+from stationary_system.seo import favicon, robots_txt
 from stationary_system.sitemaps import PublicPagesSitemap
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('favicon.ico', favicon, name='favicon'),
     path(
         'sitemap.xml',
         sitemap,
