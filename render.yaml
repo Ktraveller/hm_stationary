@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: hm-stationary
+    runtime: python
+    buildCommand: bash build.sh
+    startCommand: gunicorn hm_stationary.wsgi:application
