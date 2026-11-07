@@ -302,7 +302,26 @@
                     stationary_id: stationary_id
                 })
             })
-                .then(response => response.json())
+                .then(async response => {
+                    let data = null;
+                    try {
+                        data = await response.json();
+                    } catch (error) {
+                        if (response.ok) {
+                            throw new Error("The server returned an invalid response.");
+                        }
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(
+                            (data && data.error) || `Request failed (HTTP ${response.status}).`
+                        );
+                    }
+                    if (!data) {
+                        throw new Error("The server returned an invalid response.");
+                    }
+                    return data;
+                })
                 .then(data => {
                     document.getElementById("loadingSpinner").style.display = "none";
                     document.getElementById("submitBtn").disabled = false;
@@ -327,7 +346,7 @@
                 .catch(error => {
                     document.getElementById("loadingSpinner").style.display = "none";
                     document.getElementById("submitBtn").disabled = false;
-                    showModal("❌ Network error. Please try again.");
+                    showModal("❌ " + (error.message || "Unable to reach the server. Check your connection and try again."));
                     console.error(error);
                 });
         });
