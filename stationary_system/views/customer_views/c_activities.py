@@ -257,7 +257,7 @@ def delete_pending_activity(request, activity_id):
                 Activity,
                 activity_id=activity_id,
                 user=request.user,
-                status__in=['pending', 'waiting', 'completed']
+                status__in=['pending', 'waiting', 'completed', 'declined']
             )
 
             uploaded_files = UploadedFile.objects.filter(activity=activity)
@@ -270,13 +270,13 @@ def delete_pending_activity(request, activity_id):
                 f.delete()
 
             activity.delete()
-
-            return JsonResponse({"success": True})
+            return redirect('customer_activity_history')
 
         except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)})
+            messages.error(request, f"Could not delete the service: {e}")
+            return redirect('preview_activity', activity_id=activity_id)
 
-    return JsonResponse({"success": False, "error": "Invalid request"})
+    return redirect('preview_activity', activity_id=activity_id)
 
 
 

@@ -1132,6 +1132,10 @@ button {
     color: #b91c1c; /* subtle red for logout */
 }
 
+.nav-item-danger>span {
+    font-size: 12px;
+}
+
 .nav-item-danger:hover {
     color: #fff;
     background: linear-gradient(135deg, #b91c1c, #dc2626);
