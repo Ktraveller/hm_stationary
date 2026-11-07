@@ -3,4 +3,4 @@ services:
     name: hm-stationary
     runtime: python
     buildCommand: bash build.sh
-    startCommand: gunicorn hm_stationary.wsgi:application
+    startCommand: python manage.py migrate --noinput && gunicorn hm_stationary.wsgi:application
