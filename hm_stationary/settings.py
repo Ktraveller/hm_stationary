@@ -3,30 +3,66 @@ from pathlib import Path
 
 import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 # =========================
 # 🔐 SECURITY
 # =========================
 
-IS_RENDER = os.environ.get('RENDER') == 'true' or bool(os.environ.get('RENDER_SERVICE_ID'))
+IS_RENDER = (
+    os.environ.get('RENDER', '').strip().lower() == 'true'
+    or bool(os.environ.get('RENDER_SERVICE_ID'))
+)
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     if IS_RENDER:
-        raise ImproperlyConfigured('SECRET_KEY is required on Render.')
-    SECRET_KEY = 'django-insecure-local-key'
+        raise ImproperlyConfigured(
+            'Set DJANGO_SECRET_KEY or SECRET_KEY in the Render environment.'
+        )
+    SECRET_KEY = 'django-insecure-local-development-key'
 
-debug_value = os.environ.get('DEBUG')
-if debug_value is None:
-    DEBUG = not IS_RENDER
-else:
-    DEBUG = debug_value.strip().lower() in {'1', 'true', 'yes', 'on'}
+DEBUG = os.environ.get(
+    'DEBUG',
+    'false' if IS_RENDER else 'true',
+).strip().lower() in {'1', 'true', 'yes', 'on'}
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get('ALLOWED_HOSTS', '').split(',')
+    if host.strip()
+]
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME', '').strip()
+if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if DEBUG:
+    for host in ('localhost', '127.0.0.1'):
+        if host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
+if IS_RENDER and not ALLOWED_HOSTS:
+    raise ImproperlyConfigured(
+        'Set ALLOWED_HOSTS or configure RENDER_EXTERNAL_HOSTNAME on Render.'
+    )
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip().rstrip('/')
+    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if origin.strip()
+]
+if RENDER_EXTERNAL_HOSTNAME:
+    render_origin = f'https://{RENDER_EXTERNAL_HOSTNAME}'
+    if render_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(render_origin)
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') if IS_RENDER else None
+SECURE_SSL_REDIRECT = IS_RENDER and not DEBUG
 SESSION_COOKIE_SECURE = IS_RENDER and not DEBUG
 CSRF_COOKIE_SECURE = IS_RENDER and not DEBUG
+SECURE_CONTENT_TYPE_NOSNIFF = IS_RENDER and not DEBUG
 
 
 # =========================
@@ -108,7 +144,7 @@ if DATABASE_URL:
             DATABASE_URL,
             conn_max_age=600,
             conn_health_checks=True,
-            ssl_require=True,
+            ssl_require=IS_RENDER,
         )
     }
 elif IS_RENDER:
@@ -159,7 +195,7 @@ STORAGES = {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
 
@@ -175,17 +211,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # =========================
 # 🔐 SECURITY (SIMPLIFIED)
 # =========================
-
-CSRF_TRUSTED_ORIGINS = [
-    origin.strip().rstrip('/')
-    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
-    if origin.strip()
-]
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if IS_RENDER and RENDER_EXTERNAL_HOSTNAME:
-    render_origin = f'https://{RENDER_EXTERNAL_HOSTNAME}'
-    if render_origin not in CSRF_TRUSTED_ORIGINS:
-        CSRF_TRUSTED_ORIGINS.append(render_origin)
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
