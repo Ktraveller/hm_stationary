@@ -84,7 +84,7 @@
 
                 <div class="profile-intro">
                     <span class="profile-tag">Customer account</span>
-                    <h1 class="profile-name">+{{ user.phone }}</h1>
+                    <h1 class="profile-name">0{{ user.phone }}</h1>
                     <p class="profile-sub">
                         <i class="fas fa-circle-check"></i>
                         Member since {{ user.reg_date|date:"d M Y" }}
@@ -148,7 +148,7 @@
                         <span class="info-icon"><i class="fas fa-phone"></i></span>
                         <div class="info-copy">
                             <span class="info-label">Phone number</span>
-                            <span class="info-value">+{{ user.phone }}</span>
+                            <span class="info-value">0{{ user.phone }}</span>
                         </div>
                     </div>
 
