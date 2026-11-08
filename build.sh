@@ -10,5 +10,6 @@ test -f staticfiles/login.css
 test -f staticfiles/customer_css/login.css
 test -f staticfiles/customer_css/dashboard.css
 test -f staticfiles/customer_js/dashboard.js
+test -f staticfiles/apk/wis-stationary.apk
 test -f staticfiles/stationary_css/stationary.css
 test -f staticfiles/stationary_js/activity.js
